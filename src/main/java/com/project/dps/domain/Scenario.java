@@ -1,6 +1,6 @@
 package com.project.dps.domain;
 
-import com.project.dps.exception.NoMoreStageCountException;
+import com.project.dps.exception.NoMoreStageException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,7 +32,7 @@ public class Scenario {
     public void decrease_stage_count() {
         int recent_count = this.stage_count - 1;
         if (recent_count < 0) {
-            throw new NoMoreStageCountException("There's no more stages");
+            throw new NoMoreStageException("There's no more stages");
         }
         this.stage_count = recent_count;
     }

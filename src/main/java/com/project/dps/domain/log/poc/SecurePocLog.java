@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 @Entity
 @DiscriminatorValue("secure")
 @Getter
-public class SecurePocLog extends PocLog{
+public class SecurePocLog extends PocLog {
+
+    private LocalDateTime localDateTime;
 
     @Enumerated(EnumType.STRING)
     private PocResult result;
-
-    private LocalDateTime localDateTime;
 
 }

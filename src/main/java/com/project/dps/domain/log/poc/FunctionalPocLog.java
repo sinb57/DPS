@@ -9,13 +9,13 @@ import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 
 @Entity
-@DiscriminatorValue("secure")
+@DiscriminatorValue("function")
 @Getter
-public class FunctionalPocLog {
-
-    @Enumerated(EnumType.STRING)
-    private PocResult result;
+public class FunctionalPocLog extends PocLog {
 
     private LocalDateTime localDateTime;
+
+    @Enumerated(EnumType.STRING)
+    private PocResult result; // PASS, FAIL
 
 }

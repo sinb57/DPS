@@ -24,4 +24,15 @@ public abstract class PocLog {
     @JoinColumn(name = "member_id")
     private Member member;
 
+
+    // 연관관계 메서드
+    public void setPoc(Poc poc) {
+        this.poc = poc;
+        poc.getLogList().add(this);
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+        member.getLogList().add(this);
+    }
 }

@@ -1,5 +1,7 @@
 package com.project.dps.domain;
 
+import com.project.dps.domain.log.ScenarioPassLog;
+import com.project.dps.domain.log.StagePassLog;
 import com.project.dps.domain.poc.Poc;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +24,9 @@ public class Stage {
 
     @OneToMany(mappedBy = "stage")
     private List<Poc> pocList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "stage")
+    private List<StagePassLog> logList = new ArrayList<>();
 
     private Long no; // 스테이지 번호
     private String content; // 스테이지 내용

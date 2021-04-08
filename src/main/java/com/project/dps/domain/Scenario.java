@@ -1,5 +1,6 @@
 package com.project.dps.domain;
 
+import com.project.dps.domain.log.ScenarioPassLog;
 import com.project.dps.exception.NoMoreStageException;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,9 @@ public class Scenario {
 
     @OneToMany(mappedBy = "scenario")
     private List<Stage> stageList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "scenario")
+    private List<ScenarioPassLog> logList = new ArrayList<>();
 
     private String title; // 시나리오 제목
     private String content; // 시나리오 내용

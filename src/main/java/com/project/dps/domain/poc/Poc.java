@@ -23,4 +23,10 @@ public abstract class Poc {
     @OneToMany(mappedBy = "poc")
     private List<PocLog> logList = new ArrayList<>();
 
+
+    // 연관관계 메서드
+    public void setStage(Stage stage) {
+        this.stage = stage;
+        stage.getPocList(this);
+    }
 }

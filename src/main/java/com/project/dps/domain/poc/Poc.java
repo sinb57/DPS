@@ -1,7 +1,7 @@
 package com.project.dps.domain.poc;
 
 import com.project.dps.domain.Stage;
-import com.project.dps.domain.log.PocLog;
+import com.project.dps.domain.log.poc.PocLog;
 import lombok.Getter;
 
 import javax.persistence.*;

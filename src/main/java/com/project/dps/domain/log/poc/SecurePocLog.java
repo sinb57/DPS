@@ -1,4 +1,4 @@
-package com.project.dps.domain.log;
+package com.project.dps.domain.log.poc;
 
 import lombok.Getter;
 

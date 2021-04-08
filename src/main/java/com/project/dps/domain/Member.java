@@ -1,8 +1,7 @@
 package com.project.dps.domain;
 
-import com.project.dps.domain.log.PocLog;
+import com.project.dps.domain.log.poc.PocLog;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;

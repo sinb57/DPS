@@ -2,6 +2,7 @@ package com.project.dps.domain.poc;
 
 import com.project.dps.domain.Stage;
 import com.project.dps.domain.log.PocLog;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "dtype")
+@Getter
 public abstract class Poc {
 
     @Id @GeneratedValue
@@ -27,6 +29,6 @@ public abstract class Poc {
     // 연관관계 메서드
     public void setStage(Stage stage) {
         this.stage = stage;
-        stage.getPocList(this);
+        stage.getPocList().add(this);
     }
 }

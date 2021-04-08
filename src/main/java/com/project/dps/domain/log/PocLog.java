@@ -2,12 +2,14 @@ package com.project.dps.domain.log;
 
 import com.project.dps.domain.Member;
 import com.project.dps.domain.poc.Poc;
+import lombok.Getter;
 
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "dtype")
+@Getter
 public abstract class PocLog {
 
     @Id @GeneratedValue

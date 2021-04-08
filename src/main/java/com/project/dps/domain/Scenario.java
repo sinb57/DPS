@@ -17,7 +17,7 @@ public class Scenario {
     private Long id;
 
     @OneToMany(mappedBy = "scenario")
-    private List<Stage> stages = new ArrayList<>();
+    private List<Stage> stageList = new ArrayList<>();
 
     private String title; // 시나리오 제목
     private String content; // 시나리오 내용

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Stage {
 
     @Id @GeneratedValue
@@ -25,4 +25,12 @@ public class Stage {
 
     private Long no; // 스테이지 번호
     private String content; // 스테이지 내용
+
+
+    // 연관관계 메서드
+    public void setScenario(Scenario scenario) {
+        this.scenario = scenario;
+        scenario.getStageList().add(this);
+    }
+
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Scenario {
 
     @Id @GeneratedValue
@@ -22,6 +22,7 @@ public class Scenario {
     private String title; // 시나리오 제목
     private String content; // 시나리오 내용
     private int stage_count; // 스테이지 개수
+
 
 
     //== 비즈니스 로직 ==//

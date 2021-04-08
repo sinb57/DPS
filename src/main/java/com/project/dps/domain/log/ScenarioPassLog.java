@@ -2,11 +2,16 @@ package com.project.dps.domain.log;
 
 import com.project.dps.domain.Member;
 import com.project.dps.domain.Scenario;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ScenarioPassLog {
 
     @Id @GeneratedValue

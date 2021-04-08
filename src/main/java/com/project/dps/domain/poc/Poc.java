@@ -2,7 +2,9 @@ package com.project.dps.domain.poc;
 
 import com.project.dps.domain.Stage;
 import com.project.dps.domain.log.poc.PocLog;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "dtype")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Poc {
 
     @Id @GeneratedValue
@@ -27,8 +30,16 @@ public abstract class Poc {
 
 
     // 연관관계 메서드
-    public void setStage(Stage stage) {
+    private void setStage(Stage stage) {
         this.stage = stage;
         stage.getPocList().add(this);
+    }
+
+    public Poc(Stage stage) {
+        this.setStage(stage);
+    }
+
+    public void createPocLog(PocLog pocLog) {
+        this.logList.add(pocLog);
     }
 }

@@ -1,12 +1,10 @@
 package com.project.dps.domain;
 
-import com.project.dps.domain.log.ScenarioPassLog;
 import com.project.dps.domain.log.StagePassLog;
 import com.project.dps.domain.poc.Poc;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

@@ -20,7 +20,8 @@ import java.time.LocalDateTime;
 public class SecurePocLog extends PocLog {
 
     @Enumerated(EnumType.STRING)
-    private PocResult result;
+    private PocResult result; // PASS, FAIL
+
     private LocalDateTime createTime; // 생성 날짜
 
     // 생성 메서드

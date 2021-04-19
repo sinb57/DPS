@@ -18,6 +18,9 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    @Column(unique = true)
+    private String email;
+
     private String name;
     private String password;
 
@@ -26,7 +29,14 @@ public class Member {
 
 
     // 생성자 메서드
-    public Member(String name, String password) {
+    public Member(String email, String name, String password) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+    }
+
+
+    public void modifyNameAndPassword(String name, String password) {
         this.name = name;
         this.password = password;
     }

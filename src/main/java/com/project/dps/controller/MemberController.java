@@ -51,6 +51,7 @@ public class MemberController {
     public String join(@Valid MemberDto memberDto, BindingResult result) {
 
         if (result.hasErrors()) {
+            System.out.printf("에러에러");
             return "member/join";
         }
 

@@ -20,65 +20,58 @@ import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/member")
+@RequestMapping("/members")
 public class MemberController {
 
     //TODO:: Session
 
     private final MemberService memberService;
-    private int pageSize = 10;
 
     // 로그인 페이지
     @GetMapping("/login")
-    public String loginForm(Model model) {
-        model.addAttribute("memberDto", new MemberDto());
+    public String getMethod_login(Model model) {
+        model.addAttribute("memberDto", MemberDto.builder().build());
+        System.out.printf("haha");
         return "member/login";
     }
 
     @PostMapping("/login")
-    public String login(Model model) {
+    public String postMethod_login(Model model) {
         return "";
     }
 
     // 회원가입 페이지
     @GetMapping("/join")
-    public String joinForm(Model model) {
-        model.addAttribute("memberDto", new MemberDto());
+    public String getMethod_join(Model model) {
+        model.addAttribute("memberDto", MemberDto.builder().build());
         return "member/join";
     }
 
     @PostMapping("/join")
-    public String join(@Valid MemberDto memberDto, BindingResult result) {
+    public String postMethod_join(@Valid MemberDto memberDto, BindingResult result) {
 
         if (result.hasErrors()) {
-            System.out.printf("에러에러");
+            System.out.printf("member join error");
             return "member/join";
         }
 
-        Member member = Member.builder()
-                .email(memberDto.getEmail())
-                .name(memberDto.getName())
-                .password(memberDto.getPassword())
-                .build();
-
-        memberService.join(member);
+        memberService.join(memberDto);
 
         return "member/join-success";
     }
 
     // 로그아웃 페이지
     @RequestMapping("/logout")
-    public String logout(HttpServletRequest request) {
+    public String request_logout(HttpServletRequest request) {
         return "";
     }
 
 
     // 회원 목록 페이지
     @GetMapping("/list")
-    public String listMember(@PageableDefault Pageable pageable, Model model) {
-        Page<Member> memberList = memberService.findMembers(pageable);
-        System.out.println("totalPages: " + memberList.getTotalPages());
-        model.addAttribute("memberList", memberList);
+    public String getMethod_list(@PageableDefault Pageable pageable, Model model) {
+        Page<MemberDto> memberDtoList = memberService.findMembers(pageable);
+        model.addAttribute("memberDtoList", memberDtoList);
 
         return "member/memberList";
     }
@@ -87,8 +80,8 @@ public class MemberController {
 
 
     // 회원 조회 페이지
-    @GetMapping("/{id}")
-    public String showProduct(@PathVariable Integer id, Model model) {
+    @GetMapping("/detail/{userName}")
+    public String getMethod_detail(@PathVariable Integer id, Model model) {
         return "";
     }
 

@@ -1,9 +1,11 @@
 package com.project.dps.service;
 
+import com.project.dps.controller.dto.MemberDto;
 import com.project.dps.domain.Member;
 import com.project.dps.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.project.dps.mapstruct.MemberMapper;
+import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +21,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemberService {
 
-    @Autowired MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
+    private final MemberMapper mapper = Mappers.getMapper(MemberMapper.class);
 
     // 로그인
     public Long login(String email, String password) {
@@ -37,8 +40,9 @@ public class MemberService {
 
     // 회원 가입
     @Transactional
-    public Long join(Member member) {
-        validateNameIsDuplicated(member.getEmail()); // 중복 회원 검증
+    public Long join(MemberDto memberDto) {
+        Member member = mapper.toEntity(memberDto);
+        validateNameIsDuplicated(memberDto.getEmail()); // 중복 회원 검증
         memberRepository.save(member);
         return member.getId();
     }
@@ -78,39 +82,50 @@ public class MemberService {
 
 
     // 특정 회원 조회
-    public Optional<Member> findOne(Long id) {
-        return memberRepository.findById(id);
+    public Optional<MemberDto> findOne(Long id) {
+        return memberRepository.findById(id)
+                .map(member -> mapper.toDto(member));
     }
 
     // 회원 전체 조회
-    public List<Member> findMembers() {
-        return memberRepository.findAll();
+    public List<MemberDto> findMembers() {
+        return (List<MemberDto>) memberRepository.findAll()
+                .stream()
+                .map(member -> mapper.toDto(member));
     }
 
-    public Page<Member> findMembers(Pageable pageable) {
+    public Page<MemberDto> findMembers(Pageable pageable) {
         int pageNo = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         int elementCount = 10;
 
         pageable = PageRequest.of(pageNo, elementCount, Sort.Direction.DESC, "id");
-        return memberRepository.findAll(pageable);
+        return memberRepository.findAll(pageable)
+                .map(member -> mapper.toDto(member));
     }
 
     // 회원 조건 조회 (by email)
-    public List<Member> findMembersByEmail(String email) {
-        return memberRepository.findByEmailLike(email);
+    public List<MemberDto> findMembersByEmail(String email) {
+        return (List<MemberDto>) memberRepository.findByEmailLike(email)
+                .stream()
+                .map(member -> mapper.toDto(member));
     }
 
-    public Page<Member> findMemberByEmail(String email, Pageable pageable) {
-        return memberRepository.findByEmailLike(email, pageable);
+    public Page<MemberDto> findMemberByEmail(String email, Pageable pageable) {
+        return memberRepository.findByEmailLike(email, pageable)
+                .map(member -> mapper.toDto(member));
     }
 
     // 회원 조건 조회 (by name)
-    public List<Member> findMembersByName(String name) {
-        return memberRepository.findByNameLike(name);
+    public List<MemberDto> findMembersByName(String name) {
+        return (List<MemberDto>) memberRepository.findByNameLike(name)
+                .stream()
+                .map(member -> mapper.toDto(member));
     }
 
-    public Page<Member> findMemberByName(String email, Pageable pageable) {
-        return memberRepository.findByNameLike(email, pageable);
+    public Page<MemberDto> findMemberByName(String email, Pageable pageable) {
+        return memberRepository.findByNameLike(email, pageable)
+                .map(member -> mapper.toDto(member));
     }
+
 
 }

@@ -1,7 +1,6 @@
 package com.project.dps.controller;
 
 import com.project.dps.controller.dto.MemberDto;
-import com.project.dps.domain.Member;
 import com.project.dps.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -82,7 +81,7 @@ public class MemberController {
     // 회원 조회 페이지
     @GetMapping("/detail/{userName}")
     public String getMethod_detail(@PathVariable Integer id, Model model) {
-        return "";
+        return "member/memberDetail";
     }
 
 

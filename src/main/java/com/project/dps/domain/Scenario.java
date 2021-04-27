@@ -3,6 +3,7 @@ package com.project.dps.domain;
 import com.project.dps.domain.log.ScenarioPassLog;
 import com.project.dps.exception.NoMoreStageException;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,15 +27,22 @@ public class Scenario {
     @OneToMany(mappedBy = "scenario")
     private List<ScenarioPassLog> logList = new ArrayList<>();
 
+    @Column(unique = true)
     private String title; // 시나리오 제목
+
+    @Column(unique = true)
+    private String subTitle; // 시나리오 부제목
+
     private String content; // 시나리오 내용
     private int stageCount; // 스테이지 개수
     private LocalDateTime createTime; // 생성 날짜
 
 
     // 생성자 메서드
-    public Scenario(String title, String content, Stage... stages) {
+    @Builder
+    public Scenario(String title, String subTitle, String content, Stage... stages) {
         this.title = title;
+        this.subTitle = subTitle;
         this.content = content;
         this.createTime = LocalDateTime.now();
 

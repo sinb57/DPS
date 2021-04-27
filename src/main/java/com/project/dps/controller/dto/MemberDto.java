@@ -1,12 +1,12 @@
 package com.project.dps.controller.dto;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
 
-@Getter @Setter
+@Getter @Builder
 public class MemberDto implements Serializable {
 
     private Long id;
@@ -23,4 +23,13 @@ public class MemberDto implements Serializable {
     @NotBlank(message = "비밀번호은 필수 입니다.")
     //@Pattern(regexp = "")
     private String password;
+
+    @Builder
+    public MemberDto(Long id, String email, String name, String password) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+    }
+
 }

@@ -88,12 +88,6 @@ public class MemberService {
     }
 
     // 회원 전체 조회
-    public List<MemberDto> findMembers() {
-        return (List<MemberDto>) memberRepository.findAll()
-                .stream()
-                .map(member -> mapper.toDto(member));
-    }
-
     public Page<MemberDto> findMembers(Pageable pageable) {
         int pageNo = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         int elementCount = 10;
@@ -104,24 +98,12 @@ public class MemberService {
     }
 
     // 회원 조건 조회 (by email)
-    public List<MemberDto> findMembersByEmail(String email) {
-        return (List<MemberDto>) memberRepository.findByEmailLike(email)
-                .stream()
-                .map(member -> mapper.toDto(member));
-    }
-
     public Page<MemberDto> findMemberByEmail(String email, Pageable pageable) {
         return memberRepository.findByEmailLike(email, pageable)
                 .map(member -> mapper.toDto(member));
     }
 
     // 회원 조건 조회 (by name)
-    public List<MemberDto> findMembersByName(String name) {
-        return (List<MemberDto>) memberRepository.findByNameLike(name)
-                .stream()
-                .map(member -> mapper.toDto(member));
-    }
-
     public Page<MemberDto> findMemberByName(String email, Pageable pageable) {
         return memberRepository.findByNameLike(email, pageable)
                 .map(member -> mapper.toDto(member));

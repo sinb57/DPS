@@ -2,42 +2,22 @@ package com.project.dps.repository;
 
 import com.project.dps.domain.Scenario;
 import com.project.dps.domain.Stage;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
-public class StageRepository {
+public interface StageRepository extends JpaRepository<Scenario, Long> {
 
-    private final EntityManager em;
+//    Page<Stage> findByScenario_Id(@Param(value = "scenarioId") Long scenarioId, Pageable pageable);
 
-    public void save(Stage stage) {
-        em.persist(stage);
-    }
+    List<Stage> findByTitleLike(String title);
 
-    public Stage findOne(Long id) {
-        return em.find(Stage.class, id);
-    }
+    Page<Stage> findByTitleLike(String title, Pageable pageable);
 
-    public List<Stage> findAll() {
-        return em.createQuery("select s from Stage s", Stage.class)
-                .getResultList();
-    }
 
-    public List<Stage> findByScenarioIdAndNo(Long scenarioId, Long no) {
-        return em.createQuery("select s from Stage s " +
-                " where scenario_id = :id and no = :no", Stage.class)
-                .setParameter("id", scenarioId)
-                .setParameter("no", no)
-                .getResultList();
-    }
-
-    public List<Stage> findByContent(String content) {
-        return em.createQuery("select s from Stage s where s.content like :content", Stage.class)
-                .setParameter("content", "%" + content + "%")
-                .getResultList();
-    }
 }

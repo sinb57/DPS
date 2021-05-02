@@ -34,22 +34,21 @@ public class Scenario {
     private String subTitle; // 시나리오 부제목
 
     private String content; // 시나리오 내용
-    private int stageCount; // 스테이지 개수
+
+    private int stageCount = 0; // 스테이지 개수
+
     private LocalDateTime createTime; // 생성 날짜
 
 
     // 생성자 메서드
     @Builder
-    public Scenario(String title, String subTitle, String content, Stage... stages) {
+    public Scenario(String title, String subTitle, String content, List<Stage> stageList) {
         this.title = title;
         this.subTitle = subTitle;
         this.content = content;
         this.createTime = LocalDateTime.now();
-
-        for(Stage stage: stages) {
-            this.stageList.add(stage);
-        }
-        this.stageCount = stages.length;
+        this.stageList = stageList;
+        this.stageCount = stageList.size();
     }
 
 

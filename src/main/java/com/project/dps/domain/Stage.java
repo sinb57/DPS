@@ -3,6 +3,7 @@ package com.project.dps.domain;
 import com.project.dps.domain.log.StagePassLog;
 import com.project.dps.domain.poc.Poc;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,7 +31,12 @@ public class Stage {
     @OneToMany(mappedBy = "stage")
     private List<StagePassLog> logList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "stage")
+    private List<CheckItem> checkItemList = new ArrayList<>(); // 기능 구성 요소
+
     private Long no; // 스테이지 번호
+    private String title; // 스테이지 제목
+    private String comment;
     private String content; // 스테이지 내용
     private LocalDateTime createTime; // 생성 날짜
 
@@ -42,11 +48,16 @@ public class Stage {
     }
 
     // 생성자 메서드
-    public Stage(Scenario scenario, Long no, String content) {
+    @Builder
+    public Stage(Scenario scenario, Long no, String title, String comment, String content,
+                 List<CheckItem> checkItemList) {
         this.setScenario(scenario);
         this.no = no;
+        this.title = title;
+        this.comment = comment;
         this.content = content;
         this.createTime = LocalDateTime.now();
+        this.checkItemList = checkItemList;
     }
 
 

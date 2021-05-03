@@ -1,15 +1,11 @@
 package com.project.dps.controller.dto;
 
 import com.project.dps.domain.CheckItem;
-import com.project.dps.domain.Stage;
 import com.project.dps.mapstruct.CheckItemMapper;
-import com.project.dps.mapstruct.StageMapper;
-import lombok.Builder;
 import lombok.Getter;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +20,7 @@ public class StageDto {
     private List<CheckItemDto> checkItemDtoList;
     private LocalDateTime createTime;
 
-    @Builder
+    // 생성자 메서드
     public StageDto(Long id, Long no, String comment, String title, String content,
                     List<CheckItem> checkItemList, LocalDateTime createTime) {
         this.id = id;

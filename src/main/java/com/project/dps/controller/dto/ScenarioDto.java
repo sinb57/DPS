@@ -1,18 +1,15 @@
 package com.project.dps.controller.dto;
 
 import com.project.dps.domain.Stage;
-import com.project.dps.mapstruct.ScenarioMapper;
 import com.project.dps.mapstruct.StageMapper;
 import lombok.*;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ScenarioDto {
 
     private Long id;
@@ -29,7 +26,7 @@ public class ScenarioDto {
 
     private LocalDateTime createTime;
 
-    @Builder
+    // 생성자 메서드
     public ScenarioDto(Long id, String title, String subTitle, String content,
                        int stageCount, List<Stage> stageList, LocalDateTime createTime) {
         this.id = id;
@@ -39,9 +36,11 @@ public class ScenarioDto {
         this.createTime = createTime;
         this.stageCount = stageCount;
 
-        this.stageDtoList = stageList.stream()
-                .map(stage -> Mappers.getMapper(StageMapper.class).toDto(stage))
-                .collect(Collectors.toList());
-        System.out.printf("1");
+        if (stageList != null) {
+            this.stageDtoList = stageList.stream()
+                    .map(stage -> Mappers.getMapper(StageMapper.class).toDto(stage))
+                    .collect(Collectors.toList());
+        }
     }
+
 }

@@ -1,6 +1,5 @@
 package com.project.dps.controller.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -8,7 +7,7 @@ public class CheckItemDto {
 
     private String content;
 
-    @Builder
+    // 생성자 메서드
     public CheckItemDto(String content) {
         this.content = content;
     }

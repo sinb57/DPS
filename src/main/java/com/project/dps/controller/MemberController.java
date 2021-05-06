@@ -1,6 +1,6 @@
 package com.project.dps.controller;
 
-import com.project.dps.controller.dto.MemberDto;
+import com.project.dps.mapstruct.dto.MemberDto;
 import com.project.dps.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,7 +29,7 @@ public class MemberController {
     // 로그인 페이지
     @GetMapping("/login")
     public String getMethod_login(Model model) {
-        model.addAttribute("memberDto", MemberDto.builder().build());
+        model.addAttribute("memberDto", MemberDto.class);
         System.out.printf("haha");
         return "member/login";
     }
@@ -42,7 +42,7 @@ public class MemberController {
     // 회원가입 페이지
     @GetMapping("/join")
     public String getMethod_join(Model model) {
-        model.addAttribute("memberDto", MemberDto.builder().build());
+        model.addAttribute("memberDto", MemberDto.class);
         return "member/join";
     }
 

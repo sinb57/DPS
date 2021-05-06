@@ -1,71 +1,79 @@
 package com.project.dps.controller;
 
-import com.project.dps.controller.dto.ScenarioDto;
-import com.project.dps.controller.dto.StageDto;
+import com.project.dps.mapstruct.dto.MemberDto;
+import com.project.dps.mapstruct.dto.ScenarioDto;
+import com.project.dps.mapstruct.dto.StageDto;
+import com.project.dps.mapstruct.dto.log.StageLogDto;
+import com.project.dps.service.MemberService;
+import com.project.dps.service.PocService;
 import com.project.dps.service.ScenarioService;
 import com.project.dps.service.StageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.validation.Valid;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/scenarios")
 public class ScenarioController {
 
+    private final MemberService memberService;
     private final ScenarioService scenarioService;
     private final StageService stageService;
+    private final PocService pocService;
 
-    @GetMapping("/upload")
-    public String getMethod_upload(Model model) {
-        model.addAttribute("scenarioDto", ScenarioDto.builder().build());
-        return "scenario/upload";
-    }
-
-    @PostMapping("/upload")
-    public String postMethod_upload(@Valid ScenarioDto scenarioDto, BindingResult result) {
-
-        if (result.hasErrors()) {
-            System.out.printf("scenario upload error");
-            return "scenario/upload";
-        }
-
-        return "scenario/upload-success";
-    }
-
-    @GetMapping("/list")
-    public String scenarioList(@PageableDefault Pageable pageable, Model model) {
-
-        return "scenario/scenarioList";
-    }
+//    @GetMapping("/upload")
+//    public String getMethod_upload(Model model) {
+//        model.addAttribute("scenarioDto", ScenarioDto.builder().build());
+//        return "scenario/upload";
+//    }
+//
+//    @PostMapping("/upload")
+//    public String postMethod_upload(@Valid ScenarioDto scenarioDto, BindingResult result) {
+//
+//        if (result.hasErrors()) {
+//            System.out.printf("scenario upload error");
+//            return "scenario/upload";
+//        }
+//
+//        return "scenario/upload-success";
+//    }
+//
+//    @GetMapping("/list")
+//    public String scenarioList(@PageableDefault Pageable pageable, Model model) {
+//
+//        return "scenario/scenarioList";
+//    }
 
 
     @GetMapping("/{subTitle}")
     public String getMethod_detail(@PathVariable String subTitle, Model model) {
-        Optional<ScenarioDto> scenarioDto = scenarioService.findBySubTitle(subTitle);
-        model.addAttribute("scenarioDto", scenarioDto.get());
+        ScenarioDto scenarioDto = scenarioService.findBySubTitle(subTitle);
+        model.addAttribute("scenarioDto", scenarioDto);
         return "scenario/scenarioDetail";
     }
 
+    private boolean isStageOutOfIndex (int stageCount, int stageNo) {
+        if (0 < stageNo && stageNo <= stageCount) {
+            return false;
+        }
+        return false;
+    }
 
     @GetMapping({"/{scenarioSubTitle}/stages/{stageNo}"})
     public String getMethod_detail(@PathVariable("scenarioSubTitle") String subTitle,
-                                   @PathVariable("stageNo") Long stageNo,
+                                   @PathVariable("stageNo") int stageNo,
                                    Model model) {
-        Optional<ScenarioDto> scenarioDto = scenarioService.findBySubTitle(subTitle);
-        Optional<StageDto> stageDto = stageService.findBySubTitle(scenarioDto.get().getId(), stageNo);
-        model.addAttribute("stageDto", stageDto.get());
-        model.addAttribute("stageNo", stageNo);
+        ScenarioDto scenarioDto = scenarioService.findBySubTitle(subTitle);
+        model.addAttribute("scenarioDto", scenarioDto);
+
+        if (!isStageOutOfIndex(scenarioDto.getStageCount(), stageNo)) {
+            return "error";
+        }
+
+        StageDto stageDto = scenarioDto.getStageDtoList().get(stageNo);
+        model.addAttribute("stageDto", stageDto);
 
         return "scenario/stageDetail";
     }
@@ -73,16 +81,23 @@ public class ScenarioController {
     @PostMapping({"/{scenarioSubTitle}/stages/{stageNo}/solve"})
     public String postMethod_solve(@PathVariable("scenarioSubTitle") String subTitle,
                                    @PathVariable("stageNo") int stageNo,
+                                   @RequestParam("targetUrl") String targetUrl,
                                    Model model) {
-        if (stageNo == 1) {
-            model.addAttribute("isClear", true);
-            return "scenario/stageResult1";
+        MemberDto memberDto = memberService.findById(1L); // 세션에서 member data 가져올 예정
+        ScenarioDto scenarioDto = scenarioService.findBySubTitle(subTitle);
+        model.addAttribute("scenarioDto", scenarioDto);
+
+        if (!isStageOutOfIndex(scenarioDto.getStageCount(), stageNo)) {
+            return "error";
         }
-        else if (stageNo == 2) {
-            model.addAttribute("isClear", false);
-            return "scenario/stageResult2";
-        }
-        return "/";
+
+        StageDto stageDto = scenarioDto.getStageDtoList().get(stageNo);
+        model.addAttribute("stageDto", stageDto);
+
+        StageLogDto stageLogDto = pocService.evaluate(memberDto.getId(), stageDto.getId(), targetUrl);
+        model.addAttribute("stageLogDto", stageLogDto);
+
+        return "scenario/stageResult";
     }
 
     @GetMapping({"/{scenarioSubTitle}/stages/{stageNo}/solution/{solutionTitle}"})

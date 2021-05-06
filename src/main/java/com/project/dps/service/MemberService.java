@@ -1,10 +1,10 @@
 package com.project.dps.service;
 
-import com.project.dps.controller.dto.MemberDto;
+import com.project.dps.mapstruct.mapper.MemberMapper;
+import com.project.dps.mapstruct.dto.MemberDto;
 import com.project.dps.domain.Member;
 import com.project.dps.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import com.project.dps.mapstruct.MemberMapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,7 +30,7 @@ public class MemberService {
         return member.getId();
     }
 
-    public Member getMemberIfExist(String email) {
+    private Member getMemberIfExist(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         // EXCEPTION
         return member.orElseThrow(() -> new IllegalStateException("Not existed member id"));
@@ -48,7 +47,7 @@ public class MemberService {
     }
 
     // 중복 회원 검증
-    public void validateNameIsDuplicated(String email) {
+    private void validateNameIsDuplicated(String email) {
         // EXCEPTION
         Optional<Member> member = memberRepository.findByEmail(email);
         member.ifPresent(e -> {
@@ -65,13 +64,13 @@ public class MemberService {
         member.modifyNameAndPassword(name, passwordTo);
     }
 
-    public Member getMemberIfExist(Long id) {
+    Member getMemberIfExist(Long id) {
         Optional<Member> member = memberRepository.findById(id);
         // EXCEPTION
         return member.orElseThrow(() -> new IllegalStateException("Not existed member id"));
     }
 
-    public void validatePasswordIsCorrect(Member member, String passwordFrom) {
+    private void validatePasswordIsCorrect(Member member, String passwordFrom) {
         String originPassword = member.getPassword();
         // EXCEPTION
         if (!originPassword.equals(passwordFrom)) {
@@ -82,9 +81,8 @@ public class MemberService {
 
 
     // 특정 회원 조회
-    public Optional<MemberDto> findOne(Long id) {
-        return memberRepository.findById(id)
-                .map(member -> mapper.toDto(member));
+    public MemberDto findById(Long id) {
+        return mapper.toDto(getMemberIfExist(id));
     }
 
     // 회원 전체 조회

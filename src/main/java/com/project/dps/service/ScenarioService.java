@@ -1,16 +1,11 @@
 package com.project.dps.service;
 
-import com.project.dps.controller.dto.ScenarioDto;
+import com.project.dps.mapstruct.dto.ScenarioDto;
 import com.project.dps.domain.Scenario;
-import com.project.dps.mapstruct.ScenarioMapper;
+import com.project.dps.mapstruct.mapper.ScenarioMapper;
 import com.project.dps.repository.ScenarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -35,19 +30,30 @@ public class ScenarioService {
     public void update()
      */
 
-    public Optional<ScenarioDto> findBySubTitle(String subTitle) {
+    public ScenarioDto findBySubTitle(String subTitle) {
+        return mapper.toDto(getScenarioIfExist(subTitle));
+    }
+
+    public ScenarioDto findSummaryBySubTitle(String subTitle) {
+        return mapper.toSimpleDto(getScenarioIfExist(subTitle));
+    }
+
+
+
+
+//    public Page<ScenarioDto> findScenarios(Pageable pageable) {
+//        int pageNo = (pageable.getPageNumber() == 0 ? 0 : (pageable.getPageNumber() - 1));
+//        int elementCount = 10;
+//
+//        pageable = PageRequest.of(pageNo, elementCount, Sort.Direction.DESC, "id");
+//        return scenarioRepository.findAll(pageable)
+//                .map(scenario -> mapper.toDto(scenario));
+//    }
+
+
+    private Scenario getScenarioIfExist(String subTitle) {
         Optional<Scenario> scenario = scenarioRepository.findBySubTitle(subTitle);
-        ScenarioDto scenarioDto = mapper.toDto(scenario.get());
-        return Optional.of(scenarioDto);
+        // EXCEPTION
+        return scenario.orElseThrow(() -> new IllegalStateException("Not existed scenario subtitle"));
     }
-
-    public Page<ScenarioDto> findScenarios(Pageable pageable) {
-        int pageNo = (pageable.getPageNumber() == 0 ? 0 : (pageable.getPageNumber() - 1));
-        int elementCount = 10;
-
-        pageable = PageRequest.of(pageNo, elementCount, Sort.Direction.DESC, "id");
-        return scenarioRepository.findAll(pageable)
-                .map(scenario -> mapper.toDto(scenario));
-    }
-
 }

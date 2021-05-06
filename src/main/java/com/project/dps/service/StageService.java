@@ -1,23 +1,15 @@
 package com.project.dps.service;
 
-import com.project.dps.controller.dto.ScenarioDto;
-import com.project.dps.controller.dto.StageDto;
-import com.project.dps.domain.Scenario;
+import com.project.dps.mapstruct.dto.StageDto;
 import com.project.dps.domain.Stage;
-import com.project.dps.mapstruct.StageMapper;
-import com.project.dps.repository.ScenarioRepository;
+import com.project.dps.mapstruct.mapper.StageMapper;
 import com.project.dps.repository.StageRepository;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,7 +20,6 @@ public class StageService {
     private final StageRepository stageRepository;
     private final StageMapper mapper = Mappers.getMapper(StageMapper.class);
 
-
     /*
     @Transactional
     public void create()
@@ -38,16 +29,23 @@ public class StageService {
     @Transactional
     public void update()
      */
-
-    public Optional<StageDto> findBySubTitle(Long scenarioId, Long stageNo) {
-        Optional<Stage> stage = stageRepository.findByScenarioIdAndStageNo(scenarioId, stageNo);
-        StageDto stageDto = mapper.toDto(stage.get());
-        return Optional.of(stageDto);
+    public StageDto findById(Long stageId) {
+        return mapper.toDto(getStageIfExist(stageId));
     }
 
-//    public List<StageDto> findStages(Long scenarioId) {
-//        return stageRepository.findBy
-//                .map(scenario -> mapper.toDto(Stage));
-//    }
+    public StageDto findByScenarioIdAndStageNo(Long scenarioId, Long stageNo) {
+        return mapper.toDto(getStageIfExist(scenarioId, stageNo));
+    }
 
+    Stage getStageIfExist(Long stageId) {
+        Optional<Stage> stage = stageRepository.findById(stageId);
+        // EXCEPTION
+        return stage.orElseThrow(() -> new IllegalStateException("Not existed stage"));
+    }
+
+    Stage getStageIfExist(Long scenarioId, Long stageNo) {
+        Optional<Stage> stage = stageRepository.findByScenarioIdAndStageNo(scenarioId, stageNo);
+        // EXCEPTION
+        return stage.orElseThrow(() -> new IllegalStateException("Not existed stage"));
+    }
 }

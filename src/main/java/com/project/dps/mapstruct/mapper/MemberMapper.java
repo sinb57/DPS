@@ -1,4 +1,4 @@
-package com.project.dps.mapstruct;
+package com.project.dps.mapstruct.mapper;
 
 import com.project.dps.controller.dto.MemberDto;
 import com.project.dps.domain.Member;

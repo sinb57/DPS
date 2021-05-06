@@ -1,4 +1,4 @@
-package com.project.dps.mapstruct;
+package com.project.dps.mapstruct.mapper;
 
 import org.mapstruct.BeanMapping;
 import org.mapstruct.MappingTarget;

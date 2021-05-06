@@ -4,6 +4,7 @@ import com.project.dps.domain.CheckItem;
 import com.project.dps.domain.poc.PocTestCategory;
 import com.project.dps.mapstruct.mapper.CheckItemMapper;
 import com.project.dps.mapstruct.dto.poc.PocTestCategoryDto;
+import com.project.dps.mapstruct.mapper.poc.PocTestCategoryMapper;
 import lombok.Getter;
 import org.mapstruct.factory.Mappers;
 
@@ -40,7 +41,7 @@ public class StageDto {
 
         if (pocTestCategoryList != null) {
             this.pocTestCategoryDtoList = pocTestCategoryList.stream()
-                    .map(poc -> Mappers.getMapper(PocMapper.class).toDto(poc))
+                    .map(pocTestCategory -> Mappers.getMapper(PocTestCategoryMapper.class).toDto(pocTestCategory))
                     .collect(Collectors.toList());
         }
 

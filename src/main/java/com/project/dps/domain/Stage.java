@@ -1,7 +1,7 @@
 package com.project.dps.domain;
 
-import com.project.dps.domain.poc.PocTestCategory;
 import com.project.dps.domain.log.StageLog;
+import com.project.dps.domain.poc.PocTestCategory;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,9 +31,6 @@ public class Stage {
     private List<StageLog> stageLogList = new ArrayList<>();
 
     @OneToMany(mappedBy = "stage")
-    private List<StagePassLog> stagePasslogList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "stage")
     private List<CheckItem> checkItemList = new ArrayList<>(); // 기능 구성 요소
 
     private Long no; // 스테이지 번호
@@ -52,7 +49,7 @@ public class Stage {
     // 생성자 메서드
     public Stage(Scenario scenario, Long no, String title, String comment, String content,
                  List<PocTestCategory> pocTestCategoryList, List<StageLog> stageLogList,
-                 List<StagePassLog> stagePasslogList, List<CheckItem> checkItemList) {
+                 List<CheckItem> checkItemList) {
         this.setScenario(scenario);
         this.no = no;
         this.title = title;
@@ -61,7 +58,6 @@ public class Stage {
         this.createTime = LocalDateTime.now();
         this.pocTestCategoryList = pocTestCategoryList;
         this.stageLogList = stageLogList;
-        this.stagePasslogList = stagePasslogList;
         this.checkItemList = checkItemList;
     }
 

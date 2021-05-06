@@ -25,7 +25,7 @@ public class Member {
     private String password;
 
     @OneToMany(mappedBy = "member")
-    private List<StageLog> logList = new ArrayList<>();
+    private List<StageLog> stageLogList = new ArrayList<>();
 
 
     // 생성자 메서드

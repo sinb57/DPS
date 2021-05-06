@@ -1,7 +1,7 @@
 package com.project.dps.domain.log;
 
 import com.project.dps.domain.Member;
-import com.project.dps.domain.Stage;
+import com.project.dps.domain.Scenario;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,15 +12,15 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class StagePassLog {
+public class ScenarioLog {
 
     @Id @GeneratedValue
-    @Column(name = "stage_pass_id")
+    @Column(name = "scenario_pass_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "stage_id")
-    private Stage stage;
+    @JoinColumn(name = "scenario_id")
+    private Scenario scenario;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
@@ -28,4 +28,3 @@ public class StagePassLog {
 
     private LocalDateTime localDateTime;
 }
-

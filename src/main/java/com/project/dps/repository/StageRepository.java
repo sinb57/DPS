@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface StageRepository extends JpaRepository<Scenario, Long> {
+public interface StageRepository extends JpaRepository<Stage, Long> {
 
 //    Page<Stage> findByScenario_Id(@Param(value = "scenarioId") Long scenarioId, Pageable pageable);
 

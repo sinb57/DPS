@@ -1,8 +1,7 @@
 package com.project.dps.domain;
 
-import com.project.dps.domain.log.poc.PocLog;
+import com.project.dps.domain.log.StageLog;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,11 +25,10 @@ public class Member {
     private String password;
 
     @OneToMany(mappedBy = "member")
-    private List<PocLog> logList = new ArrayList<>();
+    private List<StageLog> logList = new ArrayList<>();
 
 
     // 생성자 메서드
-    @Builder
     public Member(String email, String name, String password) {
         this.email = email;
         this.name = name;

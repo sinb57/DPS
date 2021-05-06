@@ -29,7 +29,6 @@ public class CheckItem {
     }
 
     // 생성자 메서드
-    @Builder
     public CheckItem(Stage stage, String content) {
         this.setStage(stage);
         this.content = content;

@@ -1,9 +1,8 @@
 package com.project.dps.domain;
 
-import com.project.dps.domain.log.StagePassLog;
-import com.project.dps.domain.poc.Poc;
+import com.project.dps.domain.poc.PocTestCategory;
+import com.project.dps.domain.log.StageLog;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,10 +25,13 @@ public class Stage {
     private Scenario scenario;
 
     @OneToMany(mappedBy = "stage")
-    private List<Poc> pocList = new ArrayList<>();
+    private List<PocTestCategory> pocTestCategoryList = new ArrayList<>();
 
     @OneToMany(mappedBy = "stage")
-    private List<StagePassLog> logList = new ArrayList<>();
+    private List<StageLog> stageLogList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "stage")
+    private List<StagePassLog> stagePasslogList = new ArrayList<>();
 
     @OneToMany(mappedBy = "stage")
     private List<CheckItem> checkItemList = new ArrayList<>(); // 기능 구성 요소
@@ -48,15 +50,18 @@ public class Stage {
     }
 
     // 생성자 메서드
-    @Builder
     public Stage(Scenario scenario, Long no, String title, String comment, String content,
-                 List<CheckItem> checkItemList) {
+                 List<PocTestCategory> pocTestCategoryList, List<StageLog> stageLogList,
+                 List<StagePassLog> stagePasslogList, List<CheckItem> checkItemList) {
         this.setScenario(scenario);
         this.no = no;
         this.title = title;
         this.comment = comment;
         this.content = content;
         this.createTime = LocalDateTime.now();
+        this.pocTestCategoryList = pocTestCategoryList;
+        this.stageLogList = stageLogList;
+        this.stagePasslogList = stagePasslogList;
         this.checkItemList = checkItemList;
     }
 

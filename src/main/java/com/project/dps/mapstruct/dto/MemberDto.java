@@ -1,4 +1,4 @@
-package com.project.dps.controller.dto;
+package com.project.dps.mapstruct.dto;
 
 import lombok.Getter;
 

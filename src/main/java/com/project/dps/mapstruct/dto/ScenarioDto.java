@@ -1,7 +1,7 @@
-package com.project.dps.controller.dto;
+package com.project.dps.mapstruct.dto;
 
 import com.project.dps.domain.Stage;
-import com.project.dps.mapstruct.StageMapper;
+import com.project.dps.mapstruct.mapper.StageMapper;
 import lombok.*;
 import org.mapstruct.factory.Mappers;
 

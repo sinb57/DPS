@@ -1,7 +1,6 @@
 package com.project.dps.mapstruct.mapper.log;
 
 import com.project.dps.domain.log.PocTestCaseLog;
-import com.project.dps.domain.log.StageLog;
 import com.project.dps.mapstruct.dto.log.PocTestCaseLogDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -9,7 +8,7 @@ import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring",
-        uses = {StageLog.class },
+        uses = {StageLogMapper.class },
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PocTestCaseLogMapper {
 

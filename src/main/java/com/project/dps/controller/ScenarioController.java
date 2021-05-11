@@ -68,7 +68,7 @@ public class ScenarioController {
         ScenarioDto scenarioDto = scenarioService.findBySubTitle(subTitle);
         model.addAttribute("scenarioDto", scenarioDto);
 
-        if (!isStageOutOfIndex(scenarioDto.getStageCount(), stageNo)) {
+        if (isStageOutOfIndex(scenarioDto.getStageCount(), stageNo)) {
             return "error";
         }
 
@@ -87,7 +87,7 @@ public class ScenarioController {
         ScenarioDto scenarioDto = scenarioService.findBySubTitle(subTitle);
         model.addAttribute("scenarioDto", scenarioDto);
 
-        if (!isStageOutOfIndex(scenarioDto.getStageCount(), stageNo)) {
+        if (isStageOutOfIndex(scenarioDto.getStageCount(), stageNo)) {
             return "error";
         }
 

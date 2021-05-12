@@ -21,9 +21,8 @@
             <div class="mdk-box__content">
                 <div class="hero py-64pt text-center text-sm-left">
                     <div class="container page__container">
-                        <h1 class="text-white" th:text="${scenario.title}">커뮤니티 만들기</h1>
-                        <p class="lead text-white-50 measure-hero-lead mb-24pt" th:text="${scenario.content}">
-                            보안요소를 첨가하여 커뮤니티를 만들어보세요.</p>
+                        <h1 class="text-white" th:text="${scenario.title}">시나리오 제목</h1>
+                        <p class="lead text-white-50 measure-hero-lead mb-24pt" th:text="${scenario.content}">시나리오 내용</p>
                         <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
                             <a th:href="|${scenario.subTitle}/stages/1|"
                                class="btn btn-outline-white mb-16pt mb-sm-0 mr-sm-16pt">시작하기</a>
@@ -40,7 +39,7 @@
                     <li class="nav-item navbar-list__item">
                         <div class="media align-items-center">
                             <span class="media-left mr-16pt">
-                                <img src="../../public/images/people/50/guy-6.jpg"
+                                <img th:src="@{/public/images/people/50/guy-6.jpg}"
                                      width="40"
                                      alt="avatar"
                                      class="rounded-circle">
@@ -80,8 +79,7 @@
                 <div class="row mb-0">
                     <div class="col-lg-7">
 
-                        <div class="accordion js-accordion accordion--boxed list-group-flush"
-                             id="parent">
+                        <div class="accordion js-accordion accordion--boxed list-group-flush" id="parent">
                             <div class="accordion__item">
                                 <a href="#" class="accordion__toggle collapsed"
                                    data-toggle="collapse" data-target="#course-toc-1" data-parent="#parent">
@@ -90,14 +88,14 @@
                                 </a>
                                 <div class="accordion__menu collapse" id="course-toc-1">
                                     <div class="accordion__menu-link active">
-                                        <span class="icon-holder icon-holder--small icon-holder--primary rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">play_circle_outline</i>
+                                        <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
+                                            <i class="material-icons icon-16pt">grid_view</i>
                                         </span>
                                         <a class="flex" href="student-lesson.html">로그인</a>
                                     </div>
                                     <div class="accordion__menu-link active">
                                         <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">lock</i>
+                                            <i class="material-icons icon-16pt">grid_view</i>
                                         </span>
                                         <a class="flex" href="student-lesson.html">회원가입</a>
                                     </div>
@@ -113,26 +111,26 @@
                                 <div class="accordion__menu collapse show"
                                      id="course-toc-2">
                                     <div class="accordion__menu-link active">
-                                        <span class="icon-holder icon-holder--small icon-holder--dark rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">check_circle</i>
+                                        <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
+                                            <i class="material-icons icon-16pt">grid_view</i>
                                         </span>
                                         <a class="flex" href="student-lesson.html">게시글 작성</a>
                                     </div>
                                     <div class="accordion__menu-link active">
-                                        <span class="icon-holder icon-holder--small icon-holder--primary rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">play_circle_outline</i>
+                                        <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
+                                            <i class="material-icons icon-16pt">grid_view</i>
                                         </span>
                                         <a class="flex" href="student-lesson.html">게시글 수정</a>
                                     </div>
                                     <div class="accordion__menu-link active">
                                         <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">lock</i>
+                                            <i class="material-icons icon-16pt">grid_view</i>
                                         </span>
                                         <a class="flex" href="student-lesson.html">게시글 삭제</a>
                                     </div>
                                     <div class="accordion__menu-link active">
                                         <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">hourglass_empty</i>
+                                            <i class="material-icons icon-16pt">grid_view</i>
                                         </span>
                                         <a class="flex" href="student-lesson.html">게시글 목록</a>
                                     </div>
@@ -150,13 +148,13 @@
                                 <div class="accordion__menu collapse" id="course-toc-3">
                                     <div class="accordion__menu-link active">
                                         <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">lock</i>
+                                            <i class="material-icons icon-16pt">grid_view</i>
                                         </span>
                                         <a class="flex" href="student-lesson.html">비밀글 작성</a>
                                     </div>
                                     <div class="accordion__menu-link active">
                                         <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">hourglass_empty</i>
+                                            <i class="material-icons icon-16pt">grid_view</i>
                                         </span>
                                         <a class="flex" href="student-lesson.html">비밀글 페이지</a>
                                     </div>
@@ -174,13 +172,13 @@
                                 <div class="accordion__menu collapse" id="course-toc-4">
                                     <div class="accordion__menu-link active">
                                         <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">lock</i>
+                                            <i class="material-icons icon-16pt">grid_view</i>
                                         </span>
                                         <a class="flex" href="student-lesson.html">파일 업로드</a>
                                     </div>
                                     <div class="accordion__menu-link active">
                                         <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">hourglass_empty</i>
+                                            <i class="material-icons icon-16pt">grid_view</i>
                                         </span>
                                         <a class="flex" href="student-lesson.html">파일 다운로드</a>
                                     </div>

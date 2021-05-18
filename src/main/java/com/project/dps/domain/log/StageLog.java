@@ -1,10 +1,10 @@
 package com.project.dps.domain.log;
 
-import com.project.dps.domain.Member;
-import com.project.dps.domain.Stage;
-import com.project.dps.domain.poc.PocResultEnum;
-import com.project.dps.domain.poc.PocTestCategory;
+import com.project.dps.domain.member.Member;
+import com.project.dps.domain.scenario.stage.poc.ValidResultEnum;
+import com.project.dps.domain.scenario.stage.Stage;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,12 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "stage_log")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class StageLog {
 
     @Id @GeneratedValue
-    @Column(name = "stage_pass_id")
+    @Column(name = "stage_log_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -31,13 +32,16 @@ public class StageLog {
     private Member member;
 
     @OneToMany(mappedBy = "stageLog")
-    private List<PocTestCaseLog> pocTestCaseLogList = new ArrayList<>();
+    @Builder.Default
+    private List<PocLog> pocLogList = new ArrayList<>();
 
-    private PocResultEnum result;
+    @Enumerated(EnumType.STRING)
+    private ValidResultEnum result;
 
     private LocalDateTime createTime;
 
-    // 연관관계 메서드
+
+    //== 연관관계 메서드 ==//
     private void setStage (Stage stage) {
         this.stage = stage;
         stage.getStageLogList().add(this);
@@ -48,13 +52,33 @@ public class StageLog {
         member.getStageLogList().add(this);
     }
 
-    public StageLog(Stage stage, Member member, PocResultEnum result,
-                    List<PocTestCaseLog> pocTestCaseLogList) {
-        this.setStage(stage);
-        this.setMember(member);
+
+    //== Builder 메서드 ==//
+    @Builder
+    public StageLog(Stage stage, Member member) {
+        this.createTime = LocalDateTime.now();
+
+        // 연관관계
+        this.stage = stage;
+        stage.appendStageLog(this);
+        this.member = member;
+        member.appendStageLog(this);
+    }
+
+
+    //== 비즈니스 로직 ==//
+    public void appendPocLog(PocLog pocLog) {
+        this.pocLogList.add(pocLog);
+    }
+
+    public void removePocLog(PocLog pocLog) {
+        this.pocLogList.remove(pocLog);
+    }
+
+
+    // setter 메서드
+    public void setResult (ValidResultEnum result) {
         this.result = result;
-        createTime = LocalDateTime.now();
-        this.pocTestCaseLogList = pocTestCaseLogList;
     }
 }
 

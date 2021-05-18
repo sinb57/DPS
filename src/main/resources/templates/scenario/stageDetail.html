@@ -55,51 +55,45 @@
                     <a href="#" data-toggle="tooltip" data-placement="bottom" data-title="Quiz: Getting Started with Angular" data-original-title="" title=""><span class="material-icons text-primary">fullscreen</span></a>
                 </nav>
 
-                <div class="d-flex flex-wrap align-items-end justify-content-end mb-16pt">
-                    <h1 class="text-white flex m-0">회원가입 및 로그인</h1>
-                </div>
+                    <h1 class="text-white">회원가입 및 로그인</h1>
+                    <p class="lead text-white-50 measure-hero-lead mb-24pt">&nbsp;</p>
 
-                <p class="hero__lead measure-hero-lead text-white-50">아래의 요구사항에 따라 페이지를 제작하고 제출해주세요.</p>
-            </div>
-        </div>
-
-        <div class="navbar navbar-expand-sm navbar-light bg-white border-bottom-2 navbar-list p-0 m-0 align-items-center">
-            <div class="container page__container">
-                <ul class="nav navbar-nav flex align-items-sm-center">
-                    <li class="nav-item navbar-list__item">
-                        <div class="media align-items-center">
-                            <span class="media-left mr-16pt">
-                                <img th:src="@{/public/images/people/50/guy-6.jpg}"
-                                     width="40"
-                                     alt="avatar"
-                                     class="rounded-circle">
-                            </span>
-                            <div class="media-body">
-                                <a class="card-title m-0"
-                                   href="teacher-profile.html">Eddie Bryan</a>
-                                <p class="text-50 lh-1 mb-0">Produced by</p>
+                <form method="post" action="/scenarios/Simple-Community-Board/stages/1/solve">
+                    <div class="was-validated">
+                        <div class="form-row">
+                            <div class="col-12 col-md-6 mb-3">
+                                <label class="form-label" for="targetUrl">Your Site URL</label>
+                                <input type="text" class="form-control" id="targetUrl" name="targetUrl" placeholder="http://dps.test.com:2021/board/" required>
+                                <div class="valid-feedback">Looks good!</div>
+                            </div>
+                            <div class="col-12 col-md-4 mb-3">
+                                <label class="form-label" for="targetExtension">Your Site extension</label>
+                                <input type="text" class="form-control" id="targetExtension" name="targetExtension" placeholder=".php / .jsp / .do" required>
+                                <div class="valid-feedback">Looks good!</div>
                             </div>
                         </div>
-                    </li>
-                    <li class="nav-item navbar-list__item">
-                        <i class="material-icons text-muted icon--left">assessment</i>
-                        Beginner
-                    </li>
-                    <li class="nav-item ml-sm-auto text-sm-center flex-column navbar-list__item">
-                        <div class="rating rating-24">
-                            <div class="rating__item"><i class="material-icons">star</i></div>
-                            <div class="rating__item"><i class="material-icons">star</i></div>
-                            <div class="rating__item"><i class="material-icons">star</i></div>
-                            <div class="rating__item"><i class="material-icons">star</i></div>
-                            <div class="rating__item"><i class="material-icons">star_border</i></div>
-                        </div>
-                        <p class="lh-1 mb-0"><small class="text-muted">20 ratings</small></p>
-                    </li>
-                </ul>
+                    </div>
+                    <button type="submit" class="btn btn-outline-white mb-16pt mb-sm-0 mr-sm-16pt">Submit</button>
+                </form>
             </div>
         </div>
 
-        <div class="page-section">
+        <div class="page-section bg-alt">
+            <div class="container page__container">
+                <div class="page-separator">
+                    <div class="page-separator__text">주의사항</div>
+                </div>
+                <div class="">
+                    <p>※ 수행 결과에 표기된 any 태그는 실제로 존재하는 것이 아닙니다. 임의의 태그로 대체하여 사용하세요.</p>
+                    <p>※ 결과는 Redirect 시켜서 보여주면 안됩니다. 페이지 내에서 보여주세요.</p>
+                    <p>※ 제출 시 채점이 수행되며, 채점 기록은 삭제할 수 없습니다.</p>
+                    <p>※ 채점 통과 시에만 다음 스테이지로 이동할 수 있습니다.</p>
+                    <p>※ 채점 통과 여부와 상관 없이 해당 스테이지는 언제든 재시도할 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-section bg-alt">
             <div class="container page__container">
                 <div class="page-separator">
                     <div class="page-separator__text">회원가입</div>
@@ -144,7 +138,7 @@
 
                     <div class="col-lg-5">
                         <div class="page-separator">
-                            <div class="page-separator__text">입력 데이터</div>
+                            <div class="page-separator__text">입력 데이터 [POST]</div>
                         </div>
                         <ul class="list-unstyled">
                             <li class="d-flex align-items-center">
@@ -176,7 +170,7 @@
             </div>
         </div>
 
-        <div class="page-section">
+        <div class="page-section bg-alt">
             <div class="container page__container">
                 <div class="page-separator">
                     <div class="page-separator__text">로그인</div>
@@ -217,7 +211,7 @@
 
                     <div class="col-lg-5">
                         <div class="page-separator">
-                            <div class="page-separator__text">입력 데이터</div>
+                            <div class="page-separator__text">입력 데이터 [POST]</div>
                         </div>
                         <ul class="list-unstyled">
                             <li class="d-flex align-items-center">
@@ -249,45 +243,7 @@
             </div>
         </div>
 
-        <div class="page-section border-bottom-2">
-            <div class="container page__container">
-                <div class="page-separator">
-                    <div class="page-separator__text">주의사항</div>
-                </div>
-                <div class="">
-                    <p>※ 수행 결과에 표기된 any 태그는 실제로 존재하는 것이 아닙니다. 임의의 태그로 대체하여 사용하세요.</p>
-                    <p>※ 결과는 Redirect 시켜서 보여주면 안됩니다. 페이지 내에서 보여주세요.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="page-section bg-alt border-bottom-2">
-            <div class="container page__container">
-                <div class="row mb-32pt">
-                    <div class="col-lg-5">
-                        <div class="page-separator">
-                            <div class="page-separator__text">제출</div>
-                        </div>
-                        <p class="card-subtitle text-70 mb-16pt mb-lg-0">
-                            제출 시 채점이 수행되며, 채점 기록은 삭제할 수 없습니다.</br>
-                            채점 통과 시에만 다음 스테이지로 이동할 수 있습니다.</br>
-                            채점 통과 여부와 상관 없이 해당 스테이지는 언제든 재시도할 수 있습니다.
-                        </p>
-                    </div>
-                    <div class="col-lg-7 d-flex align-items-center">
-                        <div class="flex" style="max-width: 100%">
-                            <form method="post" th:action="@{/scenarios/Simple-Community-Board/stages/1/solve}">
-                                <div class="form-group">
-                                    <label class="form-label" for="targetUrl">Your Answer:</label>
-                                    <input type="password" class="form-control" id="targetUrl" name="targetUrl" placeholder="Enter your Site Domain .. (ex. http://dps.test.com:2021)">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="page-section bg-alt  border-bottom-2"></div>
 
         <div class="page-section border-bottom-2">
 

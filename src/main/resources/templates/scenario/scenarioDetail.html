@@ -22,55 +22,19 @@
                 <div class="hero py-64pt text-center text-sm-left">
                     <div class="container page__container">
                         <h1 class="text-white" th:text="${scenario.title}">시나리오 제목</h1>
-                        <p class="lead text-white-50 measure-hero-lead mb-24pt" th:text="${scenario.content}">시나리오 내용</p>
+                        <p class="lead text-white-50 measure-hero-lead mb-24pt">&nbsp;</p>
                         <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
-                            <a th:href="|${scenario.subTitle}/stages/1|"
+                            <a th:href="|/scenarios/${scenario.subTitle}/stages/1|"
                                class="btn btn-outline-white mb-16pt mb-sm-0 mr-sm-16pt">시작하기</a>
-                            <a th:href="|${scenario.subTitle}/stages/1|" class="btn btn-white">이어하기</a>
+                            <a th:href="|/scenarios/${scenario.subTitle}/stages/1|" class="btn btn-white">이어하기</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="navbar navbar-expand-sm navbar-light bg-white border-bottom-2 navbar-list p-0 m-0 align-items-center">
-            <div class="container page__container">
-                <ul class="nav navbar-nav flex align-items-sm-center">
-                    <li class="nav-item navbar-list__item">
-                        <div class="media align-items-center">
-                            <span class="media-left mr-16pt">
-                                <img th:src="@{/public/images/people/50/guy-6.jpg}"
-                                     width="40"
-                                     alt="avatar"
-                                     class="rounded-circle">
-                            </span>
-                            <div class="media-body">
-                                <a class="card-title m-0"
-                                   href="teacher-profile.html">Eddie Bryan</a>
-                                <p class="text-50 lh-1 mb-0">Produced by</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item navbar-list__item">
-                        <i class="material-icons text-muted icon--left">assessment</i>
-                        Beginner
-                    </li>
-                    <li class="nav-item ml-sm-auto text-sm-center flex-column navbar-list__item">
-                        <div class="rating rating-24">
-                            <div class="rating__item"><i class="material-icons">star</i></div>
-                            <div class="rating__item"><i class="material-icons">star</i></div>
-                            <div class="rating__item"><i class="material-icons">star</i></div>
-                            <div class="rating__item"><i class="material-icons">star</i></div>
-                            <div class="rating__item"><i class="material-icons">star_border</i></div>
-                        </div>
-                        <p class="lh-1 mb-0"><small class="text-muted">20 ratings</small></p>
-                    </li>
-                </ul>
-            </div>
-        </div>
 
-
-        <div class="page-section border-bottom-2">
+        <div class="page-section bg-alt border-bottom-2">
             <div class="container page__container">
 
                 <div class="page-separator">
@@ -80,23 +44,19 @@
                     <div class="col-lg-7">
 
                         <div class="accordion js-accordion accordion--boxed list-group-flush" id="parent">
-                            <div class="accordion__item">
-                                <a href="#" class="accordion__toggle collapsed"
+                            <div class="accordion__item open">
+                                <a href="#" class="accordion__toggle"
                                    data-toggle="collapse" data-target="#course-toc-1" data-parent="#parent">
                                     <span class="flex" style="font-size:.9rem; font-weight:bold;">회원가입 및 로그인</span>
                                     <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
                                 </a>
-                                <div class="accordion__menu collapse" id="course-toc-1">
+                                <div class="accordion__menu collapse show" id="course-toc-1">
                                     <div class="accordion__menu-link active">
-                                        <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">grid_view</i>
-                                        </span>
+                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
                                         <a class="flex" href="student-lesson.html">로그인</a>
                                     </div>
                                     <div class="accordion__menu-link active">
-                                        <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">grid_view</i>
-                                        </span>
+                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
                                         <a class="flex" href="student-lesson.html">회원가입</a>
                                     </div>
 
@@ -111,75 +71,57 @@
                                 <div class="accordion__menu collapse show"
                                      id="course-toc-2">
                                     <div class="accordion__menu-link active">
-                                        <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">grid_view</i>
-                                        </span>
+                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
                                         <a class="flex" href="student-lesson.html">게시글 작성</a>
                                     </div>
                                     <div class="accordion__menu-link active">
-                                        <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">grid_view</i>
-                                        </span>
+                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
                                         <a class="flex" href="student-lesson.html">게시글 수정</a>
                                     </div>
                                     <div class="accordion__menu-link active">
-                                        <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">grid_view</i>
-                                        </span>
+                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
                                         <a class="flex" href="student-lesson.html">게시글 삭제</a>
                                     </div>
                                     <div class="accordion__menu-link active">
-                                        <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">grid_view</i>
-                                        </span>
+                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
                                         <a class="flex" href="student-lesson.html">게시글 목록</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="accordion__item">
-                                <a href="#"
-                                   class="accordion__toggle collapsed"
+                            <div class="accordion__item open">
+                                <a href="#" class="accordion__toggle"
                                    data-toggle="collapse"
                                    data-target="#course-toc-3"
                                    data-parent="#parent">
                                     <span class="flex" style="font-size:.9rem; font-weight:bold;">비밀 게시판</span>
                                     <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
                                 </a>
-                                <div class="accordion__menu collapse" id="course-toc-3">
+                                <div class="accordion__menu collapse show" id="course-toc-3">
                                     <div class="accordion__menu-link active">
-                                        <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">grid_view</i>
-                                        </span>
+                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
                                         <a class="flex" href="student-lesson.html">비밀글 작성</a>
                                     </div>
                                     <div class="accordion__menu-link active">
-                                        <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">grid_view</i>
-                                        </span>
+                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
                                         <a class="flex" href="student-lesson.html">비밀글 페이지</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="accordion__item">
-                                <a href="#"
-                                   class="accordion__toggle collapsed"
+                            <div class="accordion__item open">
+                                <a href="#" class="accordion__toggle"
                                    data-toggle="collapse"
                                    data-target="#course-toc-4"
                                    data-parent="#parent">
                                     <span class="flex" style="font-size:.9rem; font-weight:bold;">파일 업로드 및 다운로드</span>
                                     <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
                                 </a>
-                                <div class="accordion__menu collapse" id="course-toc-4">
+                                <div class="accordion__menu collapse show" id="course-toc-4">
                                     <div class="accordion__menu-link active">
-                                        <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">grid_view</i>
-                                        </span>
+                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
                                         <a class="flex" href="student-lesson.html">파일 업로드</a>
                                     </div>
                                     <div class="accordion__menu-link active">
-                                        <span class="icon-holder icon-holder--small icon-holder--light rounded-circle d-inline-flex icon--left">
-                                            <i class="material-icons icon-16pt">grid_view</i>
-                                        </span>
+                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
                                         <a class="flex" href="student-lesson.html">파일 다운로드</a>
                                     </div>
                                 </div>
@@ -188,6 +130,18 @@
 
                     </div>
                     <div class="col-lg-5 justify-content-center">
+
+                        <div class="card">
+                            <div class="card-body py-16pt">
+                                <div class="col-md-12">
+                                    <div class="page-separator">
+                                        <div class="page-separator__text bg-alt ">About this course</div>
+                                    </div>
+                                    <p class="text-70">전세계적으로 인터넷이 확대되면서 보안 기능은 꼭 필요한 과정이 되어 가고 있습니다. 인터넷 커뮤니티를 만들 때 가장 기본이 되는 과정과
+                                        그 때 필요한 보안 기능에 관하여 배울 수 있습니다.</p>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="card">
                             <div class="card-body py-16pt text-center">
@@ -205,50 +159,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="page-section bg-alt border-bottom-2">
-
-            <div class="container page__container">
-                <div class="row ">
-                    <div class="col-md-7">
-                        <div class="page-separator">
-                            <div class="page-separator__text">About this course</div>
-                        </div>
-                        <p class="text-70">전세계적으로 인터넷이 확대되면서 보안 기능은 꼭 필요한 과정이 되어 가고 있습니다.</p>
-                        <p class="text-70 mb-0">인터넷 커뮤니티를 만들 때 가장 기본이 되는 과정과</br>
-                            그 때 필요한 보안 기능에 관하여 배울 수 있습니다.</p>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="page-separator">
-                            <div class="page-separator__text bg-alt">What you’ll learn</div>
-                        </div>
-                        <ul class="list-unstyled">
-                            <li class="d-flex align-items-center">
-                                <span class="material-icons text-50 mr-8pt">check</span>
-                                <span class="text-70">SQL Injection 방어대책</span>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <span class="material-icons text-50 mr-8pt">check</span>
-                                <span class="text-70">XSS 방어대책</span>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <span class="material-icons text-50 mr-8pt">check</span>
-                                <span class="text-70">Working with the Angular CLI</span>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <span class="material-icons text-50 mr-8pt">check</span>
-                                <span class="text-70">Understanding Dependency Injection</span>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <span class="material-icons text-50 mr-8pt">check</span>
-                                <span class="text-70">Testing with Angular</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
         <div class="page-section border-bottom-2">

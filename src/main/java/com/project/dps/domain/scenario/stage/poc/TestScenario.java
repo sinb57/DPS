@@ -1,5 +1,6 @@
 package com.project.dps.domain.scenario.stage.poc;
 
+import com.project.dps.domain.log.TestScenarioLog;
 import com.project.dps.domain.scenario.stage.Stage;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -27,6 +28,9 @@ public class TestScenario {
     @OneToMany(mappedBy = "testScenario")
     private List<TestCommon> testCommonList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "testScenario")
+    private List<TestScenarioLog> testScenarioLogList;
+
     @OneToOne(mappedBy = "testScenario")
     private Solution solution;
 
@@ -38,14 +42,15 @@ public class TestScenario {
 
     //== Builder 메서드 ==//
     @Builder
-    public TestScenario(Stage stage, ValidTypeEnum type, String content, Solution solution) {
+    public TestScenario(Stage stage, ValidTypeEnum type, Solution solution) {
         this.type = type;
-        this.content = content;
         this.solution = solution;
 
         // 연관관계 로직
         this.stage = stage;
         stage.appendTestScenario(this);
+
+        this.content = stage.getTitle();
     }
 
     //== 비즈니스 로직 ==//
@@ -55,6 +60,14 @@ public class TestScenario {
 
     public void removeTestCommon(TestCommon testCommon) {
         this.testCommonList.remove(testCommon);
+    }
+
+    public void appendTestScenarioLog(TestScenarioLog testScenarioLog) {
+        this.testScenarioLogList.add(testScenarioLog);
+    }
+
+    public void removeTestScenarioLog(TestScenarioLog testScenarioLog) {
+        this.testScenarioLogList.remove(testScenarioLog);
     }
 
     public void edit(ValidTypeEnum type, String content) {

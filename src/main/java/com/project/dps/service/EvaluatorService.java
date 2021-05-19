@@ -1,14 +1,15 @@
 package com.project.dps.service;
 
-import com.project.dps.domain.log.PocLog;
-import com.project.dps.domain.scenario.stage.check.Subject;
+import com.project.dps.domain.log.TestCaseLog;
+import com.project.dps.domain.log.TestScenarioLog;
 import com.project.dps.domain.scenario.stage.poc.TestCommon;
 import com.project.dps.domain.scenario.stage.poc.TestCase;
 import com.project.dps.domain.scenario.stage.poc.TestScenario;
 import com.project.dps.domain.scenario.stage.Stage;
 import com.project.dps.domain.log.StageLog;
 import com.project.dps.domain.scenario.stage.poc.*;
-import com.project.dps.repository.PocLogRepository;
+import com.project.dps.repository.TestCaseLogRepository;
+import com.project.dps.repository.TestScenarioLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,8 @@ public class EvaluatorService {
     private final int EVALUATION_COUNT_MAX = 200;
     private int evaluationCount = 0;
 
-    private final PocLogRepository pocLogRepository;
+    private final TestScenarioLogRepository testScenarioLogRepository;
+    private final TestCaseLogRepository testCaseLogRepository;
 
     @Transactional
     public void evaluate(StageLog stageLog, String targetUrl, String targetExtension) {
@@ -37,19 +39,29 @@ public class EvaluatorService {
         Stage stage = stageLog.getStage();
 
         for (TestScenario testScenario : stage.getTestScenarioList()) {
-            ValidTypeEnum type = testScenario.getType();
-            String category = testScenario.getContent();
+            TestScenarioLog testScenarioLog = TestScenarioLog.builder()
+                    .stageLog(stageLog).testScenario(testScenario)
+                    .result(ValidResultEnum.FAIL).build();
+
+            testScenarioLogRepository.save(testScenarioLog);
 
             for (TestCommon testCommon : testScenario.getTestCommonList()) {
                 for (TestCase testCase : testCommon.getTestCaseList()) {
                     String pocContent = testCommon.getContent() + "\n\n" + testCase.getContent();
                     ValidResultEnum result = evaluate(targetUrl, targetExtension, pocContent);
-                    PocLog pocLog = PocLog.builder()
-                            .stageLog(stageLog).testCase(testCase)
-                            .type(type).category(category)
+
+                    TestCaseLog testCaseLog = TestCaseLog.builder()
+                            .testScenarioLog(testScenarioLog).testCase(testCase)
                             .result(result).build();
-                    pocLogRepository.save(pocLog);
+
+                    testCaseLogRepository.save(testCaseLog);
                 }
+            }
+
+            assignTestScenarioLogResult(testScenarioLog);
+
+            if (testScenarioLog.getResult() == ValidResultEnum.PASS) {
+                testScenarioLogRepository.save(testScenarioLog);
             }
         }
 
@@ -58,16 +70,28 @@ public class EvaluatorService {
     }
 
     private void assignStageLogResult(StageLog stageLog) {
-        List<PocLog> pocLogList = stageLog.getPocLogList();
+        List<TestScenarioLog> testScenarioLogList = stageLog.getTestScenarioLogList();
         int passCount = 0;
-        for (PocLog pocLog : pocLogList) {
-            if (pocLog.getResult() == ValidResultEnum.PASS)
+        for (TestScenarioLog testScenarioLog : testScenarioLogList) {
+            if (testScenarioLog.getResult() == ValidResultEnum.PASS)
                 passCount++;
         }
-        if (passCount == pocLogList.size()) {
+        if (passCount == testScenarioLogList.size()) {
             stageLog.setResult(ValidResultEnum.PASS);
         }
+    }
 
+
+    private void assignTestScenarioLogResult(TestScenarioLog testScenarioLog) {
+        List<TestCaseLog> testCaseLogList = testScenarioLog.getTestCaseLogList();
+        int passCount = 0;
+        for (TestCaseLog testCaseLog : testCaseLogList) {
+            if (testCaseLog.getResult() == ValidResultEnum.PASS)
+                passCount++;
+        }
+        if (passCount == testCaseLogList.size()) {
+            testScenarioLog.setResult(ValidResultEnum.PASS);
+        }
     }
 
 

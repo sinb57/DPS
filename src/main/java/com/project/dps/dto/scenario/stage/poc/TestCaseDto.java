@@ -1,8 +1,8 @@
 package com.project.dps.dto.scenario.stage.poc;
 
-import com.project.dps.domain.log.PocLog;
+import com.project.dps.domain.log.TestCaseLog;
 import com.project.dps.domain.scenario.stage.poc.TestCase;
-import com.project.dps.dto.log.PocLogDto;
+import com.project.dps.dto.log.TestCaseLogDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,24 +12,24 @@ import java.util.stream.Collectors;
 @Getter
 public class TestCaseDto {
 
-    private List<PocLogDto> pocLogList;
+    private List<TestCaseLogDto> testCaseLogList;
 
     private String content;
 
 
     //== Builder 메서드 ==//
     @Builder
-    public TestCaseDto(String content, List<PocLog> pocLogList) {
+    public TestCaseDto(String content, List<TestCaseLog> testCaseLogList) {
         this.content = content;
-        this.pocLogList = pocLogList.stream()
-                .map(pocLog -> PocLogDto.toDto(pocLog))
+        this.testCaseLogList = testCaseLogList.stream()
+                .map(pocLog -> TestCaseLogDto.toDto(pocLog))
                 .collect(Collectors.toList());
     }
 
     //== Mapper 메서드 ==//
     public static TestCaseDto toDto(TestCase e) {
         return TestCaseDto.builder()
-                .pocLogList(e.getPocLogList())
+                .testCaseLogList(e.getTestCaseLogList())
                 .content(e.getContent())
                 .build();
     }

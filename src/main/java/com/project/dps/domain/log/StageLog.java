@@ -29,7 +29,7 @@ public class StageLog {
     private Member member;
 
     @OneToMany(mappedBy = "stageLog")
-    private List<PocLog> pocLogList = new ArrayList<>();
+    private List<TestScenarioLog> testScenarioLogList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private ValidResultEnum result = ValidResultEnum.FAIL;
@@ -51,12 +51,12 @@ public class StageLog {
 
 
     //== 비즈니스 로직 ==//
-    public void appendPocLog(PocLog pocLog) {
-        this.pocLogList.add(pocLog);
+    public void appendTestScenarioLog(TestScenarioLog testScenarioLog) {
+        this.testScenarioLogList.add(testScenarioLog);
     }
 
-    public void removePocLog(PocLog pocLog) {
-        this.pocLogList.remove(pocLog);
+    public void removeTestScenarioLog(TestScenarioLog testScenarioLog) {
+        this.testScenarioLogList.remove(testScenarioLog);
     }
 
 

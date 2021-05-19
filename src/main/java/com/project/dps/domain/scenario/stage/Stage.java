@@ -3,6 +3,7 @@ package com.project.dps.domain.scenario.stage;
 import com.project.dps.domain.log.StageLog;
 import com.project.dps.domain.scenario.Scenario;
 import com.project.dps.domain.scenario.stage.check.Subject;
+import com.project.dps.domain.scenario.stage.poc.TestScenario;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,18 +33,22 @@ public class Stage {
     @OneToMany(mappedBy = "stage")
     private List<Subject> subjectList = new ArrayList<>(); // 스테이지 구성 요소
 
+    @OneToMany(mappedBy = "stage")
+    private List<TestScenario> testScenarioList = new ArrayList<>(); // 스테이지 점검 POC
+
     private String title;   // 스테이지 제목
     private Long no;        // 스테이지 번호
 
 
     //== Builder 메서드 ==//
     @Builder
-    public Stage(Scenario scenario, Long no, String title,
-                 List<StageLog> stageLogList, List<Subject> subjectList) {
+    public Stage(Scenario scenario, Long no, String title, List<StageLog> stageLogList,
+                 List<Subject> subjectList, List<TestScenario> testScenarioList) {
         this.no = no;
         this.title = title;
         this.stageLogList = stageLogList;
         this.subjectList = subjectList;
+        this.testScenarioList = testScenarioList;
 
         // 연관관계 로직
         this.scenario = scenario;
@@ -66,6 +71,14 @@ public class Stage {
 
     public void removeSubject(Subject subject) {
         this.subjectList.remove(subject);
+    }
+
+    public void appendTestScenario(TestScenario testScenario) {
+        this.testScenarioList.add(testScenario);
+    }
+
+    public void removeTestScenario(TestScenario testScenario) {
+        this.testScenarioList.remove(testScenario);
     }
 
     public void edit(String title) {

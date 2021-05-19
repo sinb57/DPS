@@ -1,6 +1,6 @@
 package com.project.dps.domain.scenario.stage.poc;
 
-import com.project.dps.domain.scenario.stage.check.Subject;
+import com.project.dps.domain.scenario.stage.Stage;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,8 +21,8 @@ public class TestScenario {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "subject_id")
-    private Subject subject;
+    @JoinColumn(name = "stage_id")
+    private Stage stage;
 
     @OneToMany(mappedBy = "testScenario")
     private List<TestCommon> testCommonList = new ArrayList<>();
@@ -38,14 +38,14 @@ public class TestScenario {
 
     //== Builder 메서드 ==//
     @Builder
-    public TestScenario(Subject subject, ValidTypeEnum type, String content, Solution solution) {
+    public TestScenario(Stage stage, ValidTypeEnum type, String content, Solution solution) {
         this.type = type;
         this.content = content;
         this.solution = solution;
 
         // 연관관계 로직
-        this.subject = subject;
-        subject.appendTestScenario(this);
+        this.stage = stage;
+        stage.appendTestScenario(this);
     }
 
     //== 비즈니스 로직 ==//

@@ -32,9 +32,6 @@ public class Subject {
     private Group group;
 
     @OneToMany(mappedBy = "subject")
-    private List<TestScenario> testScenarioList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "subject")
     private List<Request> requestList = new ArrayList<>();
 
     @OneToMany(mappedBy = "subject")
@@ -46,11 +43,9 @@ public class Subject {
     //== Builder 메서드 ==//
     @Builder
     public Subject(Stage stage, String title, Group group,
-                   List<TestScenario> testScenarioList,
                    List<Request> requestList, List<Result> resultList) {
         this.title = title;
         this.group = group;
-        this.testScenarioList = testScenarioList;
         this.requestList = requestList;
         this.resultList = resultList;
 
@@ -60,14 +55,6 @@ public class Subject {
     }
 
     //== 비즈니스 로직 ==//
-    public void appendTestScenario(TestScenario testScenario) {
-        this.testScenarioList.add(testScenario);
-    }
-
-    public void removeTestScenario(TestScenario testScenario) {
-        this.testScenarioList.remove(testScenario);
-    }
-
     public void appendRequest(Request request) {
         this.requestList.add(request);
     }

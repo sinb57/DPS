@@ -27,10 +27,7 @@ dependencies {
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'
 
 	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-
-	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+	annotationProcessor('org.projectlombok:lombok')
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'

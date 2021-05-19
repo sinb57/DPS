@@ -1,10 +1,15 @@
 package com.project.dps.service;
 
-import com.project.dps.domain.Member;
-import com.project.dps.domain.Stage;
-import com.project.dps.domain.log.PocTestCaseLog;
+import com.project.dps.domain.log.PocLog;
+import com.project.dps.domain.scenario.stage.check.Subject;
+import com.project.dps.domain.scenario.stage.poc.TestCommon;
+import com.project.dps.domain.scenario.stage.poc.TestCase;
+import com.project.dps.domain.scenario.stage.poc.TestScenario;
+import com.project.dps.domain.scenario.stage.Stage;
 import com.project.dps.domain.log.StageLog;
-import com.project.dps.domain.poc.*;
+import com.project.dps.domain.scenario.stage.poc.*;
+import com.project.dps.repository.PocLogRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,47 +22,66 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class EvaluatorService {
-    private final String BASE_PATH = "./";
+    private final String BASE_PATH = "./casperjs/tmp/";
     private final long WAIT_MAX_TIME = 20;
     private final int EVALUATION_COUNT_MAX = 200;
     private int evaluationCount = 0;
 
-    public StageLog evaluate(Stage stage, Member member, String targetUrl) {
+    private final PocLogRepository pocLogRepository;
 
-        StageLog stageLog = new StageLog(stage, member, PocResultEnum.FAIL, null);
+    @Transactional
+    public void evaluate(StageLog stageLog, String targetUrl, String targetExtension) {
 
-        List<PocTestCategory> pocTestCategoryList = stage.getPocTestCategoryList();
+        Stage stage = stageLog.getStage();
 
-        for (PocTestCategory pocTestCategory : pocTestCategoryList) {
-            for (PocTestFunc pocTestFunc : pocTestCategory.getPocTestFuncList()) {
-                for (PocTestCase pocTestCase : pocTestFunc.getPocTestCaseList()) {
-                    String pocContent = pocTestFunc.getContent() + "\n\n" + pocTestCase.getContent();
-                    PocResultEnum result = evaluate(targetUrl, pocContent);
-                    PocTestCaseLog pocDetailLog = new PocTestCaseLog(
-                            stageLog, pocTestCase, result, pocTestCategory.getType(), pocTestCategory.getCategory());
+        for (TestScenario testScenario : stage.getTestScenarioList()) {
+            ValidTypeEnum type = testScenario.getType();
+            String category = testScenario.getContent();
+
+            for (TestCommon testCommon : testScenario.getTestCommonList()) {
+                for (TestCase testCase : testCommon.getTestCaseList()) {
+                    String pocContent = testCommon.getContent() + "\n\n" + testCase.getContent();
+                    ValidResultEnum result = evaluate(targetUrl, targetExtension, pocContent);
+                    PocLog pocLog = PocLog.builder()
+                            .stageLog(stageLog).testCase(testCase)
+                            .type(type).category(category)
+                            .result(result).build();
+                    pocLogRepository.save(pocLog);
                 }
             }
         }
 
-        return stageLog;
+        assignStageLogResult(stageLog);
+
+    }
+
+    private void assignStageLogResult(StageLog stageLog) {
+        List<PocLog> pocLogList = stageLog.getPocLogList();
+        int passCount = 0;
+        for (PocLog pocLog : pocLogList) {
+            if (pocLog.getResult() == ValidResultEnum.PASS)
+                passCount++;
+        }
+        if (passCount == pocLogList.size()) {
+            stageLog.setResult(ValidResultEnum.PASS);
+        }
 
     }
 
 
-    private PocResultEnum evaluate(String targetUrl, String pocContent) {
+    private ValidResultEnum evaluate(String targetUrl, String targetExtension, String pocContent) {
 
         String pocFilePath;
 
         try {
             pocFilePath = createPocFile(pocContent);
         } catch (IOException e) {
-            return PocResultEnum.FAIL;
+            return ValidResultEnum.FAIL;
         }
-        List<String> urlList = new ArrayList<>();
-        urlList.add(targetUrl);
 
-        PocResultEnum result = evaluatePoc(urlList, pocFilePath);
+        ValidResultEnum result = evaluatePoc(targetUrl, targetExtension, pocFilePath);
 
         removePocFile(pocFilePath);
 
@@ -75,14 +99,14 @@ public class EvaluatorService {
 
         return pocFileName;
     }
-    private String createPocFile(String poc) throws IOException {
+    private String createPocFile(String pocContent) throws IOException {
         String pocFileName = getPocFileName();
         String pocFilePath = BASE_PATH + pocFileName;
 
         File file = new File(pocFilePath);
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-        writer.write(poc);
+        writer.write(pocContent);
         writer.close();
 
         return pocFilePath;
@@ -94,27 +118,24 @@ public class EvaluatorService {
             file.delete();
     }
 
-    private PocResultEnum evaluatePoc(List<String> urlList, String pocFilePath) {
+    private ValidResultEnum evaluatePoc(String targetUrl, String targetExtension, String pocFilePath) {
         Runtime runtime = Runtime.getRuntime();
-
-        List<String> paramurl = new ArrayList<>();
-        for (int i = 0; i < urlList.size(); i++)
-            paramurl.add("--url" + i + "=" + urlList.get(i));
 
         List<String> params = new ArrayList<>();
         params.add("casperjs");
         params.add("test");
-        params.addAll(paramurl);
+        params.add("--url=" + targetUrl);
+        params.add("--extension=" + targetExtension);
         params.add(pocFilePath);
 
         try {
             Process process = runtime.exec(params.toArray(new String[0]));
 
             if (process.waitFor(WAIT_MAX_TIME, TimeUnit.SECONDS))
-                return (process.exitValue() == 0) ? PocResultEnum.PASS : PocResultEnum.FAIL;
-            return PocResultEnum.FAIL;
+                return (process.exitValue() == 0) ? ValidResultEnum.PASS : ValidResultEnum.FAIL;
+            return ValidResultEnum.FAIL;
         } catch (IOException | InterruptedException ignored) {
-            return PocResultEnum.FAIL;
+            return ValidResultEnum.FAIL;
         }
     }
 }

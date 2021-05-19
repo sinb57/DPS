@@ -1,11 +1,9 @@
 package com.project.dps.service;
 
-import com.project.dps.mapstruct.dto.StageDto;
-import com.project.dps.domain.Stage;
-import com.project.dps.mapstruct.mapper.StageMapper;
+import com.project.dps.dto.scenario.stage.StageDto;
+import com.project.dps.domain.scenario.stage.Stage;
 import com.project.dps.repository.StageRepository;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +16,6 @@ import java.util.Optional;
 public class StageService {
 
     private final StageRepository stageRepository;
-    private final StageMapper mapper = Mappers.getMapper(StageMapper.class);
 
     /*
     @Transactional
@@ -29,12 +26,17 @@ public class StageService {
     @Transactional
     public void update()
      */
+
+    public Long getIdByScenarioIdAndStageNo(Long scenarioId, Long stageNo) {
+        return getStageIfExist(scenarioId, stageNo).getId();
+    }
+
     public StageDto findById(Long stageId) {
-        return mapper.toDto(getStageIfExist(stageId));
+        return StageDto.toDto(getStageIfExist(stageId));
     }
 
     public StageDto findByScenarioIdAndStageNo(Long scenarioId, Long stageNo) {
-        return mapper.toDto(getStageIfExist(scenarioId, stageNo));
+        return StageDto.toDto(getStageIfExist(scenarioId, stageNo));
     }
 
     Stage getStageIfExist(Long stageId) {

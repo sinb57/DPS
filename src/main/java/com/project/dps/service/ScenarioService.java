@@ -1,13 +1,11 @@
 package com.project.dps.service;
 
-import com.project.dps.mapstruct.dto.ScenarioDto;
-import com.project.dps.domain.Scenario;
-import com.project.dps.mapstruct.mapper.ScenarioMapper;
+
+import com.project.dps.domain.scenario.Scenario;
+import com.project.dps.dto.scenario.ScenarioDto;
 import com.project.dps.repository.ScenarioRepository;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -18,24 +16,31 @@ import java.util.Optional;
 public class ScenarioService {
 
     private final ScenarioRepository scenarioRepository;
-    private final ScenarioMapper mapper = Mappers.getMapper(ScenarioMapper.class);
 
-    /*
     @Transactional
-    public void create()
-     */
+    public void create() {
 
-    /*
+    }
+
     @Transactional
-    public void update()
-     */
+    public void update() {
+
+    }
+
+    public Long getIdBySubTitle(String subTitle) {
+        return getScenarioIfExist(subTitle).getId();
+    }
+
+    public ScenarioDto findById(Long id) {
+        return ScenarioDto.toDto(getScenarioIfExist(id));
+    }
 
     public ScenarioDto findBySubTitle(String subTitle) {
-        return mapper.toDto(getScenarioIfExist(subTitle));
+        return ScenarioDto.toDto(getScenarioIfExist(subTitle));
     }
 
     public ScenarioDto findSummaryBySubTitle(String subTitle) {
-        return mapper.toSimpleDto(getScenarioIfExist(subTitle));
+        return ScenarioDto.toSimpleDto(getScenarioIfExist(subTitle));
     }
 
 
@@ -50,6 +55,12 @@ public class ScenarioService {
 //                .map(scenario -> mapper.toDto(scenario));
 //    }
 
+
+    private Scenario getScenarioIfExist(Long id) {
+        Optional<Scenario> scenario = scenarioRepository.findById(id);
+        // EXCEPTION
+        return scenario.orElseThrow(() -> new IllegalStateException("Not existed scenario subtitle"));
+    }
 
     private Scenario getScenarioIfExist(String subTitle) {
         Optional<Scenario> scenario = scenarioRepository.findBySubTitle(subTitle);

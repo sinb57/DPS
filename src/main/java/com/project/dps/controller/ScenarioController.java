@@ -1,9 +1,9 @@
 package com.project.dps.controller;
 
-import com.project.dps.mapstruct.dto.MemberDto;
-import com.project.dps.mapstruct.dto.ScenarioDto;
-import com.project.dps.mapstruct.dto.StageDto;
-import com.project.dps.mapstruct.dto.log.StageLogDto;
+import com.project.dps.dto.member.MemberDto;
+import com.project.dps.dto.scenario.ScenarioDto;
+import com.project.dps.dto.scenario.stage.StageDto;
+import com.project.dps.dto.log.StageLogDto;
 import com.project.dps.service.MemberService;
 import com.project.dps.service.PocService;
 import com.project.dps.service.ScenarioService;
@@ -46,34 +46,32 @@ public class ScenarioController {
 //        return "scenario/scenarioList";
 //    }
 
+    @GetMapping("/make")
+    public String getMethod_make() {
+        return "scenario/scenarioEdit";
+    }
+
 
     @GetMapping("/{subTitle}")
     public String getMethod_detail(@PathVariable String subTitle, Model model) {
         ScenarioDto scenarioDto = scenarioService.findBySubTitle(subTitle);
-        model.addAttribute("scenarioDto", scenarioDto);
+        model.addAttribute("scenario", scenarioDto);
         return "scenario/scenarioDetail";
-    }
-
-    private boolean isStageOutOfIndex (int stageCount, int stageNo) {
-        if (0 < stageNo && stageNo <= stageCount) {
-            return false;
-        }
-        return false;
     }
 
     @GetMapping({"/{scenarioSubTitle}/stages/{stageNo}"})
     public String getMethod_detail(@PathVariable("scenarioSubTitle") String subTitle,
                                    @PathVariable("stageNo") int stageNo,
                                    Model model) {
-        ScenarioDto scenarioDto = scenarioService.findBySubTitle(subTitle);
-        model.addAttribute("scenarioDto", scenarioDto);
 
-        if (isStageOutOfIndex(scenarioDto.getStageCount(), stageNo)) {
-            return "error";
-        }
+        Long scenarioId = scenarioService.getIdBySubTitle(subTitle);
+        Long stageId = stageService.getIdByScenarioIdAndStageNo(scenarioId, Long.valueOf(stageNo));
 
-        StageDto stageDto = scenarioDto.getStageDtoList().get(stageNo);
-        model.addAttribute("stageDto", stageDto);
+        ScenarioDto scenarioDto = scenarioService.findById(scenarioId);
+        model.addAttribute("scenario", scenarioDto);
+
+        StageDto stageDto = stageService.findById(stageId);
+        model.addAttribute("stage", stageDto);
 
         return "scenario/stageDetail";
     }
@@ -82,22 +80,24 @@ public class ScenarioController {
     public String postMethod_solve(@PathVariable("scenarioSubTitle") String subTitle,
                                    @PathVariable("stageNo") int stageNo,
                                    @RequestParam("targetUrl") String targetUrl,
+                                   @RequestParam("targetExtension") String targetExtension,
                                    Model model) {
-        MemberDto memberDto = memberService.findById(1L); // 세션에서 member data 가져올 예정
-        ScenarioDto scenarioDto = scenarioService.findBySubTitle(subTitle);
-        model.addAttribute("scenarioDto", scenarioDto);
 
-        if (isStageOutOfIndex(scenarioDto.getStageCount(), stageNo)) {
-            return "error";
-        }
+        Long memberId = 1L;
+        Long scenarioId = scenarioService.getIdBySubTitle(subTitle);
+        Long stageId = stageService.getIdByScenarioIdAndStageNo(scenarioId, Long.valueOf(stageNo));
 
-        StageDto stageDto = scenarioDto.getStageDtoList().get(stageNo);
-        model.addAttribute("stageDto", stageDto);
+        MemberDto memberDto = memberService.findById(memberId); // 세션에서 member data 가져올 예정
+        ScenarioDto scenarioDto = scenarioService.findById(scenarioId);
+        model.addAttribute("scenario", scenarioDto);
 
-        StageLogDto stageLogDto = pocService.evaluate(memberDto.getId(), stageDto.getId(), targetUrl);
-        model.addAttribute("stageLogDto", stageLogDto);
+        StageDto stageDto = stageService.findById(stageId);
+        model.addAttribute("stage", stageDto);
 
-        return "scenario/stageResult";
+        StageLogDto stageLogDto = pocService.evaluate(memberId, stageId, targetUrl, targetExtension);
+        model.addAttribute("stageLog", stageLogDto);
+
+        return "scenario/stageResult2";
     }
 
     @GetMapping({"/{scenarioSubTitle}/stages/{stageNo}/solution/{solutionTitle}"})

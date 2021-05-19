@@ -1,6 +1,6 @@
 package com.project.dps.controller;
 
-import com.project.dps.mapstruct.dto.MemberDto;
+import com.project.dps.dto.member.MemberDto;
 import com.project.dps.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

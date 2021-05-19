@@ -22,11 +22,9 @@ public class Scenario {
     private Long id;
 
     @OneToMany(mappedBy = "scenario")
-    @Builder.Default
     private List<Stage> stageList = new ArrayList<>();
 
     @OneToMany(mappedBy = "scenario")
-    @Builder.Default
     private List<ScenarioLog> scenarioLogList = new ArrayList<>();
 
     private String title;       // 시나리오 제목

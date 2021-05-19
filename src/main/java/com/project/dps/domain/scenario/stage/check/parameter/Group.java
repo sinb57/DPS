@@ -28,7 +28,6 @@ public class Group {
     private MethodTypeEnum type;
 
     @OneToMany(mappedBy = "group")
-    @Builder.Default
     private List<Parameter> parameterList = new ArrayList<>();
 
 

@@ -27,11 +27,9 @@ public class Stage {
     private Scenario scenario;
 
     @OneToMany(mappedBy = "stage")
-    @Builder.Default
     private List<StageLog> stageLogList = new ArrayList<>(); // 채점 로그
 
     @OneToMany(mappedBy = "stage")
-    @Builder.Default
     private List<Subject> subjectList = new ArrayList<>(); // 스테이지 구성 요소
 
     private String title;   // 스테이지 제목

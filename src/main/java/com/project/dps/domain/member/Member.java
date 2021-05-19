@@ -28,11 +28,9 @@ public class Member {
     private String password;
 
     @OneToMany(mappedBy = "member")
-    @Builder.Default
     private List<StageLog> stageLogList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    @Builder.Default
     private List<ScenarioLog> scenarioLogs = new ArrayList<>();
 
 

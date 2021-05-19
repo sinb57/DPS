@@ -24,7 +24,6 @@ public class TestCommon {
     private TestScenario testScenario;
 
     @OneToMany(mappedBy = "testCommon")
-    @Builder.Default
     private List<TestCase> testCaseList = new ArrayList<>();
 
     private String content; // POC 공통 분모

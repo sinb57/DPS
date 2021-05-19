@@ -25,7 +25,6 @@ public class TestScenario {
     private Subject subject;
 
     @OneToMany(mappedBy = "testScenario")
-    @Builder.Default
     private List<TestCommon> testCommonList = new ArrayList<>();
 
     @OneToOne(mappedBy = "testScenario")

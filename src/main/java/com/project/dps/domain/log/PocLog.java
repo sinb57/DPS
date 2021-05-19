@@ -37,23 +37,12 @@ public class PocLog {
     private String category;
 
 
-    //== 연관관계 메서드 ==//
-    private void setStageLog(StageLog stageLog) {
-        this.stageLog = stageLog;
-        this.stageLog.appendPocLog(this);
-    }
-
-    private void setTestCase(TestCase testCase) {
-        this.testCase = testCase;
-        this.testCase.appendPocLog(this);
-
-    }
-
-
     //== Builder 메서드 ==//
     @Builder
-    public PocLog(StageLog stageLog, TestCase testCase, String category) {
+    public PocLog(StageLog stageLog, TestCase testCase, ValidTypeEnum type, String category, ValidResultEnum result) {
+        this.type = type;
         this.category = category;
+        this.result = result;
 
         // 연관관계 로직
         this.stageLog = stageLog;

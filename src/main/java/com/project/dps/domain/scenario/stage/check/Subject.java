@@ -31,11 +31,9 @@ public class Subject {
     private Group group;
 
     @OneToMany(mappedBy = "subject")
-    @Builder.Default
     private List<TestScenario> testScenarioList = new ArrayList<>();
 
     @OneToMany(mappedBy = "subject")
-    @Builder.Default
     private List<Request> requestList = new ArrayList<>();
 
     private String title;   // 제목

@@ -24,8 +24,7 @@ public class TestCase {
     @JoinColumn(name = "poc_common_id")
     private TestCommon testCommon;
 
-    @OneToMany(mappedBy = "testCase")
-    @Builder.Default
+    @OneToMany(mappedBy = "pocCase")
     private List<PocLog> pocLogList = new ArrayList<>();
 
     private String content; // POC 코드

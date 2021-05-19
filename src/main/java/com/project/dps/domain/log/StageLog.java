@@ -3,10 +3,7 @@ package com.project.dps.domain.log;
 import com.project.dps.domain.member.Member;
 import com.project.dps.domain.scenario.stage.poc.ValidResultEnum;
 import com.project.dps.domain.scenario.stage.Stage;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -32,25 +29,12 @@ public class StageLog {
     private Member member;
 
     @OneToMany(mappedBy = "stageLog")
-    @Builder.Default
     private List<PocLog> pocLogList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
-    private ValidResultEnum result;
+    private ValidResultEnum result = ValidResultEnum.FAIL;
 
     private LocalDateTime createTime;
-
-
-    //== 연관관계 메서드 ==//
-    private void setStage (Stage stage) {
-        this.stage = stage;
-        stage.getStageLogList().add(this);
-    }
-
-    private void setMember (Member member) {
-        this.member = member;
-        member.getStageLogList().add(this);
-    }
 
 
     //== Builder 메서드 ==//

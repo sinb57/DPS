@@ -57,4 +57,12 @@ public class MemberDto {
                 .build();
     }
 
+    public static Member toEntity(MemberDto d) {
+        return Member.builder()
+                .email(d.getEmail())
+                .name(d.getName())
+                .password((d.getPassword()))
+                .build();
+    }
+
 }

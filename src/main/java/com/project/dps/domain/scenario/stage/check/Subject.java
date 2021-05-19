@@ -1,5 +1,6 @@
 package com.project.dps.domain.scenario.stage.check;
 
+import com.project.dps.domain.scenario.stage.check.result.Result;
 import com.project.dps.domain.scenario.stage.poc.TestScenario;
 import com.project.dps.domain.scenario.stage.Stage;
 import com.project.dps.domain.scenario.stage.check.parameter.Group;
@@ -36,19 +37,22 @@ public class Subject {
     @OneToMany(mappedBy = "subject")
     private List<Request> requestList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "subject")
+    private List<Result> resultList = new ArrayList<>();
+
     private String title;   // 제목
-    private String result;  // 수행 결과
 
 
     //== Builder 메서드 ==//
     @Builder
-    public Subject(Stage stage, String title, String result, Group group,
-                   List<TestScenario> testScenarioList, List<Request> requestList) {
+    public Subject(Stage stage, String title, Group group,
+                   List<TestScenario> testScenarioList,
+                   List<Request> requestList, List<Result> resultList) {
         this.title = title;
-        this.result = result;
         this.group = group;
         this.testScenarioList = testScenarioList;
         this.requestList = requestList;
+        this.resultList = resultList;
 
         // 연관관계 로직
         this.stage = stage;
@@ -70,6 +74,14 @@ public class Subject {
 
     public void removeRequest(Request request) {
         this.requestList.remove(request);
+    }
+
+    public void appendResult(Result result) {
+        this.resultList.add(result);
+    }
+
+    public void removeResult(Result result) {
+        this.resultList.remove(result);
     }
 
 

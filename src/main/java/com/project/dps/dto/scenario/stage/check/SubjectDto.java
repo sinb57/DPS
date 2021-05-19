@@ -3,8 +3,10 @@ package com.project.dps.dto.scenario.stage.check;
 import com.project.dps.domain.scenario.stage.check.Subject;
 import com.project.dps.domain.scenario.stage.check.parameter.Group;
 import com.project.dps.domain.scenario.stage.check.request.Request;
+import com.project.dps.domain.scenario.stage.check.result.Result;
 import com.project.dps.dto.scenario.stage.check.parameter.GroupDto;
 import com.project.dps.dto.scenario.stage.check.request.RequestDto;
+import com.project.dps.dto.scenario.stage.check.result.ResultDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -17,20 +19,24 @@ public class SubjectDto {
 
     private List<RequestDto> requestList;
 
+    private List<ResultDto> resultList;
+
     private String title;
-    private String result;
 
     private GroupDto group;
 
     //== Builder 메서드 ==//
     @Builder
-    public SubjectDto(String title, String result, Group group, List<Request> requestList) {
+    public SubjectDto(String title, Group group, List<Request> requestList, List<Result> resultList) {
         this.title = title;
-        this.result = result;
         this.group = GroupDto.toDto(group);
         this.requestList = requestList.stream()
                 .map(request -> RequestDto.toDto(request))
                 .collect(Collectors.toList());
+        this.resultList = resultList.stream()
+                .map(result -> ResultDto.toDto(result))
+                .collect(Collectors.toList());
+
     }
 
 
@@ -38,9 +44,9 @@ public class SubjectDto {
     public static SubjectDto toDto(Subject e) {
         return SubjectDto.builder()
                 .title(e.getTitle())
-                .result(e.getResult())
                 .group(e.getGroup())
                 .requestList(e.getRequestList())
+                .resultList(e.getResultList())
                 .build();
     }
 

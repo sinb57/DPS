@@ -21,9 +21,6 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping("/members")
 public class MemberController {
-
-    //TODO:: Session
-
     private final MemberService memberService;
 
     // 로그인 페이지

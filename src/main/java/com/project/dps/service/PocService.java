@@ -3,6 +3,7 @@ package com.project.dps.service;
 import com.project.dps.domain.member.Member;
 import com.project.dps.domain.scenario.stage.Stage;
 import com.project.dps.domain.log.StageLog;
+import com.project.dps.domain.scenario.stage.poc.ValidResultEnum;
 import com.project.dps.dto.log.StageLogDto;
 import com.project.dps.repository.StageLogRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class PocService {
 
         StageLog stageLog = StageLog.builder()
                 .stage(stage).member(member)
-                .build();
+                .result(ValidResultEnum.FAIL).build();
 
         stageLogRepository.save(stageLog);
 

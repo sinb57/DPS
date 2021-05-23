@@ -1,14 +1,19 @@
 package com.project.dps.controller;
 
+import com.project.dps.domain.scenario.stage.poc.ValidResultEnum;
+import com.project.dps.domain.scenario.stage.poc.ValidTypeEnum;
 import com.project.dps.dto.member.MemberDto;
 import com.project.dps.dto.scenario.ScenarioDto;
 import com.project.dps.dto.scenario.stage.StageDto;
 import com.project.dps.dto.log.StageLogDto;
+import com.project.dps.repository.StageLogRepository;
 import com.project.dps.service.MemberService;
 import com.project.dps.service.PocService;
 import com.project.dps.service.ScenarioService;
 import com.project.dps.service.StageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,30 +28,16 @@ public class ScenarioController {
     private final StageService stageService;
     private final PocService pocService;
 
-//    @GetMapping("/upload")
-//    public String getMethod_upload(Model model) {
-//        model.addAttribute("scenarioDto", ScenarioDto.builder().build());
-//        return "scenario/upload";
-//    }
-//
-//    @PostMapping("/upload")
-//    public String postMethod_upload(@Valid ScenarioDto scenarioDto, BindingResult result) {
-//
-//        if (result.hasErrors()) {
-//            System.out.printf("scenario upload error");
-//            return "scenario/upload";
-//        }
-//
-//        return "scenario/upload-success";
-//    }
-//
-//    @GetMapping("/list")
-//    public String scenarioList(@PageableDefault Pageable pageable, Model model) {
-//
-//        return "scenario/scenarioList";
-//    }
+    private final StageLogRepository stageLogRepository;
 
-    @GetMapping("/make")
+
+    @RequestMapping("/*")
+    public String scenarioList(@PageableDefault Pageable pageable, Model model) {
+
+        return "scenario/scenarioList";
+    }
+
+    @GetMapping("/edit")
     public String getMethod_make() {
         return "scenario/scenarioEdit";
     }
@@ -83,6 +74,14 @@ public class ScenarioController {
                                    @RequestParam("targetExtension") String targetExtension,
                                    Model model) {
 
+        if (targetUrl.charAt(targetUrl.length()-1) != '/') {
+            targetUrl += "/";
+        }
+
+        if (targetExtension.charAt(0) != '.') {
+            targetExtension = "." + targetExtension;
+        }
+
         Long memberId = 1L;
         Long scenarioId = scenarioService.getIdBySubTitle(subTitle);
         Long stageId = stageService.getIdByScenarioIdAndStageNo(scenarioId, Long.valueOf(stageNo));
@@ -95,9 +94,13 @@ public class ScenarioController {
         model.addAttribute("stage", stageDto);
 
         StageLogDto stageLogDto = pocService.evaluate(memberId, stageId, targetUrl, targetExtension);
+        //StageLogDto stageLogDto = StageLogDto.toDto(stageLogRepository.getOne(5L));
         model.addAttribute("stageLog", stageLogDto);
 
-        return "scenario/stageResult2";
+        model.addAttribute("validResultEnum", ValidResultEnum.values());
+        model.addAttribute("validTypeEnum", ValidTypeEnum.values());
+
+        return "scenario/stageResult";
     }
 
     @GetMapping({"/{scenarioSubTitle}/stages/{stageNo}/solution/{solutionTitle}"})

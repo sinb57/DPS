@@ -1,14 +1,15 @@
 package com.project.dps.service;
 
 import com.project.dps.domain.log.TestCaseLog;
+import com.project.dps.domain.log.TestCategoryLog;
 import com.project.dps.domain.log.TestScenarioLog;
 import com.project.dps.domain.scenario.stage.poc.TestCommon;
 import com.project.dps.domain.scenario.stage.poc.TestCase;
-import com.project.dps.domain.scenario.stage.poc.TestScenario;
 import com.project.dps.domain.scenario.stage.Stage;
 import com.project.dps.domain.log.StageLog;
 import com.project.dps.domain.scenario.stage.poc.*;
 import com.project.dps.repository.TestCaseLogRepository;
+import com.project.dps.repository.TestCategoryLogRepository;
 import com.project.dps.repository.TestScenarioLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,11 +26,12 @@ import java.util.concurrent.TimeUnit;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class EvaluatorService {
-    private final String BASE_PATH = "./casperjs/tmp/";
+    private final String BASE_PATH = "./Evaluator/";
     private final long WAIT_MAX_TIME = 20;
     private final int EVALUATION_COUNT_MAX = 200;
     private int evaluationCount = 0;
 
+    private final TestCategoryLogRepository testCategoryLogRepository;
     private final TestScenarioLogRepository testScenarioLogRepository;
     private final TestCaseLogRepository testCaseLogRepository;
 
@@ -37,16 +39,23 @@ public class EvaluatorService {
     public void evaluate(StageLog stageLog, String targetUrl, String targetExtension) {
 
         Stage stage = stageLog.getStage();
+        TestCommon testCommon = stage.getTestCommon();
 
-        for (TestScenario testScenario : stage.getTestScenarioList()) {
-            TestScenarioLog testScenarioLog = TestScenarioLog.builder()
-                    .stageLog(stageLog).testScenario(testScenario)
+        for (TestCategory testCategory : stage.getTestCategoryList()) {
+            TestCategoryLog testCategoryLog = TestCategoryLog.builder()
+                    .stageLog(stageLog).type(testCategory.getType())
                     .result(ValidResultEnum.FAIL).build();
 
-            testScenarioLogRepository.save(testScenarioLog);
+            testCategoryLogRepository.save(testCategoryLog);
 
-            for (TestCommon testCommon : testScenario.getTestCommonList()) {
-                for (TestCase testCase : testCommon.getTestCaseList()) {
+            for (TestScenario testScenario : testCategory.getTestScenarioList()) {
+                TestScenarioLog testScenarioLog = TestScenarioLog.builder()
+                        .testCategoryLog(testCategoryLog).testScenario(testScenario)
+                        .result(ValidResultEnum.FAIL).build();
+
+                testScenarioLogRepository.save(testScenarioLog);
+
+                for (TestCase testCase : testScenario.getTestCaseList()) {
                     String pocContent = testCommon.getContent() + "\n\n" + testCase.getContent();
                     ValidResultEnum result = evaluate(targetUrl, targetExtension, pocContent);
 
@@ -56,31 +65,43 @@ public class EvaluatorService {
 
                     testCaseLogRepository.save(testCaseLog);
                 }
+
+                assignTestScenarioLogResult(testScenarioLog);
+
             }
 
-            assignTestScenarioLogResult(testScenarioLog);
+            assignTestCategoryLogResult(testCategoryLog);
 
-            if (testScenarioLog.getResult() == ValidResultEnum.PASS) {
-                testScenarioLogRepository.save(testScenarioLog);
-            }
         }
 
         assignStageLogResult(stageLog);
-
     }
 
+
+
     private void assignStageLogResult(StageLog stageLog) {
-        List<TestScenarioLog> testScenarioLogList = stageLog.getTestScenarioLogList();
+        List<TestCategoryLog> testCategoryLogList = stageLog.getTestCategoryLogList();
+        int passCount = 0;
+        for (TestCategoryLog testCategoryLog : testCategoryLogList) {
+            if (testCategoryLog.getResult() == ValidResultEnum.PASS)
+                passCount++;
+        }
+        if (passCount == testCategoryLogList.size()) {
+            stageLog.makeItPass(ValidResultEnum.PASS);
+        }
+    }
+
+    private void assignTestCategoryLogResult(TestCategoryLog testCategoryLog) {
+        List<TestScenarioLog> testScenarioLogList = testCategoryLog.getTestScenarioLogList();
         int passCount = 0;
         for (TestScenarioLog testScenarioLog : testScenarioLogList) {
             if (testScenarioLog.getResult() == ValidResultEnum.PASS)
                 passCount++;
         }
         if (passCount == testScenarioLogList.size()) {
-            stageLog.setResult(ValidResultEnum.PASS);
+            testCategoryLog.makeItPass(ValidResultEnum.PASS);
         }
     }
-
 
     private void assignTestScenarioLogResult(TestScenarioLog testScenarioLog) {
         List<TestCaseLog> testCaseLogList = testScenarioLog.getTestCaseLogList();
@@ -90,7 +111,7 @@ public class EvaluatorService {
                 passCount++;
         }
         if (passCount == testCaseLogList.size()) {
-            testScenarioLog.setResult(ValidResultEnum.PASS);
+            testScenarioLog.makeItPass(ValidResultEnum.PASS);
         }
     }
 

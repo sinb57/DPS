@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+
+<th:block th:replace="fragments/styles"/>
+
+<body class="layout-sticky-subnav layout-default ">
+
+<th:block th:replace="fragments/preloader"/>
+
+<div class="mdk-header-layout js-mdk-header-layout">
+
+    <th:block th:replace="fragments/navbar"/>
+
+
+    <!-- Header Layout Content -->
+    <div class="mdk-header-layout__content page-content ">
+
+        <div class="navbar navbar-list navbar-light bg-white border-bottom-2 border-bottom navbar-expand-sm"
+             style="white-space: nowrap;">
+            <div class="container page__container">
+                <nav class="nav navbar-nav">
+                    <div class="nav-item navbar-list__item">
+                        <a th:href="|/scenarios/${scenario.subTitle}|" class="nav-link h-auto">
+                            <i class="material-icons icon--left">keyboard_backspace</i> Back to Scenario </a>
+                    </div>
+                    <div class="nav-item navbar-list__item">
+                        <div class="d-flex align-items-center flex-nowrap">
+                            <div class="flex">
+                                <a th:href="|/scenarios/${scenario.subTitle}|" class="card-title text-body mb-0"
+                                   th:text="${scenario.title}">시나리오 제목</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="bg-primary pb-lg-64pt py-32pt">
+            <div class="container page__container">
+                <nav class="course-nav">
+                    <th:block th:each="stageInfo : ${scenario.stageList}">
+                        <th:block th:if="${stageInfo.no} < ${stage.no}">
+                            <a th:href="|/scenarios/${scenario.subTitle}/stages/${stageInfo.no}|" data-toggle="tooltip"
+                               data-placement="bottom" th:data-title="${stageInfo.title}" data-original-title=""
+                               title="">
+                                <span class="material-icons" th:if="${stageInfo.no} < ${stage.no}">done</span>
+                            </a>
+                        </th:block>
+                        <th:block th:if="${stageInfo.no} == ${stage.no}">
+                            <a th:href="|/scenarios/${scenario.subTitle}/stages/${stageInfo.no}|" data-toggle="tooltip"
+                               data-placement="bottom" th:data-title="${stageInfo.title}" data-original-title=""
+                               title="">
+                                <span class="material-icons"
+                                      th:if="${stageInfo.no} == ${stage.no}">account_circle</span>
+                            </a>
+                        </th:block>
+                        <th:block th:if="${stageInfo.no} > ${stage.no}">
+                            <!--                            <a href="#" data-toggle="tooltip" data-placement="bottom" th:data-title="${stageInfo.title}" data-original-title="" title="">-->
+                            <a th:href="|/scenarios/${scenario.subTitle}/stages/${stageInfo.no}|" data-toggle="tooltip"
+                               data-placement="bottom" th:data-title="${stageInfo.title}" data-original-title=""
+                               title="">
+                                <span class="material-icons" th:if="${stageInfo.no} > ${stage.no}">fullscreen</span>
+                            </a>
+                        </th:block>
+                    </th:block>
+                </nav>
+                <h1 class="text-white" th:text="${stage.title}">스테이지 제목</h1>
+                <p class="lead text-white-50 measure-hero-lead mb-24pt">&nbsp;</p>
+                <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
+                    <th:block th:if="${stageLog.result == validResultEnum[0]}">
+                        <a th:href="|/scenarios/${scenario.subTitle}/stages/${stage.no+1}|"
+                           class="btn btn-outline-white mb-16pt mb-sm-0 mr-sm-16pt">넘어가기</a>
+                    </th:block>
+                    <a th:href="|/scenarios/${scenario.subTitle}/stages/${stage.no}|" class="btn btn-white">돌아가기</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-section border-bottom-2">
+            <div class="container page__container">
+                <div class="row mb-0">
+                    <div class="col-lg-6" th:each="testCategoryLog : ${stageLog.testCategoryLogList}">
+                        <div class="page-separator">
+                            <th:block th:if="${testCategoryLog.type == validTypeEnum[0]}">
+                                <div class="page-separator__text">기능 검사</div>
+                            </th:block>
+                            <th:block th:if="${testCategoryLog.type == validTypeEnum[1]}">
+                                <div class="page-separator__text">보안 검사</div>
+                            </th:block>
+                        </div>
+                        <div class="row mb-0">
+                            <div class="col-lg-12 mb-24pt"
+                                 th:each="testScenarioLog : ${testCategoryLog.testScenarioLogList}">
+                                <div class="accordion js-accordion accordion--boxed list-group-flush" id="parent">
+                                    <div class="accordion__item">
+                                        <a href="#" class="accordion__toggle collapsed"
+                                           data-toggle="collapse"
+                                           th:data-target="|#category-${testCategoryLogStat.count}-check-${testScenarioLogStat.count}|"
+                                           data-parent="#parent">
+                                            <th:block th:if="${testScenarioLog.result == validResultEnum[0]}">
+                                                <span class="flex" style="font-size:.9rem; font-weight:bold;"
+                                                      th:text="|${testScenarioLog.testScenario.content}">스테이지 제목</span>
+                                                <span th:text="|${testScenarioLog.testCasePassCount} / ${testScenarioLog.testCaseCount}|"></span>
+                                            </th:block>
+                                            <th:block th:if="${testScenarioLog.result == validResultEnum[1]}">
+                                                <span class="flex" style="font-size:.9rem; font-weight:bold; color:red;"
+                                                      th:text="|${testScenarioLog.testScenario.content}">스테이지 제목</span>
+                                                <span th:text="|${testScenarioLog.testCasePassCount} / ${testScenarioLog.testCaseCount}|" style="font-weight:bold; color:red;"></span>
+                                            </th:block>
+                                            <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
+                                        </a>
+                                        <div class="accordion__menu collapse"
+                                             th:id="|category-${testCategoryLogStat.count}-check-${testScenarioLogStat.count}|"
+                                             th:each="testCaseLog : ${testScenarioLog.testCaseLogList}">
+                                            <div class="accordion__menu-link active">
+                                                <th:block th:if="${testCaseLog.result == validResultEnum[0]}">
+                                                    <a class="flex" href="#"
+                                                       th:text="|[${testCaseLog.result}] 테스트케이스 #${testCaseLogStat.count}|"></a>
+                                                </th:block>
+                                                <th:block th:if="${testCaseLog.result == validResultEnum[1]}">
+                                                    <a class="flex" href="#"
+                                                       th:text="|[${testCaseLog.result}] 테스트케이스 #${testCaseLogStat.count}|"
+                                                       style="color:red;"></a>
+                                                </th:block>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- // END Header Layout Content -->
+
+    <th:block th:replace="fragments/footer"/>
+
+</div>
+
+<th:block th:replace="fragments/drawer"/>
+
+<th:block th:replace="fragments/scripts"/>
+
+</body>
+
+</html>

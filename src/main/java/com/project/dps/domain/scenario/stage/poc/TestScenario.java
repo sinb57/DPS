@@ -1,7 +1,7 @@
 package com.project.dps.domain.scenario.stage.poc;
 
+import com.project.dps.domain.log.TestCaseLog;
 import com.project.dps.domain.log.TestScenarioLog;
-import com.project.dps.domain.scenario.stage.Stage;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,49 +17,44 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TestScenario {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "poc_scenario_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "stage_id")
-    private Stage stage;
+    @JoinColumn(name = "poc_category_id")
+    private TestCategory testCategory;
 
     @OneToMany(mappedBy = "testScenario")
-    private List<TestCommon> testCommonList = new ArrayList<>();
+    private List<TestCase> testCaseList = new ArrayList<>();
 
     @OneToMany(mappedBy = "testScenario")
-    private List<TestScenarioLog> testScenarioLogList;
+    private List<TestScenarioLog> testScenarioLogList = new ArrayList<>();
 
     @OneToOne(mappedBy = "testScenario")
     private Solution solution;
 
-    @Enumerated(EnumType.STRING)
-    private ValidTypeEnum type;
-
-    private String content;
+    private String content; // 검사 항목 내용
 
 
     //== Builder 메서드 ==//
     @Builder
-    public TestScenario(Stage stage, ValidTypeEnum type, Solution solution) {
-        this.type = type;
+    public TestScenario(TestCategory testCategory, Solution solution, String content) {
         this.solution = solution;
+        this.content = content;
 
         // 연관관계 로직
-        this.stage = stage;
-        stage.appendTestScenario(this);
-
-        this.content = stage.getTitle();
+        this.testCategory = testCategory;
+        testCategory.appendTestScenario(this);
     }
 
     //== 비즈니스 로직 ==//
-    public void appendTestCommon(TestCommon testCommon) {
-        this.testCommonList.add(testCommon);
+    public void appendTestCase(TestCase testCase) {
+        this.testCaseList.add(testCase);
     }
 
-    public void removeTestCommon(TestCommon testCommon) {
-        this.testCommonList.remove(testCommon);
+    public void removeTestCase(TestCase testCase) {
+        this.testCaseList.remove(testCase);
     }
 
     public void appendTestScenarioLog(TestScenarioLog testScenarioLog) {
@@ -69,12 +64,6 @@ public class TestScenario {
     public void removeTestScenarioLog(TestScenarioLog testScenarioLog) {
         this.testScenarioLogList.remove(testScenarioLog);
     }
-
-    public void edit(ValidTypeEnum type, String content) {
-        this.type = type;
-        this.content = content;
-    }
-
 
     //== setter 메서드 ==//
     public void setSolution(Solution solution) {

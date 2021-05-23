@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TestCaseLog {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "poc_case_log_id")
     private Long id;
 
@@ -28,7 +28,7 @@ public class TestCaseLog {
     private TestCase testCase;
 
     @Enumerated(EnumType.STRING)
-    private ValidResultEnum result; // PASS, FAIL
+    private ValidResultEnum result = ValidResultEnum.FAIL;
 
 
     //== Builder 메서드 ==//
@@ -44,7 +44,7 @@ public class TestCaseLog {
     }
 
     //== Setter 메서드 ==//
-    public void setResult(ValidResultEnum result) {
+    public void makeItPass (ValidResultEnum result) {
         this.result = result;
     }
 }

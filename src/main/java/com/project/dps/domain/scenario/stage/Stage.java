@@ -3,7 +3,10 @@ package com.project.dps.domain.scenario.stage;
 import com.project.dps.domain.log.StageLog;
 import com.project.dps.domain.scenario.Scenario;
 import com.project.dps.domain.scenario.stage.check.Subject;
+import com.project.dps.domain.scenario.stage.poc.TestCategory;
+import com.project.dps.domain.scenario.stage.poc.TestCommon;
 import com.project.dps.domain.scenario.stage.poc.TestScenario;
+import com.project.dps.domain.scenario.stage.poc.ValidTypeEnum;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +22,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Stage {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stage_id")
     private Long id;
 
@@ -30,11 +33,14 @@ public class Stage {
     @OneToMany(mappedBy = "stage")
     private List<StageLog> stageLogList = new ArrayList<>(); // 채점 로그
 
+    @OneToOne(mappedBy = "stage")
+    private TestCommon testCommon;
+
     @OneToMany(mappedBy = "stage")
     private List<Subject> subjectList = new ArrayList<>(); // 스테이지 구성 요소
 
     @OneToMany(mappedBy = "stage")
-    private List<TestScenario> testScenarioList = new ArrayList<>(); // 스테이지 점검 POC
+    private List<TestCategory> testCategoryList = new ArrayList<>() {{}}; // 스테이지 점검 POC
 
     private String title;   // 스테이지 제목
     private Long no;        // 스테이지 번호
@@ -42,17 +48,18 @@ public class Stage {
 
     //== Builder 메서드 ==//
     @Builder
-    public Stage(Scenario scenario, Long no, String title, List<StageLog> stageLogList,
-                 List<Subject> subjectList, List<TestScenario> testScenarioList) {
+    public Stage(Scenario scenario, Long no, String title) {
         this.no = no;
         this.title = title;
-        this.stageLogList = stageLogList;
-        this.subjectList = subjectList;
-        this.testScenarioList = testScenarioList;
 
         // 연관관계 로직
         this.scenario = scenario;
         scenario.appendStage(this);
+
+        this.testCategoryList = new ArrayList<>() {{
+            add(TestCategory.builder().type(ValidTypeEnum.FUNCTION).build());
+            add(TestCategory.builder().type(ValidTypeEnum.SECURITY).build());
+        }};
     }
 
 
@@ -73,15 +80,13 @@ public class Stage {
         this.subjectList.remove(subject);
     }
 
-    public void appendTestScenario(TestScenario testScenario) {
-        this.testScenarioList.add(testScenario);
-    }
-
-    public void removeTestScenario(TestScenario testScenario) {
-        this.testScenarioList.remove(testScenario);
-    }
-
     public void edit(String title) {
         this.title = title;
+    }
+
+
+    //== Setter 메서드 ==//
+    public void setTestCommon(TestCommon testCommon) {
+        this.testCommon = testCommon;
     }
 }

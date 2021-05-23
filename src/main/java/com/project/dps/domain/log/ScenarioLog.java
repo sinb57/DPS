@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ScenarioLog {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "scenario_log_id")
     private Long id;
 
@@ -28,16 +28,13 @@ public class ScenarioLog {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Enumerated(EnumType.STRING)
-    private ValidResultEnum result;
 
     private LocalDateTime localDateTime;
 
 
     //== Builder 메서드 ==//
     @Builder
-    public ScenarioLog(Scenario scenario, Member member, ValidResultEnum result) {
-        this.result = result;
+    public ScenarioLog(Scenario scenario, Member member) {
         this.localDateTime = LocalDateTime.now();
 
         // 연관관계 로직

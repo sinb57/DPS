@@ -10,21 +10,18 @@ import java.time.LocalDateTime;
 @Getter
 public class ScenarioLogDto {
 
-    private ValidResultEnum result;
-
     private LocalDateTime createTime;
+
 
     //== Builder 메서드 ==//
     @Builder
-    public ScenarioLogDto(ValidResultEnum result, LocalDateTime createTime) {
-        this.result = result;
+    public ScenarioLogDto(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 
     //== Mapper 메서드 ==//
     public static ScenarioLogDto toDto(ScenarioLog e) {
         return ScenarioLogDto.builder()
-                .result(e.getResult())
                 .createTime(e.getLocalDateTime())
                 .build();
     }

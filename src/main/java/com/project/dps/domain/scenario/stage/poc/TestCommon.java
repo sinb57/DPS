@@ -1,5 +1,6 @@
 package com.project.dps.domain.scenario.stage.poc;
 
+import com.project.dps.domain.scenario.stage.Stage;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,29 +16,30 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TestCommon {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "poc_common_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "poc_scenario_id")
-    private TestScenario testScenario;
+    @JoinColumn(name = "stage_id")
+    private Stage stage;
 
     @OneToMany(mappedBy = "testCommon")
     private List<TestCase> testCaseList = new ArrayList<>();
 
+    @Column(length = 2000)
     private String content; // POC 공통 분모
 
 
     //== Builder 메서드 ==//
     @Builder
-    public TestCommon(TestScenario testScenario, List<TestCase> testCaseList, String content) {
+    public TestCommon(Stage stage, List<TestCase> testCaseList, String content) {
         this.testCaseList = testCaseList;
         this.content = content;
 
         // 연관관계 로직
-        this.testScenario = testScenario;
-        testScenario.appendTestCommon(this);
+        this.stage = stage;
+        stage.setTestCommon(this);
     }
 
 

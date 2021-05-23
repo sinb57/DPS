@@ -16,13 +16,17 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TestCase {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "poc_case_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "poc_common_id")
     private TestCommon testCommon;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "poc_scenario_id")
+    private TestScenario testScenario;
 
     @OneToMany(mappedBy = "testCase")
     private List<TestCaseLog> testCaseLogList = new ArrayList<>();
@@ -32,13 +36,14 @@ public class TestCase {
 
     //== Builder 메서드 ==//
     @Builder
-    public TestCase(TestCommon testCommon, String content, List<TestCaseLog> testCaseLogList) {
+    public TestCase(TestCommon testCommon, TestScenario testScenario, String content) {
         this.content = content;
-        this.testCaseLogList = testCaseLogList;
 
         // 연관관계 로직
         this.testCommon = testCommon;
         testCommon.appendTestCaseList(this);
+        this.testScenario = testScenario;
+        testScenario.appendTestCase(this);
     }
 
 

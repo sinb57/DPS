@@ -17,13 +17,13 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TestScenarioLog {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "poc_scenario_log_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "stage_log_id")
-    private StageLog stageLog;
+    @JoinColumn(name = "poc_category_log_id")
+    private TestCategoryLog testCategoryLog;
 
     @OneToMany(mappedBy = "testScenarioLog")
     private List<TestCaseLog> testCaseLogList = new ArrayList<>();
@@ -33,18 +33,21 @@ public class TestScenarioLog {
     private TestScenario testScenario;
 
     @Enumerated(EnumType.STRING)
-    private ValidResultEnum result; // PASS, FAIL
+    private ValidResultEnum result = ValidResultEnum.FAIL;
 
+    private int testCaseCount;
+
+    private int testCasePassCount;
 
 
     //== Builder 메서드 ==//
     @Builder
-    public TestScenarioLog(StageLog stageLog, TestScenario testScenario, ValidResultEnum result) {
+    public TestScenarioLog(TestCategoryLog testCategoryLog, TestScenario testScenario, ValidResultEnum result) {
         this.result = result;
 
         // 연관관계 로직
-        this.stageLog = stageLog;
-        stageLog.appendTestScenarioLog(this);
+        this.testCategoryLog = testCategoryLog;
+        testCategoryLog.appendTestScenarioLog(this);
         this.testScenario = testScenario;
         testScenario.appendTestScenarioLog(this);
     }
@@ -52,15 +55,23 @@ public class TestScenarioLog {
     //== 비즈니스 로직 ==//
     public void appendTestCaseLog(TestCaseLog testCaseLog) {
         this.testCaseLogList.add(testCaseLog);
+        this.testCaseCount++;
+        if (testCaseLog.getResult() == ValidResultEnum.PASS) {
+            this.testCasePassCount++;
+        }
     }
 
     public void removeTestCaseLog(TestCaseLog testCaseLog) {
         this.testCaseLogList.remove(testCaseLog);
+        this.testCaseCount--;
+        if (testCaseLog.getResult() == ValidResultEnum.PASS) {
+            this.testCasePassCount--;
+        }
     }
 
 
     //== Setter 메서드 ==//
-    public void setResult(ValidResultEnum result) {
+    public void makeItPass (ValidResultEnum result) {
         this.result = result;
     }
 }

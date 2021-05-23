@@ -19,26 +19,21 @@
     <th:block th:replace="fragments/navbar"/>
 
     <!-- Header Layout Content -->
-    <div class="mdk-header-layout__content page-content "
-        th:with="scenario=${scenarioDto}, stage=${stageDto}">
+    <div class="mdk-header-layout__content page-content ">
 
         <div class="navbar navbar-list navbar-light bg-white border-bottom-2 border-bottom navbar-expand-sm"
              style="white-space: nowrap;">
             <div class="container page__container">
                 <nav class="nav navbar-nav">
                     <div class="nav-item navbar-list__item">
-                        <a th:href="|/scenarios/${scenario.subTitle}|"
-                           class="nav-link h-auto"><i class="material-icons icon--left">keyboard_backspace</i> Back to
-                            Course</a>
+                        <a th:href="|/scenarios/${scenario.subTitle}|" class="nav-link h-auto">
+                            <i class="material-icons icon--left">keyboard_backspace</i> Back to Scenario </a>
                     </div>
                     <div class="nav-item navbar-list__item">
                         <div class="d-flex align-items-center flex-nowrap">
-                            <div class="mr-16pt">
-                                <a href="student-take-course.html"/>
-                            </div>
                             <div class="flex">
-                                <a href="student-take-course.html"
-                                   class="card-title text-body mb-0" th:text="${scenario.title}">커뮤니티 만들기</a>
+                                <a th:href="|/scenarios/${scenario.subTitle}|" class="card-title text-body mb-0"
+                                   th:text="${scenario.title}">시나리오 제목</a>
                             </div>
                         </div>
                     </div>
@@ -49,16 +44,30 @@
         <div class="bg-primary pb-lg-64pt py-32pt">
             <div class="container page__container">
                 <nav class="course-nav">
-                    <a href="#" data-toggle="tooltip" data-placement="bottom" data-title="Getting Started with Angular: Introduction" data-original-title="" title=""><span class="material-icons">done</span></a>
-                    <a href="#" data-toggle="tooltip" data-placement="bottom" data-title="Getting Started with Angular: Introduction to TypeScript" data-original-title="" title=""><span class="material-icons">account_circle</span></a>
-                    <a href="#" data-toggle="tooltip" data-placement="bottom" data-title="Getting Started with Angular: Comparing Angular to AngularJS" data-original-title="" title=""><span class="material-icons">fullscreen</span></a>
-                    <a href="#" data-toggle="tooltip" data-placement="bottom" data-title="Quiz: Getting Started with Angular" data-original-title="" title=""><span class="material-icons text-primary">fullscreen</span></a>
+                    <th:block th:each="stageInfo : ${scenario.stageList}">
+                        <th:block th:if="${stageInfo.no} < ${stage.no}">
+                            <a th:href="|/scenarios/${scenario.subTitle}/stages/${stageInfo.no}|" data-toggle="tooltip" data-placement="bottom" th:data-title="${stageInfo.title}" data-original-title="" title="">
+                                <span class="material-icons" th:if="${stageInfo.no} < ${stage.no}">done</span>
+                            </a>
+                        </th:block>
+                        <th:block th:if="${stageInfo.no} == ${stage.no}">
+                            <a th:href="|/scenarios/${scenario.subTitle}/stages/${stageInfo.no}|" data-toggle="tooltip" data-placement="bottom" th:data-title="${stageInfo.title}" data-original-title="" title="">
+                                <span class="material-icons" th:if="${stageInfo.no} == ${stage.no}">account_circle</span>
+                            </a>
+                        </th:block>
+                        <th:block th:if="${stageInfo.no} > ${stage.no}">
+<!--                            <a href="#" data-toggle="tooltip" data-placement="bottom" th:data-title="${stageInfo.title}" data-original-title="" title="">-->
+                            <a th:href="|/scenarios/${scenario.subTitle}/stages/${stageInfo.no}|" data-toggle="tooltip" data-placement="bottom" th:data-title="${stageInfo.title}" data-original-title="" title="">
+                                <span class="material-icons" th:if="${stageInfo.no} > ${stage.no}">fullscreen</span>
+                            </a>
+                        </th:block>
+                    </th:block>
                 </nav>
 
-                    <h1 class="text-white">회원가입 및 로그인</h1>
-                    <p class="lead text-white-50 measure-hero-lead mb-24pt">&nbsp;</p>
+                <h1 class="text-white" th:text="${stage.title}">스테이지 제목</h1>
+                <p class="lead text-white-50 measure-hero-lead mb-24pt">아래의 요구사항에 맞춰 페이지를 제작하고 제출해주세요.</p>
 
-                <form method="post" action="/scenarios/Simple-Community-Board/stages/1/solve">
+                <form method="post" th:action="|/scenarios/${scenario.subTitle}/stages/${stage.no}/solve|">
                     <div class="was-validated">
                         <div class="form-row">
                             <div class="col-12 col-md-6 mb-3">
@@ -75,6 +84,7 @@
                     </div>
                     <button type="submit" class="btn btn-outline-white mb-16pt mb-sm-0 mr-sm-16pt">Submit</button>
                 </form>
+
             </div>
         </div>
 
@@ -93,10 +103,10 @@
             </div>
         </div>
 
-        <div class="page-section bg-alt">
+        <div class="page-section bg-alt" th:each="subject : ${stage.subjectList}">
             <div class="container page__container">
                 <div class="page-separator">
-                    <div class="page-separator__text">회원가입</div>
+                    <div class="page-separator__text" th:text="${subject.title}">회원가입</div>
                 </div>
                 <div class="row mb-0">
                     <div class="col-lg-7">
@@ -106,29 +116,9 @@
                             </div>
                             <div class="card-body">
                                 <ul class="list-unstyled list-todo">
-                                    <li>
+                                    <li th:each="request : ${subject.requestList}">
                                         <div class="custom-control custom-checkbox" style="padding-left: 1rem;">
-                                            <label class="custom-control-label">URL 페이지명은 signUp_check로 고정한다.</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-control custom-checkbox" style="padding-left: 1rem;">
-                                            <label class="custom-control-label">중복된 아이디로 회원가입이 되면 안된다.</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-control custom-checkbox" style="padding-left: 1rem;">
-                                            <label class="custom-control-label">비밀번호는 영어, 숫자, 특수문자가 하나 이상씩 포함되어야 한다.</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-control custom-checkbox" style="padding-left: 1rem;">
-                                            <label class="custom-control-label">비밀번호는 최소 9자 이상이어야 한다.</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-control custom-checkbox" style="padding-left: 1rem;">
-                                            <label class="custom-control-label">비밀번호의 특수문자는 !@#$%^&*가 보장되어야 한다.</label>
+                                            <label class="custom-control-label" th:text="${request.content}"></label>
                                         </div>
                                     </li>
                                 </ul>
@@ -136,18 +126,14 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-5">
+                    <div class="col-lg-5" th:with="group=${subject.group}">
                         <div class="page-separator">
-                            <div class="page-separator__text">입력 데이터 [POST]</div>
+                            <div class="page-separator__text" th:text="|입력 데이터 [${group.type}]|">입력 데이터 [POST]</div>
                         </div>
                         <ul class="list-unstyled">
-                            <li class="d-flex align-items-center">
+                            <li class="d-flex align-items-center" th:each="parameter : ${group.parameterList}">
                                 <span class="material-icons text-50 mr-8pt">chevron_right</span>
-                                <span class="text-70">아이디: id</span>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <span class="material-icons text-50 mr-8pt">chevron_right</span>
-                                <span class="text-70">비밀번호: passwd</span>
+                                <span class="text-70" th:text="|${parameter.name} : ${parameter.value}">아이디: id</span>
                             </li>
                         </ul>
                         </br>
@@ -155,86 +141,9 @@
                             <div class="page-separator__text">수행 결과</div>
                         </div>
                         <ul class="list-unstyled">
-                            <li class="d-flex align-items-center">
+                            <li class="d-flex align-items-center" th:each="result : ${subject.resultList}">
                                 <span class="material-icons text-50 mr-8pt">chevron_right</span>
-                                <span class="text-70">&lt;any id='result'&gt;[회원가입 성공 여부]&lt;/any&gt;</span>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <span class="material-icons text-50 mr-8pt">chevron_right</span>
-                                <span class="text-70">[회원가입 성공 여부]: Success/Fail</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="page-section bg-alt">
-            <div class="container page__container">
-                <div class="page-separator">
-                    <div class="page-separator__text">로그인</div>
-                </div>
-                <div class="row mb-0">
-                    <div class="col-lg-7">
-                        <div class="card mb-lg-0">
-                            <div class="card-header d-flex align-items-center">
-                                <strong class="flex">요구사항</strong>
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-unstyled list-todo">
-                                    <li>
-                                        <div class="custom-control custom-checkbox" style="padding-left: 1rem;">
-                                            <label class="custom-control-label">URL 페이지명은 login_check로 고정한다.</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-control custom-checkbox" style="padding-left: 1rem;">
-                                            <label class="custom-control-label">로그인은 회원가입에 성공한 계정으로만 가능하다.</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-control custom-checkbox" style="padding-left: 1rem;">
-                                            <label class="custom-control-label"></label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="custom-control custom-checkbox" style="padding-left: 1rem;">
-                                            <label class="custom-control-label"></label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-5">
-                        <div class="page-separator">
-                            <div class="page-separator__text">입력 데이터 [POST]</div>
-                        </div>
-                        <ul class="list-unstyled">
-                            <li class="d-flex align-items-center">
-                                <span class="material-icons text-50 mr-8pt">chevron_right</span>
-                                <span class="text-70">아이디: id</span>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <span class="material-icons text-50 mr-8pt">chevron_right</span>
-                                <span class="text-70">비밀번호: passwd</span>
-                            </li>
-                        </ul>
-                        </br>
-                        <div class="page-separator">
-                            <div class="page-separator__text">수행 결과</div>
-                        </div>
-                        <ul class="list-unstyled">
-                            <li class="d-flex align-items-center">
-                                <span class="material-icons text-50 mr-8pt">chevron_right</span>
-                                <span class="text-70">&lt;any id='result'&gt;[로그인 성공 여부]&lt;/any&gt;</span>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <span class="material-icons text-50 mr-8pt">chevron_right</span>
-                                <span class="text-70">[로그인 성공 여부]: Success/Fail</span>
+                                <span class="text-70" th:text="${result.content}">&lt;any id='result'&gt;[회원가입 성공 여부]&lt;/any&gt;</span>
                             </li>
                         </ul>
                     </div>

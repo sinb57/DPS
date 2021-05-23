@@ -14,7 +14,7 @@
 
     <!-- Header Layout Content -->
     <div class="mdk-header-layout__content page-content"
-         th:with="scenario=${scenarioDto}, stageDtoList=${scenarioDto.stageDtoList}">
+         th:with="scenario=${scenario}, stageList=${scenario.stageList}">
 
         <div class="mdk-box bg-primary js-mdk-box mb-0"
              data-effects="blend-background">
@@ -33,7 +33,6 @@
             </div>
         </div>
 
-
         <div class="page-section bg-alt border-bottom-2">
             <div class="container page__container">
 
@@ -42,103 +41,34 @@
                 </div>
                 <div class="row mb-0">
                     <div class="col-lg-7">
-
                         <div class="accordion js-accordion accordion--boxed list-group-flush" id="parent">
-                            <div class="accordion__item open">
-                                <a href="#" class="accordion__toggle"
-                                   data-toggle="collapse" data-target="#course-toc-1" data-parent="#parent">
-                                    <span class="flex" style="font-size:.9rem; font-weight:bold;">회원가입 및 로그인</span>
+                            <div class="accordion__item" th:each="stage : ${stageList}">
+                                <a href="#" class="accordion__toggle collapsed"
+                                   data-toggle="collapse" th:data-target="|#course-toc-${stageStat.count}|" data-parent="#parent">
+                                    <span class="flex" style="font-size:.9rem; font-weight:bold;" th:text="${stage.title}">스테이지 제목</span>
                                     <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
                                 </a>
-                                <div class="accordion__menu collapse show" id="course-toc-1">
+                                <div class="accordion__menu collapse" th:id="|course-toc-${stageStat.count}|" th:each="subject : ${stage.subjectList}">
                                     <div class="accordion__menu-link active">
                                         <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
-                                        <a class="flex" href="student-lesson.html">로그인</a>
+                                        <a class="flex" href="student-lesson.html" th:text="${subject.title}">스테이지 구성 항목</a>
                                     </div>
-                                    <div class="accordion__menu-link active">
-                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
-                                        <a class="flex" href="student-lesson.html">회원가입</a>
-                                    </div>
+                                </div>
+                            </div>
 
-                                </div>
-                            </div>
-                            <div class="accordion__item open">
-                                <a href="#" class="accordion__toggle"
-                                   data-toggle="collapse" data-target="#course-toc-2" data-parent="#parent">
-                                    <span class="flex" style="font-size:.9rem; font-weight:bold;">게시판 만들기</span>
-                                    <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
-                                </a>
-                                <div class="accordion__menu collapse show"
-                                     id="course-toc-2">
-                                    <div class="accordion__menu-link active">
-                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
-                                        <a class="flex" href="student-lesson.html">게시글 작성</a>
-                                    </div>
-                                    <div class="accordion__menu-link active">
-                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
-                                        <a class="flex" href="student-lesson.html">게시글 수정</a>
-                                    </div>
-                                    <div class="accordion__menu-link active">
-                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
-                                        <a class="flex" href="student-lesson.html">게시글 삭제</a>
-                                    </div>
-                                    <div class="accordion__menu-link active">
-                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
-                                        <a class="flex" href="student-lesson.html">게시글 목록</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion__item open">
-                                <a href="#" class="accordion__toggle"
-                                   data-toggle="collapse"
-                                   data-target="#course-toc-3"
-                                   data-parent="#parent">
-                                    <span class="flex" style="font-size:.9rem; font-weight:bold;">비밀 게시판</span>
-                                    <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
-                                </a>
-                                <div class="accordion__menu collapse show" id="course-toc-3">
-                                    <div class="accordion__menu-link active">
-                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
-                                        <a class="flex" href="student-lesson.html">비밀글 작성</a>
-                                    </div>
-                                    <div class="accordion__menu-link active">
-                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
-                                        <a class="flex" href="student-lesson.html">비밀글 페이지</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion__item open">
-                                <a href="#" class="accordion__toggle"
-                                   data-toggle="collapse"
-                                   data-target="#course-toc-4"
-                                   data-parent="#parent">
-                                    <span class="flex" style="font-size:.9rem; font-weight:bold;">파일 업로드 및 다운로드</span>
-                                    <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
-                                </a>
-                                <div class="accordion__menu collapse show" id="course-toc-4">
-                                    <div class="accordion__menu-link active">
-                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
-                                        <a class="flex" href="student-lesson.html">파일 업로드</a>
-                                    </div>
-                                    <div class="accordion__menu-link active">
-                                        <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
-                                        <a class="flex" href="student-lesson.html">파일 다운로드</a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                     </div>
                     <div class="col-lg-5 justify-content-center">
 
                         <div class="card">
-                            <div class="card-body py-16pt">
+                            <div class="card-body d-flex flex-column">
                                 <div class="col-md-12">
+
                                     <div class="page-separator">
                                         <div class="page-separator__text bg-alt ">About this course</div>
                                     </div>
-                                    <p class="text-70">전세계적으로 인터넷이 확대되면서 보안 기능은 꼭 필요한 과정이 되어 가고 있습니다. 인터넷 커뮤니티를 만들 때 가장 기본이 되는 과정과
-                                        그 때 필요한 보안 기능에 관하여 배울 수 있습니다.</p>
+                                    <p class="mt-16pt text-70 flex" th:text="${scenario.content}">시나리오 소개</p>
                                 </div>
                             </div>
                         </div>
@@ -397,7 +327,6 @@
             </div>
 
         </div>
-
 
     </div>
     <!-- // END Header Layout Content -->

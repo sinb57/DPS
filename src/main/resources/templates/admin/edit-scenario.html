@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+<th:block th:replace="fragments/styles"/>
+<body class="layout-sticky-subnav layout-default ">
+<th:block th:replace="fragments/preloader"/>
+<div class="mdk-header-layout js-mdk-header-layout">
+<th:block th:replace="fragments/navbar"/>
+<meta charset="utf-8">
+            <!-- Header Layout Content -->
+            <div class="mdk-header-layout__content page-content ">
+
+                <div class="pt-32pt">
+                    <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+                        <div class="flex d-flex flex-column flex-sm-row align-items-center">
+
+                            <div class="mb-24pt mb-sm-0 mr-sm-24pt">
+                                <h2 class="mb-0">Edit Scenario</h2>
+
+                                <ol class="breadcrumb p-0 m-0">
+                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+
+                                    <li class="breadcrumb-item active">
+
+                                        Edit Scenario
+
+                                    </li>
+
+                                </ol>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="page-section border-bottom-2">
+                    <div class="container page__container">
+
+                        <div class="row">
+                            <div class="col-md-10">
+
+                                <div class="page-separator">
+                                    <div class="page-separator__text">Basic information</div>
+                                </div>
+
+                                <label class="form-label">시나리오 이름</label>
+                                <div class="form-group mb-24pt">
+                                    <input type="text"
+                                           class="form-control form-control-lg"
+                                           placeholder="Course title"
+                                           value="제목을 입력하세요">
+                                </div>
+
+                                <div class="form-group mb-32pt">
+                                    <label class="form-label">시나리오 설명</label>
+                                    <!-- <textarea class="form-control" rows="3" placeholder="Course description"></textarea> -->
+                                    <div style="height: 150px;"
+                                         class="mb-0"
+                                         data-toggle="quill"
+                                         data-quill-placeholder="상세 설명을 입력하세요">
+                                    </div>
+                                </div>
+
+                                <div class="page-separator">
+                                    <div class="page-separator__text">Sections</div>
+                                </div>
+
+                                <div class="accordion js-accordion accordion--boxed mb-24pt"
+                                     id="parent">
+                                    <div class="accordion__item">
+                                        <a href="#"
+                                           class="accordion__toggle collapsed"
+                                           data-toggle="collapse"
+                                           data-target="#course-toc-1"
+                                           data-parent="#parent">
+                                            <span class="flex">시나리오 명세</span>
+                                            <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
+                                        </a>
+                                    </div>
+                                    <div class="accordion__item open">
+                                        <a href="#"
+                                           class="accordion__toggle"
+                                           data-toggle="collapse"
+                                           data-target="#course-toc-2"
+                                           data-parent="#parent">
+                                            <span class="flex">시나리오 과정</span>
+                                            <span class="accordion__toggle-icon material-icons">keyboard_arrow_down</span>
+                                        </a>
+                                        <div class="accordion__menu collapse show"
+                                             id="course-toc-2">
+                                            <div class="accordion__menu-link">
+                                                <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
+                                                <a class="flex"
+                                                   href="">스테이지 설명</a>
+                                                <button>수정</button>
+                                                <button>삭제</button>
+                                            </div>
+                                            <div class="accordion__menu-link active">
+                                                <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
+                                                <a class="flex"
+                                                   href="">스테이지 설명</a>
+                                                 <button>수정</button>
+                                                <button>삭제</button>
+                                            </div>
+                                            <div class="accordion__menu-link">
+                                                <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
+                                                <a class="flex"
+                                                   href="">스테이지 설명</a>
+                                                <button>수정</button>
+                                                <button>삭제</button>
+                                                <button>추가</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+
+                                <a href="#"
+                                   class="btn btn-outline-secondary mb-24pt mb-sm-0">저장하기</a>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- // END Header Layout Content -->
+
+       
+	<th:block th:replace="fragments/footer"/>
+</div>
+	<script th:src="@{/public/vendor/Chart.min.js}"></script>
+	<script th:src="@{/public/js/chartreport_ad.js}"></script>
+	<script th:src="@{/public/js/chartjs.js}"></script>
+<th:block th:replace="fragments/drawer"/>
+<th:block th:replace="fragments/scripts"/>
+    </body>
+
+</html>

@@ -16,8 +16,6 @@
     <link type="text/css" th:href="@{/public/css/fontawesome.css}" rel="stylesheet">
     <link type="text/css" th:href="@{/public/css/preloader.css}" rel="stylesheet">
     <link type="text/css" th:href="@{/public/css/app.css}" rel="stylesheet">
-    <link type="text/css" th:href="@{/public/css/flatpickr.css}" rel="stylesheet">
-    <link type="text/css" th:href="@{/public/css/flatpickr-airbnb.css}" rel="stylesheet">
 </head>
 
 <body class="layout-sticky-subnav layout-default ">
@@ -75,45 +73,17 @@
                             <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
 
                                 <span class="avatar-title rounded bg-primary"><img
-                                        src="../../public/images/illustration/student/128/white.svg"
+                                        th:src="@{/public/images/illustration/student/128/white.svg}"
                                         alt="logo"
                                         class="img-fluid"/></span>
 
                             </span>
 
-                    <span class="d-none d-lg-block">Luma</span>
+                    <span class="d-none d-lg-block">DPS</span>
                 </a>
 
                 <!-- // END Navbar Brand -->
 
-                <span class="d-none d-md-flex align-items-center mr-16pt">
-
-                            <span class="avatar avatar-sm mr-12pt">
-
-                                <span class="avatar-title rounded navbar-avatar"><i
-                                        class="material-icons">trending_up</i></span>
-
-                            </span>
-
-                            <small class="flex d-flex flex-column">
-                                <strong class="navbar-text-100">Earnings</strong>
-                                <span class="navbar-text-50">&dollar;12.3k</span>
-                            </small>
-                        </span>
-                <span class="d-none d-md-flex align-items-center mr-16pt">
-
-                            <span class="avatar avatar-sm mr-12pt">
-
-                                <span class="avatar-title rounded navbar-avatar"><i
-                                        class="material-icons">receipt</i></span>
-
-                            </span>
-
-                            <small class="flex d-flex flex-column">
-                                <strong class="navbar-text-100">Sales</strong>
-                                <span class="navbar-text-50">264</span>
-                            </small>
-                        </span>
 
                 <!-- Navbar Search -->
 
@@ -162,7 +132,7 @@
                                                 </span>
                                         <span class="d-flex">
                                                     <span class="avatar avatar-xs mr-2">
-                                                        <img src="../../public/images/people/110/woman-5.jpg"
+                                                        <img th:src="@{/public/images/people/110/woman-5.jpg}"
                                                              alt="people"
                                                              class="avatar-img rounded-circle">
                                                     </span>
@@ -181,7 +151,7 @@
                                                 </span>
                                         <span class="d-flex">
                                                     <span class="avatar avatar-xs mr-2">
-                                                        <img src="../../public/images/people/110/woman-5.jpg"
+                                                        <img th:src="@{/public/images/people/110/woman-5.jpg}"
                                                              alt="people"
                                                              class="avatar-img rounded-circle">
                                                     </span>
@@ -323,327 +293,100 @@
     <!-- Header Layout Content -->
     <div class="mdk-header-layout__content page-content ">
 
-        <div class="pt-32pt">
-            <div class="container page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
-                <div class="flex d-flex flex-column flex-sm-row align-items-center">
-
-                    <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                        <h2 class="mb-0">간단한 커뮤니티 사이트 만들기</h2>
-
-                        <ol class="breadcrumb p-0 m-0">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-
-                            <li class="breadcrumb-item active">
-
-                                Report
-
-                            </li>
-
-                        </ol>
-
+        <div class="navbar navbar-list navbar-light bg-white border-bottom-2 border-bottom navbar-expand-sm"
+             style="white-space: nowrap;">
+            <div class="container page__container">
+                <nav class="nav navbar-nav">
+                    <div class="nav-item navbar-list__item">
+                        <a href="student-take-course.html"
+                           class="nav-link h-auto"><i class="material-icons icon--left">keyboard_backspace</i> Back to
+                            Course</a>
                     </div>
-                </div>
-
+                    <div class="nav-item navbar-list__item">
+                        <div class="d-flex align-items-center flex-nowrap">
+                            <div class="mr-16pt">
+                                <a href="student-take-course.html"/>
+                            </div>
+                            <div class="flex">
+                                <a href="student-take-course.html"
+                                   class="card-title text-body mb-0" >간단한 커뮤니티 게시판 만들기</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
             </div>
         </div>
 
-        <div class="container page__container page-section">
-            <div class="page-separator">
-                <div class="page-separator__text">취약점 별 인증 실패 그래프</div>
-            </div>
-
-            <div class="card mb-lg-32pt">
-                <div class="card-header d-flex align-items-center">
-                    <strong class="card-title">Revenue</strong>
-                    <div class="flatpickr-wrapper flatpickr-calendar-right d-flex ml-auto">
-                        <div id="recent_orders_date"
-                             data-toggle="flatpickr"
-                             data-flatpickr-wrap="true"
-                             data-flatpickr-static="true"
-                             data-flatpickr-mode="range"
-                             data-flatpickr-alt-format="d/m/Y"
-                             data-flatpickr-date-format="d/m/Y">
-                            <a href="javascript:void(0)"
-                               class="link-date"
-                               data-toggle>전체 스테이지 (선택)</a>
-                            <input class="d-none"
-                                   type="hidden"
-                                   value="13/03/2018 to 20/03/2018"
-                                   data-input>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-legend mt-0 mb-24pt justify-content-start"
-                         id="ordersChartLegend"></div>
-                    <div class="chart">
-                        <canvas id="ordersChart"
-                                class="chart-canvas js-update-chart-bar"
-                                data-chart-legend="#ordersChartLegend"
-                                data-chart-prefix="$"
-                                data-chart-suffix="k"
-                                data-chart-line-background-color="gradient:primary"></canvas>
-                    </div>
+        <div class="bg-primary pb-lg-64pt py-32pt">
+            <div class="container page__container">
+                <div class="d-flex flex-wrap align-items-end justify-content-end mb-16pt">
+                    <h1 class="text-white flex m-0" >SQL Injection 취약점</h1>
                 </div>
             </div>
+        </div>
 
-            <div class="page-separator">
-                <div class="page-separator__text">인증 기록</div>
+        <div class="navbar navbar-expand-md navbar-list navbar-light bg-white border-bottom-2 "
+             style="white-space: nowrap;">
+            <div class="container page__container">
             </div>
+        </div>
 
-            <div class="card mb-0">
-                <div data-toggle="lists"
-                     data-lists-values='[
-                          "js-lists-values-course",
-                          "js-lists-values-revenue",
-                          "js-lists-values-fees"
-                     ]'
-                     data-lists-sort-by="js-lists-values-revenue"
-                     data-lists-sort-desc="true"
-                     class="table-responsive">
-                    <table class="table table-nowrap table-flush">
-                        <thead>
-                        <tr class="text-uppercase small">
-                            <th class="text-center"
-                                style="width:130px">
-                                <a href="javascript:void(0)"
-                                   class="sort"
-                                   data-sort="js-lists-values-revenue">인증 일시</a>
-                            </th>
-                            <th>
-                                <a href="javascript:void(0)"
-                                   class="sort"
-                                   data-sort="js-lists-values-course">스테이지</a>
-                            </th>
-                            <th class="text-center"
-                                style="width:130px">
-                                <a href="javascript:void(0)"
-                                   class="sort"
-                                   data-sort="js-lists-values-fees">기능 검사</a>
-                            </th>
-                            <th class="text-center"
-                                style="width:130px">
-                                <a href="javascript:void(0)"
-                                   class="sort"
-                                   data-sort="js-lists-values-revenue">보안 검사</a>
-                            </th>
-                            <th class="text-center"
-                                style="width:130px">
-                                <a href="javascript:void(0)"
-                                   class="sort"
-                                   data-sort="js-lists-values-revenue">자세히</a>
-                            </th>
-                        </tr>
-                        </thead>
-
-                        <tbody class="list">
-
-                        <tr>
-                            <td class="text-center text-70">
-                                <span>2021-04-28 18:03</span>
-                            </td>
-                            <td>
-                                <div class="media flex-nowrap align-items-center">
-                                    <a href="instructor-edit-course.html"
-                                       class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
-                                        <img src="../../public/images/paths/angular_routing_200x168.png"
-                                             alt="course"
-                                             class="avatar-img rounded">
-                                        <span class="overlay__content"></span>
-                                    </a>
-                                    <div class="media-body">
-                                        <a class="text-body js-lists-values-course"
-                                           href="instructor-edit-course.html"><strong>Stage.3 - 비밀글 게시판</strong></a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center text-70">
-                                <span>통과</span>
-                            </td>
-                            <td class="text-center text-70">
-                                <span>실패</span>
-                            </td>
-                            <td class="text-center text-70">
-                                <span>&gt;&gt;</span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="text-center text-70">
-                                <span>2021-04-28 16:45</span>
-                            </td>
-                            <td>
-                                <div class="media flex-nowrap align-items-center">
-                                    <a href="instructor-edit-course.html"
-                                       class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
-                                        <img src="../../public/images/paths/angular_testing_200x168.png"
-                                             alt="course"
-                                             class="avatar-img rounded">
-                                        <span class="overlay__content"></span>
-                                    </a>
-                                    <div class="media-body">
-                                        <a class="text-body js-lists-values-course"
-                                           href="instructor-edit-course.html"><strong>Stage.2 - 게시판 만들기</strong></a>
-
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center text-70">
-                                <span>통과</span>
-                            </td>
-                            <td class="text-center text-70">
-                                <span>통과</span>
-                            </td>
-                            <td class="text-center text-70">
-                                <span>&gt;&gt;</span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="text-center text-70">
-                                <span>2021-04-28 10:45</span>
-                            </td>
-                            <td>
-                                <div class="media flex-nowrap align-items-center">
-                                    <a href="instructor-edit-course.html"
-                                       class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
-                                        <img src="../../public/images/paths/typescript_200x168.png"
-                                             alt="course"
-                                             class="avatar-img rounded">
-                                        <span class="overlay__content"></span>
-                                    </a>
-                                    <div class="media-body">
-                                        <a class="text-body js-lists-values-course"
-                                           href="instructor-edit-course.html"><strong>Stage.1 - 회원가입 및 로그인</strong></a>
-
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center text-70">
-                                <span>통과</span>
-                            </td>
-                            <td class="text-center text-70">
-                                <span>통과</span>
-                            </td>
-                            <td class="text-center text-70">
-                                <span>&gt;&gt;</span>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="text-center text-70">
-                                <span>2021-04-28 08:12</span>
-                            </td>
-                            <td>
-                                <div class="media flex-nowrap align-items-center">
-                                    <a href="instructor-edit-course.html"
-                                       class="avatar avatar-4by3 overlay overlay--primary mr-12pt">
-                                        <img src="../../public/images/paths/angular_200x168.png"
-                                             alt="course"
-                                             class="avatar-img rounded">
-                                        <span class="overlay__content"></span>
-                                    </a>
-                                    <div class="media-body">
-                                        <a class="text-body js-lists-values-course"
-                                           href="instructor-edit-course.html"><strong>Stage.1 - 회원가입 및 로그인</strong></a>
-
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center text-70">
-                                <span>통과</span>
-                            </td>
-                            <td class="text-center text-70">
-                                <span>통과</span>
-                            </td>
-                            <td class="text-center text-70">
-                                <span>&gt;&gt;</span>
-                            </td>
-                        </tr>
-
-                        </tbody>
-                        <tfoot class="text-right">
-                        <tr>
-                            <td>
-                                <ul class="pagination justify-content-start pagination-xsm m-0">
-                                    <li class="page-item disabled">
-                                        <a class="page-link"
-                                           href="#"
-                                           aria-label="Previous">
-                                                        <span aria-hidden="true"
-                                                              class="material-icons">chevron_left</span>
-                                            <span>Prev</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link"
-                                           href="#"
-                                           aria-label="Page 1">
-                                            <span>1</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link"
-                                           href="#"
-                                           aria-label="Page 2">
-                                            <span>2</span>
-                                        </a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link"
-                                           href="#"
-                                           aria-label="Next">
-                                            <span>Next</span>
-                                            <span aria-hidden="true"
-                                                  class="material-icons">chevron_right</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="text-center text-70">
-                            </td>
-                            <td class="text-center text-70">
-                            </td>
-                            <td class="text-center text-70">
-                            </td>
-                            <td class="text-center text-70">
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
+        <div class="container page__container">
+            <div class="page-section">
+                <div class="page-separator">
+                    <div class="page-separator__text">발생 원인 (PHP 기준)</div>
+                </div>
+                <div>
+                    <ul>
+                        <li>Sql 쿼리문을 string으로 concat 하여 만들기 때문에 발생한다. (아래의 예를 참조)</li>
+                        <li>ex) <code>$sql = "select * from member where id='$_POST['id']' and pass='$_POST['pass']'";</code></li>
+                        <li>위의 예와 같이 사용자의 값이 쿼리에 concat 되어 Sql 구문을 완성하고 이를 실행 시키게 되면 유저의 입력 값이 Sql 쿼리문에 영향을 주게 되고 이로 인해 개발자가 의도하지 않은 방향대로 쿼리를 조작 가능하다.</li>
+                    </ul>
+                </div>
+                <div class="page-separator">
+                    <div class="page-separator__text">패치 방법</div>
+                </div>
+                    <ul>
+                        <li>1). 개발자가 의도한 사용자의 입력 값은 쿼리문에 영향이 가는 입력 값이 아닌 순수한 문자열 값이다. 따라서 사용자가 입력한 특수 문자들 (', " ,\  등)이 쿼리문에 영향을 줄 수 없도록 유저들의 입력 값에 addslashes 혹은 mysqli_real_escape_string등 입력 값의 특수 문자들을 escape 하는 함수를 적용한다.</li>
+                        <li>2). 최근에는 유저의 입력 값이 Sql 쿼리문 자체에 영향을 줄 수 없도록 하는 repared statement 함수가 제공되고 있다. 해당 기능을 이용하면 addslashes, mysqli_real_escape_string 함수의 도움 없이도 사용자의 입력 값이 escape 되어 문자열 값으로 인식 된다.</li>
+                        <li>3). 위의 1), 2) 방법이 효과적으로 Sql 인젝션 공격 기법을 방어하는 점은 사실이지만 위 방법을 이용해도 Sql 인젝션 공격을 방어하지 못하는 경우가 있다. 이는 아래의 코드와 같이 '' 로 입력 값을 둘러 싸지 않아서 발생 되는 경우로 이 경우에는 입력 값을 escape 해도 Sql 쿼리문을 조작 할 수 있게 된다.</li>
+                        <li><code>$sql = "select * from member where no=$_POST['no']";</code></li>
+                        <li>위의 예제와 같은 경우 '' 값이 없어 유저의 입력값이 자유롭게 sql 쿼리문을 조작 할 수 있게 된다.  따라서 위와 같은 경우에 대해서 Sql 인젝션 공격 기법을 방어 하기 위해서는 Sql 쿼리문에 사용 되는 주요 키워드 (or, and, select, union 등) 들을 따로 필터해야만 한다.</li>
+                        <li>ex) <code>if(preg_match('/prob|_|\.|proc|union|sleep|benchmark/i', $_POST[no])) exit("No Hack ~_~");</code></li>
+                    </ul>
                 </div>
             </div>
         </div>
 
     </div>
     <!-- // END Header Layout Content -->
+</div>
+<!-- Footer -->
 
-    <!-- Footer -->
-
-    <div class="bg-white border-top-2 mt-auto">
-        <div class="container page__container page-section d-flex flex-column">
-            <p class="text-70 brand mb-24pt">
-                <img class="brand-icon"
-                     src="../../public/images/logo/black-70@2x.png"
-                     width="30"
-                     alt="Luma"> Luma
-            </p>
-            <p class="measure-lead-max text-50 small mr-8pt">Luma is a beautifully crafted user interface for modern
-                Education Platforms, including Courses & Tutorials, Video Lessons, Student and Teacher Dashboard,
-                Curriculum Management, Earnings and Reporting, ERP, HR, CMS, Tasks, Projects, eCommerce and more.</p>
-            <p class="mb-8pt d-flex">
-                <a href=""
-                   class="text-70 text-underline mr-8pt small">Terms</a>
-                <a href=""
-                   class="text-70 text-underline small">Privacy policy</a>
-            </p>
-            <p class="text-50 small mt-n1 mb-0">Copyright 2019 &copy; All rights reserved.</p>
-        </div>
+<div class="bg-white border-top-2 mt-auto">
+    <div class="container page__container page-section d-flex flex-column">
+        <p class="text-70 brand mb-24pt">
+            <img class="brand-icon"
+                 th:src="@{/public/images/logo/black-70@2x.png}"
+                 width="30"
+                 alt="DPS"> DPS
+        </p>
+        <p class="measure-lead-max text-50 small mr-8pt">DPS is a beautifully crafted user interface for modern
+            Education Platforms, including Courses & Tutorials, Video Lessons, Student and Teacher Dashboard, Curriculum
+            Management, Earnings and Reporting, ERP, HR, CMS, Tasks, Projects, eCommerce and more.</p>
+        <p class="mb-8pt d-flex">
+            <a href=""
+               class="text-70 text-underline mr-8pt small">Terms</a>
+            <a href=""
+               class="text-70 text-underline small">Privacy policy</a>
+        </p>
+        <p class="text-50 small mt-n1 mb-0">Copyright 2021 &copy; All rights reserved.</p>
     </div>
+</div>
 
-    <!-- // END Footer -->
+<!-- // END Footer -->
 
-</div>-
+</div>
 <!-- // END Header Layout -->
 
 <!-- Drawer -->
@@ -658,74 +401,20 @@
 
             <a href="index.html"
                class="sidebar-brand ">
-                <!-- <img class="sidebar-brand-icon" src="../../public/images/illustration/teacher/128/white.svg" alt="Luma"> -->
+                <!-- <img class="sidebar-brand-icon" th:src="@{/public/images/illustration/student/128/white.svg}" alt="DPS"> -->
 
                 <span class="avatar avatar-xl sidebar-brand-icon h-auto">
 
                             <span class="avatar-title rounded bg-primary"><img
-                                    src="../../public/images/illustration/teacher/128/white.svg"
+                                    th:src="@{/public/images/illustration/student/128/white.svg}"
                                     class="img-fluid"
                                     alt="logo"/></span>
 
                         </span>
 
-                <span>Luma</span>
+                <span>DPS</span>
             </a>
 
-            <div class="sidebar-heading">Instructor</div>
-            <ul class="sidebar-menu">
-
-                <li class="sidebar-menu-item">
-                    <a class="sidebar-menu-button"
-                       href="instructor-dashboard.html">
-                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">school</span>
-                        <span class="sidebar-menu-text">Instructor Dashboard</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a class="sidebar-menu-button"
-                       href="instructor-courses.html">
-                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">import_contacts</span>
-                        <span class="sidebar-menu-text">Manage Courses</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a class="sidebar-menu-button"
-                       href="instructor-quizzes.html">
-                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">help</span>
-                        <span class="sidebar-menu-text">Manage Quizzes</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item active">
-                    <a class="sidebar-menu-button"
-                       href="instructor-earnings.html">
-                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">trending_up</span>
-                        <span class="sidebar-menu-text">Earnings</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a class="sidebar-menu-button"
-                       href="instructor-statement.html">
-                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">receipt</span>
-                        <span class="sidebar-menu-text">Statement</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a class="sidebar-menu-button"
-                       href="instructor-edit-course.html">
-                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">post_add</span>
-                        <span class="sidebar-menu-text">Edit Course</span>
-                    </a>
-                </li>
-                <li class="sidebar-menu-item">
-                    <a class="sidebar-menu-button"
-                       href="instructor-edit-quiz.html">
-                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">format_shapes</span>
-                        <span class="sidebar-menu-text">Edit Quiz</span>
-                    </a>
-                </li>
-
-            </ul>
             <div class="sidebar-heading">Student</div>
             <ul class="sidebar-menu">
 
@@ -807,7 +496,7 @@
                         <span class="sidebar-menu-text">Take Lesson</span>
                     </a>
                 </li>
-                <li class="sidebar-menu-item">
+                <li class="sidebar-menu-item active">
                     <a class="sidebar-menu-button"
                        href="student-take-quiz.html">
                         <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">dvr</span>
@@ -840,6 +529,60 @@
                        href="student-path-assessment-result.html">
                         <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">assignment_turned_in</span>
                         <span class="sidebar-menu-text">Skill Result</span>
+                    </a>
+                </li>
+
+            </ul>
+            <div class="sidebar-heading">Instructor</div>
+            <ul class="sidebar-menu">
+
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-button"
+                       href="instructor-dashboard.html">
+                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">school</span>
+                        <span class="sidebar-menu-text">Instructor Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-button"
+                       href="instructor-courses.html">
+                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">import_contacts</span>
+                        <span class="sidebar-menu-text">Manage Courses</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-button"
+                       href="instructor-quizzes.html">
+                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">help</span>
+                        <span class="sidebar-menu-text">Manage Quizzes</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-button"
+                       href="instructor-earnings.html">
+                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">trending_up</span>
+                        <span class="sidebar-menu-text">Earnings</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-button"
+                       href="instructor-statement.html">
+                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">receipt</span>
+                        <span class="sidebar-menu-text">Statement</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-button"
+                       href="instructor-edit-course.html">
+                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">post_add</span>
+                        <span class="sidebar-menu-text">Edit Course</span>
+                    </a>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-button"
+                       href="instructor-edit-quiz.html">
+                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">format_shapes</span>
+                        <span class="sidebar-menu-text">Edit Quiz</span>
                     </a>
                 </li>
 
@@ -1018,7 +761,7 @@
                        href="#messaging_menu">
                         <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">message</span>
                         Messaging
-                        <span class="sidebar-menu-badge badge badge-accent badge-notifications ml-auto">2</span>
+                        <span class="sidebar-menu-badge badge badge-accent badge-notifications ml-auto"></span>
                         <span class="sidebar-menu-toggle-icon"></span>
                     </a>
                     <ul class="sidebar-submenu collapse sm-indent"
@@ -1091,12 +834,6 @@
                         </li>
                         <li class="sidebar-menu-item">
                             <a class="sidebar-menu-button"
-                               href="signup-payment.html">
-                                <span class="sidebar-menu-text">Payment</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a class="sidebar-menu-button"
                                href="reset-password.html">
                                 <span class="sidebar-menu-text">Reset Password</span>
                             </a>
@@ -1129,36 +866,6 @@
                             <a class="sidebar-menu-button"
                                href="edit-account-password.html">
                                 <span class="sidebar-menu-text">Account Password</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a class="sidebar-menu-button"
-                               href="billing.html">
-                                <span class="sidebar-menu-text">Subscription</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a class="sidebar-menu-button"
-                               href="billing-upgrade.html">
-                                <span class="sidebar-menu-text">Upgrade Account</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a class="sidebar-menu-button"
-                               href="billing-payment.html">
-                                <span class="sidebar-menu-text">Payment Information</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a class="sidebar-menu-button"
-                               href="billing-history.html">
-                                <span class="sidebar-menu-text">Payment History</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-menu-item">
-                            <a class="sidebar-menu-button"
-                               href="billing-invoice.html">
-                                <span class="sidebar-menu-text">Invoice</span>
                             </a>
                         </li>
                     </ul>
@@ -1474,43 +1181,43 @@
                         id="layouts_menu">
                         <li class="sidebar-menu-item">
                             <a class="sidebar-menu-button"
-                               href="../Compact_App_Layout/instructor-earnings.html">
+                               href="../Compact_App_Layout/student-take-quiz.html">
                                 <span class="sidebar-menu-text">Compact</span>
                             </a>
                         </li>
                         <li class="sidebar-menu-item">
                             <a class="sidebar-menu-button"
-                               href="../Mini_App_Layout/instructor-earnings.html">
+                               href="../Mini_App_Layout/student-take-quiz.html">
                                 <span class="sidebar-menu-text">Mini</span>
                             </a>
                         </li>
                         <li class="sidebar-menu-item">
                             <a class="sidebar-menu-button"
-                               href="../Mini_Secondary_Layout/instructor-earnings.html">
+                               href="../Mini_Secondary_Layout/student-take-quiz.html">
                                 <span class="sidebar-menu-text">Mini + Secondary</span>
                             </a>
                         </li>
                         <li class="sidebar-menu-item">
                             <a class="sidebar-menu-button"
-                               href="../App_Layout/instructor-earnings.html">
+                               href="../App_Layout/student-take-quiz.html">
                                 <span class="sidebar-menu-text">App</span>
                             </a>
                         </li>
                         <li class="sidebar-menu-item">
                             <a class="sidebar-menu-button"
-                               href="../Boxed_App_Layout/instructor-earnings.html">
+                               href="../Boxed_App_Layout/student-take-quiz.html">
                                 <span class="sidebar-menu-text">Boxed</span>
                             </a>
                         </li>
                         <li class="sidebar-menu-item">
                             <a class="sidebar-menu-button"
-                               href="../Sticky_App_Layout/instructor-earnings.html">
+                               href="../Sticky_App_Layout/student-take-quiz.html">
                                 <span class="sidebar-menu-text">Sticky</span>
                             </a>
                         </li>
                         <li class="sidebar-menu-item active">
                             <a class="sidebar-menu-button"
-                               href="../Fixed_Layout/instructor-earnings.html">
+                               href="../Fixed_Layout/student-take-quiz.html">
                                 <span class="sidebar-menu-text">Fixed</span>
                             </a>
                         </li>
@@ -1534,15 +1241,6 @@
 <script th:src="@{/public/vendor/material-design-kit.js}"></script>
 <script th:src="@{/public/js/app.js}"></script>
 <script th:src="@{/public/js/preloader.js}"></script>
-<script th:src="@{/public/vendor/flatpickr/flatpickr.min.js}"></script>
-<script th:src="@{/public/js/flatpickr.js}"></script>
-<script th:src="@{/public/js/settings.js}"></script>
-<script th:src="@{/public/vendor/Chart.min.js}"></script>
-<script th:src="@{/public/js/chartjs-rounded-bar.js}"></script>
-<script th:src="@{/public/js/chartjs.js}"></script>
-<script th:src="@{/public/js/page.instructor-earnings.js}"></script>
-<script th:src="@{/public/vendor/list.min.js}"></script>
-<script th:src="@{/public/js/list.js}"></script>
 
 </body>
 

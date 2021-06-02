@@ -9,14 +9,14 @@ spring:
     jpa:
         database: mysql
         hibernate:
-            ddl-auto: update
+            #ddl-auto: update
         properties:
             hibernate:
                 #show_sql: true
-                format_sql: true
+                #format_sql: true
 
 
-logging.level:
-    org.hibernate:
-        SQL: debug
-        type: trace
+#logging.level:
+#    org.hibernate:
+#        SQL: debug
+#        type: trace

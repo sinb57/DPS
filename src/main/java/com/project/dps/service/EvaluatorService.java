@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class EvaluatorService {
-    private final String BASE_PATH = "./Evaluator/";
+    private final String BASE_PATH = "./Evaluator/tmp/";
     private final long WAIT_MAX_TIME = 20;
     private final int EVALUATION_COUNT_MAX = 200;
     private int evaluationCount = 0;
@@ -66,54 +66,13 @@ public class EvaluatorService {
                     testCaseLogRepository.save(testCaseLog);
                 }
 
-                assignTestScenarioLogResult(testScenarioLog);
-
             }
 
-            assignTestCategoryLogResult(testCategoryLog);
-
         }
 
-        assignStageLogResult(stageLog);
     }
 
 
-
-    private void assignStageLogResult(StageLog stageLog) {
-        List<TestCategoryLog> testCategoryLogList = stageLog.getTestCategoryLogList();
-        int passCount = 0;
-        for (TestCategoryLog testCategoryLog : testCategoryLogList) {
-            if (testCategoryLog.getResult() == ValidResultEnum.PASS)
-                passCount++;
-        }
-        if (passCount == testCategoryLogList.size()) {
-            stageLog.makeItPass(ValidResultEnum.PASS);
-        }
-    }
-
-    private void assignTestCategoryLogResult(TestCategoryLog testCategoryLog) {
-        List<TestScenarioLog> testScenarioLogList = testCategoryLog.getTestScenarioLogList();
-        int passCount = 0;
-        for (TestScenarioLog testScenarioLog : testScenarioLogList) {
-            if (testScenarioLog.getResult() == ValidResultEnum.PASS)
-                passCount++;
-        }
-        if (passCount == testScenarioLogList.size()) {
-            testCategoryLog.makeItPass(ValidResultEnum.PASS);
-        }
-    }
-
-    private void assignTestScenarioLogResult(TestScenarioLog testScenarioLog) {
-        List<TestCaseLog> testCaseLogList = testScenarioLog.getTestCaseLogList();
-        int passCount = 0;
-        for (TestCaseLog testCaseLog : testCaseLogList) {
-            if (testCaseLog.getResult() == ValidResultEnum.PASS)
-                passCount++;
-        }
-        if (passCount == testCaseLogList.size()) {
-            testScenarioLog.makeItPass(ValidResultEnum.PASS);
-        }
-    }
 
 
     private ValidResultEnum evaluate(String targetUrl, String targetExtension, String pocContent) {

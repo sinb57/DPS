@@ -50,12 +50,12 @@
 
                 <!-- Navbar Brand -->
                 <a href="index.html" class="navbar-brand mr-16pt">
-						<span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
-							<span class="avatar-title rounded bg-primary">
-								<img th:src="@{/public/images/illustration/student/128/white.svg}" alt="logo"
-                                     class="img-fluid"/>
-							</span>
-						</span>
+                    <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
+                        <span class="avatar-title rounded bg-primary">
+                            <img th:src="@{/public/images/illustration/student/128/white.svg}" alt="logo"
+                                 class="img-fluid"/>
+                        </span>
+                    </span>
                     <span class="d-none d-lg-block">DPS</span>
                 </a>
 
@@ -72,8 +72,7 @@
                             <a href="student-lesson.html" class="dropdown-item">Preview Lesson</a>
                             <a href="student-take-course.html" class="dropdown-item">
                                 <span class="mr-16pt">Take Course</span>
-                                <span
-                                        class="badge badge-notifications badge-accent text-uppercase ml-auto">Pro</span>
+                                <span class="badge badge-notifications badge-accent text-uppercase ml-auto">Pro</span>
                             </a>
                             <a href="student-take-lesson.html" class="dropdown-item">Take
                                 Lesson</a> <a href="student-take-quiz.html" class="dropdown-item">Take
@@ -147,7 +146,7 @@
                            data-boundary="window"><i class="material-icons">lock_open</i></a>
                     </li>
                     <li class="nav-item active">
-                        <a href="/member/join"
+                        <a href="/members/join"
                            class="btn btn-outline-white">Get Started</a></li>
                 </ul>
             </div>
@@ -163,7 +162,7 @@
 
             <div class="pt-32pt pt-sm-64pt pb-32pt">
                 <div class="container page__container">
-                    <form method="post" th:action="@{/member/join}"
+                    <form method="post" th:action="@{/members/join}"
                           th:object="${memberDto}" class="col-md-5 p-0 mx-auto">
                         <div class="form-group">
                             <div class="text-center">
@@ -531,11 +530,11 @@
                                 class="sidebar-menu-text">Pricing</span>
                         </a></li>
                         <li class="sidebar-menu-item"><a
-                                class="sidebar-menu-button" href="/member/login"> <span
+                                class="sidebar-menu-button" href="/members/login"> <span
                                 class="sidebar-menu-text">Login</span>
                         </a></li>
                         <li class="sidebar-menu-item active"><a
-                                class="sidebar-menu-button" href="/member/join"> <span
+                                class="sidebar-menu-button" href="/members/join"> <span
                                 class="sidebar-menu-text">Join</span>
                         </a></li>
                         <li class="sidebar-menu-item"><a

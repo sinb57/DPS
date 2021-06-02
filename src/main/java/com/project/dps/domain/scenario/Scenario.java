@@ -1,6 +1,7 @@
 package com.project.dps.domain.scenario;
 
 import com.project.dps.domain.log.ScenarioLog;
+import com.project.dps.domain.log.StageLog;
 import com.project.dps.domain.scenario.stage.Stage;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -27,6 +28,9 @@ public class Scenario {
     @OneToMany(mappedBy = "scenario")
     private List<ScenarioLog> scenarioLogList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "scenario")
+    private List<StageLog> stageLogList = new ArrayList<>();
+
     private String title;       // 시나리오 제목
     private String subTitle;    // 시나리오 부제목
     private String content;     // 시나리오 내용
@@ -35,14 +39,13 @@ public class Scenario {
 
     //== Builder 메서드 ==//
     @Builder
-    public Scenario(String title, String subTitle, String content,
-                    List<Stage> stageList, List<ScenarioLog> scenarioLogList) {
+    public Scenario(String title, String subTitle, String content, List<Stage> stageList,
+                    List<ScenarioLog> scenarioLogList, List<StageLog> stageLogList) {
         this.title = title;
         this.subTitle = subTitle;
         this.content = content;
         this.stageList = stageList;
         this.stageCount = stageList.size();
-        this.scenarioLogList = scenarioLogList;
     }
 
 
@@ -64,6 +67,14 @@ public class Scenario {
 
     public void removeScenarioLog(ScenarioLog scenarioLog) {
         this.scenarioLogList.remove(scenarioLog);
+    }
+
+    public void appendStageLog(StageLog stageLog) {
+        this.stageLogList.add(stageLog);
+    }
+
+    public void removeStageLog(StageLog stageLog) {
+        this.stageLogList.remove(stageLog);
     }
 
     public void edit(String title, String subTitle, String content) {

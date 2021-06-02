@@ -51,7 +51,7 @@
                                 <div class="accordion__menu collapse" th:id="|course-toc-${stageStat.count}|" th:each="subject : ${stage.subjectList}">
                                     <div class="accordion__menu-link active">
                                         <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
-                                        <a class="flex" href="student-lesson.html" th:text="${subject.title}">스테이지 구성 항목</a>
+                                        <a class="flex" href="#" th:text="${subject.title}">스테이지 구성 항목</a>
                                     </div>
                                 </div>
                             </div>
@@ -75,14 +75,8 @@
 
                         <div class="card">
                             <div class="card-body py-16pt text-center">
-                                                <span class="icon-holder icon-holder--outline-secondary rounded-circle d-inline-flex mb-8pt">
-                                                    <i class="material-icons">lock</i>
-                                                </span>
-                                <h4 class="card-title"><strong>Report Locked</strong></h4>
-                                <p class="card-subtitle text-70 mb-24pt">Clear Scenario to get access for your personal report</p>
-                                <a href="pricing.html"
-                                   class="btn btn-accent mb-8pt">Sign Up - Only $19.00/mo</a>
-                                <p class="mb-0">Have an account? <a href="login.html">Login</a></p>
+                                <h5 class="card-title" style="padding-bottom: 16px;"><strong>해당 시나리오에 대한 보고서를 확인해보세요</strong></h5>
+                                <a th:href="|/scenarios/${scenario.subTitle}/report|" class="btn btn-accent mb-16pt" style="width: 80%">View Report</a>
                             </div>
                         </div>
 

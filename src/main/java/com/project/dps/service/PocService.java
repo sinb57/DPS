@@ -28,7 +28,7 @@ public class PocService {
         Stage stage = stageService.getStageIfExist(stageId);
 
         StageLog stageLog = StageLog.builder()
-                .stage(stage).member(member)
+                .scenario(stage.getScenario()).stage(stage).member(member)
                 .result(ValidResultEnum.FAIL).build();
 
         stageLogRepository.save(stageLog);

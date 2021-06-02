@@ -56,13 +56,13 @@ public class ScenarioService {
 //    }
 
 
-    private Scenario getScenarioIfExist(Long id) {
+    Scenario getScenarioIfExist(Long id) {
         Optional<Scenario> scenario = scenarioRepository.findById(id);
         // EXCEPTION
         return scenario.orElseThrow(() -> new IllegalStateException("Not existed scenario subtitle"));
     }
 
-    private Scenario getScenarioIfExist(String subTitle) {
+    Scenario getScenarioIfExist(String subTitle) {
         Optional<Scenario> scenario = scenarioRepository.findBySubTitle(subTitle);
         // EXCEPTION
         return scenario.orElseThrow(() -> new IllegalStateException("Not existed scenario subtitle"));

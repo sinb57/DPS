@@ -1,5 +1,6 @@
 package com.project.dps.controller;
 
+import com.project.dps.domain.log.StageLog;
 import com.project.dps.domain.scenario.stage.poc.ValidResultEnum;
 import com.project.dps.domain.scenario.stage.poc.ValidTypeEnum;
 import com.project.dps.dto.member.MemberDto;
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/scenarios")
@@ -34,7 +37,7 @@ public class ScenarioController {
     @RequestMapping("/*")
     public String scenarioList(@PageableDefault Pageable pageable, Model model) {
 
-        return "scenario/scenarioList";
+        return "scenario/list";
     }
 
     @GetMapping("/edit")
@@ -47,7 +50,7 @@ public class ScenarioController {
     public String getMethod_detail(@PathVariable String subTitle, Model model) {
         ScenarioDto scenarioDto = scenarioService.findBySubTitle(subTitle);
         model.addAttribute("scenario", scenarioDto);
-        return "scenario/scenarioDetail";
+        return "scenario/scenario";
     }
 
     @GetMapping({"/{scenarioSubTitle}/stages/{stageNo}"})
@@ -64,7 +67,7 @@ public class ScenarioController {
         StageDto stageDto = stageService.findById(stageId);
         model.addAttribute("stage", stageDto);
 
-        return "scenario/stageDetail";
+        return "stage/stage";
     }
 
     @PostMapping({"/{scenarioSubTitle}/stages/{stageNo}/solve"})
@@ -100,25 +103,49 @@ public class ScenarioController {
         model.addAttribute("validResultEnum", ValidResultEnum.values());
         model.addAttribute("validTypeEnum", ValidTypeEnum.values());
 
-        return "scenario/stageResult";
+        return "stage/result";
     }
 
-    @GetMapping({"/{scenarioSubTitle}/stages/{stageNo}/solution/{solutionTitle}"})
-    public String getMethod_solution(@PathVariable("solutionTitle") String solutionTitle) {
-
-        if (solutionTitle.equals("SQL-injection")) {
-            return "scenario/solutionDetail1";
-        }
-        else if (solutionTitle.equals("XSS")) {
-            return "scenario/solutionDetail2";
-        }
-        return "/";
-    }
 
     @GetMapping("/{scenarioSubTitle}/report")
-    public String getMethod_report(@PathVariable("scenarioSubTitle") String subTitle) {
+    public String getMethod_report(@PathVariable("scenarioSubTitle") String subTitle, Model model) {
 
-        return "/scenario/scenarioReport";
+        Long memberId = 1L;
+        Long scenarioId = scenarioService.getIdBySubTitle(subTitle);
+
+        MemberDto memberDto = memberService.findById(memberId); // 세션에서 member data 가져올 예정
+        model.addAttribute("member", memberDto);
+
+        ScenarioDto scenarioDto = scenarioService.findById(scenarioId);
+        model.addAttribute("scenario", scenarioDto);
+
+        List<StageLogDto> stagePassLogList = stageService.getStagePassLogList(memberId, scenarioId);
+        model.addAttribute("stagePassLogList", stagePassLogList);
+
+        model.addAttribute("validResultEnum", ValidResultEnum.values());
+        model.addAttribute("validTypeEnum", ValidTypeEnum.values());
+
+        return "/scenario/report";
+    }
+
+    @GetMapping("/{scenarioSubTitle}/report/detail/{stageLogId}")
+    public String getMethod_reportDetail(@PathVariable("scenarioSubTitle") String subTitle,
+                                         @PathVariable("stageLogId") Long stageLogId,
+                                         Model model) {
+
+        Long memberId = 1L;
+        Long scenarioId = scenarioService.getIdBySubTitle(subTitle);
+
+        ScenarioDto scenarioDto = scenarioService.findById(scenarioId);
+        model.addAttribute("scenario", scenarioDto);
+
+        StageLogDto stageLogDto = stageService.findByStageId(stageLogId);
+        model.addAttribute("stageLog", stageLogDto);
+
+        model.addAttribute("validResultEnum", ValidResultEnum.values());
+        model.addAttribute("validTypeEnum", ValidTypeEnum.values());
+
+        return "/stage/report";
     }
 
 }

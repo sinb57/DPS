@@ -1,6 +1,7 @@
 package com.project.dps.domain.log;
 
 import com.project.dps.domain.member.Member;
+import com.project.dps.domain.scenario.Scenario;
 import com.project.dps.domain.scenario.stage.poc.ValidResultEnum;
 import com.project.dps.domain.scenario.stage.Stage;
 import com.project.dps.domain.scenario.stage.poc.ValidTypeEnum;
@@ -22,6 +23,10 @@ public class StageLog {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "scenario_id")
+    private Scenario scenario;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "stage_id")
     private Stage stage;
 
@@ -40,11 +45,13 @@ public class StageLog {
 
     //== Builder 메서드 ==//
     @Builder
-    public StageLog(Stage stage, Member member, ValidResultEnum result) {
+    public StageLog(Scenario scenario, Stage stage, Member member, ValidResultEnum result) {
         this.result = result;
         this.createTime = LocalDateTime.now();
 
         // 연관관계
+        this.scenario = scenario;
+        scenario.appendStageLog(this);
         this.stage = stage;
         stage.appendStageLog(this);
         this.member = member;
@@ -61,9 +68,14 @@ public class StageLog {
     }
 
 
-    // setter 메서드
-    public void makeItPass (ValidResultEnum result) {
-        this.result = result;
+    public void checkResult() {
+        this.result = ValidResultEnum.PASS;
+        for (TestCategoryLog testCategoryLog : testCategoryLogList) {
+            if (testCategoryLog.getResult() == ValidResultEnum.FAIL) {
+                this.result = ValidResultEnum.FAIL;
+                break;
+            }
+        }
     }
 }
 

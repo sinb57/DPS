@@ -59,6 +59,7 @@ public class TestScenarioLog {
         if (testCaseLog.getResult() == ValidResultEnum.PASS) {
             this.testCasePassCount++;
         }
+        this.checkResult();
     }
 
     public void removeTestCaseLog(TestCaseLog testCaseLog) {
@@ -67,11 +68,21 @@ public class TestScenarioLog {
         if (testCaseLog.getResult() == ValidResultEnum.PASS) {
             this.testCasePassCount--;
         }
+        this.checkResult();
     }
 
-
-    //== Setter 메서드 ==//
-    public void makeItPass (ValidResultEnum result) {
-        this.result = result;
+    private void checkResult() {
+        if (testCaseCount == testCasePassCount) {
+            if (result == ValidResultEnum.FAIL) {
+                this.result = ValidResultEnum.PASS;
+                testCategoryLog.increaseTestScenarioPassCount();
+            }
+        }
+        else {
+            if (result == ValidResultEnum.PASS) {
+                this.result = ValidResultEnum.FAIL;
+                testCategoryLog.decreaseTestScenarioPassCount();
+            }
+        }
     }
 }

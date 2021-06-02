@@ -34,6 +34,9 @@ public class TestCategoryLog {
     @Enumerated(EnumType.STRING)
     private ValidTypeEnum type;
 
+    private int testScenarioCount;
+
+    private int testScenarioPassCount;
 
 
     //== Builder 메서드 ==//
@@ -52,16 +55,44 @@ public class TestCategoryLog {
     //== 비즈니스 로직 ==//
     public void appendTestScenarioLog(TestScenarioLog testScenarioLog) {
         this.testScenarioLogList.add(testScenarioLog);
+        this.testScenarioCount++;
+        if (testScenarioLog.getResult() == ValidResultEnum.PASS) {
+            increaseTestScenarioPassCount();
+        }
+        checkResult();
     }
 
     public void removeTestScenarioLog(TestScenarioLog testScenarioLog) {
         this.testScenarioLogList.remove(testScenarioLog);
+        this.testScenarioCount--;
+        if (testScenarioLog.getResult() == ValidResultEnum.PASS) {
+            decreaseTestScenarioPassCount();
+        }
+        checkResult();
     }
 
+    public void increaseTestScenarioPassCount() {
+        this.testScenarioPassCount++;
+        this.checkResult();
+    }
 
+    public void decreaseTestScenarioPassCount() {
+        this.testScenarioPassCount--;
+        this.checkResult();
+    }
 
-    //== Setter 메서드 ==//
-    public void makeItPass (ValidResultEnum result) {
-        this.result = result;
+    private void checkResult() {
+        if (testScenarioCount == testScenarioPassCount) {
+            if (result == ValidResultEnum.FAIL) {
+                this.result = ValidResultEnum.PASS;
+                stageLog.checkResult();
+            }
+        }
+        else {
+            if (result == ValidResultEnum.PASS) {
+                this.result = ValidResultEnum.FAIL;
+                stageLog.checkResult();
+            }
+        }
     }
 }

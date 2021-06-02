@@ -43,8 +43,4 @@ public class TestCaseLog {
         testCase.appendPocLog(this);
     }
 
-    //== Setter 메서드 ==//
-    public void makeItPass (ValidResultEnum result) {
-        this.result = result;
-    }
 }

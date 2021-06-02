@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+
+<th:block th:replace="fragments/styles"/>
+
+<body class="layout-sticky-subnav layout-default ">
+
+<th:block th:replace="fragments/preloader"/>
+
+<div class="mdk-header-layout js-mdk-header-layout">
+
+    <th:block th:replace="fragments/navbar"/>
+
+    <!-- Header Layout -->
+    <div class="mdk-header-layout js-mdk-header-layout">
+
+
+        <!-- Header Layout Content -->
+        <div class="mdk-header-layout__content page-content ">
+
+
+            <div class="mdk-header__content justify-content-center">
+                <div class="mdk-header__bg">
+                    <div class="mdk-header__bg-front"
+                         th:style="|background-image: url(@{/public/images/stories/256_rsz_euan-carmichael-666378-unsplash.jpg}); opacity:1;|">
+
+                    </div>
+                </div>
+
+                <div class="hero container page__container text-center text-md-left py-112pt">
+                    <h1 class="text-white text-shadow">DPS!</h1>
+                    <p class="lead measure-hero-lead mx-auto mx-md-0 text-white text-shadow mb-48pt">
+                        보안요소를 결합한 웹페이지 기능을 구현해보세요!</p>
+                </div>
+            </div>
+
+            <div class="page-section bg-alt border-bottom-2">
+                <div class="container page__container">
+                    <div class="row align-items-center">
+                        <div class="d-flex col-md align-items-center border-bottom border-md-0 mb-16pt mb-md-0 pb-16pt pb-md-0">
+                            <div class="rounded-circle bg-primary w-64 h-64 d-inline-flex align-items-center justify-content-center mr-16pt">
+                                <i class="material-icons text-white">subscriptions</i>
+                            </div>
+                            <div class="flex">
+                                <div class="card-title mb-4pt">Solve Scenario</div>
+                                <p class="card-subtitle text-70">원하는 시나리오를 선택하세요.</p>
+                            </div>
+                        </div>
+                        <div class="d-flex col-md align-items-center">
+                            <div class="rounded-circle bg-primary w-64 h-64 d-inline-flex align-items-center justify-content-center mr-16pt">
+                                <i class="material-icons text-white">update</i>
+                            </div>
+                            <div class="flex">
+                                <div class="card-title mb-4pt">Let's try!</div>
+                                <p class="card-subtitle text-70">스테이지.</p>
+                            </div>
+                        </div>
+                        <div class="d-flex col-md align-items-center border-bottom border-md-0 mb-16pt mb-md-0 pb-16pt pb-md-0">
+                            <div class="rounded-circle bg-primary w-64 h-64 d-inline-flex align-items-center justify-content-center mr-16pt">
+                                <i class="material-icons text-white">assignment</i>
+                            </div>
+                            <div class="flex">
+                                <div class="card-title mb-4pt">Report</div>
+                                <p class="card-subtitle text-70">발생가능한 취약점을 확인하고 패치해보세요.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-section">
+                <div class="container page__container">
+
+                    <div class="page-separator">
+                        <div class="page-separator__text">Scenarios</div>
+                    </div>
+
+                    <div class="row card-group-row mb-lg-8pt">
+
+                        <div class="col-lg-4 card-group-row__col mb-lg-16pt">
+                            <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click" data-original-title="" title="" data-domfactory-upgraded="overlay">
+
+                                <a href="#" class="card-img-top js-image" data-position="center" data-height="140" data-domfactory-upgraded="image"
+                                   style="display: block; position: relative; overflow: hidden; background-color: rgb(219,160,235); background-size: cover; background-position: center center; height: 100px;">
+                                </a>
+
+                                <span class="corner-ribbon corner-ribbon--default-right-top corner-ribbon--shadow bg-accent text-white">NEW</span>
+
+                                <div class="card-body flex">
+                                    <div class="d-flex">
+                                        <div class="flex">
+                                            <a class="card-title" href="#">Simple-Community-Board</a>
+                                            <p></p>
+                                            <small class="text-70 font-weight-bold mb-4pt">간단한 커뮤니티 게시판 만들기</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row justify-content-between">
+                                        <div class="col-auto d-flex align-items-center">
+                                            <span class="material-icons icon-16pt text-70 mr-4pt">assessment</span>
+                                            <p class="flex text-70 lh-1 mb-0"><small>Beginner</small></p>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center">
+                                            <span class="material-icons icon-16pt text-70 mr-4pt">play_circle_outline</span>
+                                            <p class="flex text-70 lh-1 mb-0"><small>7 lessons</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popoverContainer d-none">
+                                <div class="media">
+                                    <div class="media-left mr-12pt">
+                                        <img th:src="@{/custom/images/color1.png}" width="40" height="40" alt="Angular" class="rounded">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="card-title mb-0">Simple-Community-Board</div>
+                                    </div>
+                                </div>
+
+                                <p class="text-80 font-weight-bold my-16pt">아래의 기능 구현을 주제로 한 </br> 초심자용 커뮤니티 게시판 제작 시나리오.</p>
+
+                                <div class="mb-16pt">
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>회원가입 및 로그인</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>게시물 작성</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>게시판</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>게시물 수정 및 삭제</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>게시판 검색</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>비밀 게시물</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>파일 업로드 및 다운로드</small></p>
+                                    </div>
+                                </div>
+
+                                <div class="my-32pt">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div class="d-flex align-items-center mb-4pt">
+                                                <span class="material-icons icon-16pt text-70 mr-4pt">play_circle_outline</span>
+                                                <p class="flex text-70 lh-1 mb-0"><small>7 stages</small></p>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <span class="material-icons icon-16pt text-70 mr-4pt">assessment</span>
+                                                <p class="flex text-70 lh-1 mb-0"><small>Beginner</small></p>
+                                            </div>
+                                        </div>
+                                        <div class="col text-right">
+                                            <a href="/scenarios/Simple-Community-Board" class="btn btn-primary">시작하기</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 card-group-row__col mb-lg-16pt">
+                            <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click" data-original-title="" title="" data-domfactory-upgraded="overlay">
+
+                                <a href="#" class="card-img-top js-image" data-position="center" data-height="140" data-domfactory-upgraded="image"
+                                   style="display: block; position: relative; overflow: hidden; background-color: rgb(235,199,113); background-size: cover; background-position: center center; height: 100px;">
+                                </a>
+
+                                <div class="card-body flex">
+                                    <div class="d-flex">
+                                        <div class="flex">
+                                            <a class="card-title" href="#">Simple-Shopping-Site</a>
+                                            <p></p>
+                                            <small class="text-70 font-weight-bold mb-4pt">간단한 쇼핑몰 만들기</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row justify-content-between">
+                                        <div class="col-auto d-flex align-items-center">
+                                            <span class="material-icons icon-16pt text-70 mr-4pt">assessment</span>
+                                            <p class="flex text-70 lh-1 mb-0"><small>Beginner</small></p>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center">
+                                            <span class="material-icons icon-16pt text-70 mr-4pt">play_circle_outline</span>
+                                            <p class="flex text-70 lh-1 mb-0"><small>7 lessons</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popoverContainer d-none">
+                                <div class="media">
+                                    <div class="media-left mr-12pt">
+                                        <img th:src="@{/custom/images/color2.png}" width="40" height="40" alt="Angular" class="rounded">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="card-title mb-0">Simple-Shopping-Site</div>
+                                    </div>
+                                </div>
+
+                                <p class="text-80 font-weight-bold my-16pt">아래의 기능 구현을 주제로 한 </br> 초심자용 쇼핑몰 제작 시나리오.</p>
+
+                                <div class="mb-16pt">
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>회원가입 및 로그인</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>상품 등록</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>상품 카테고리 목록</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>상품 수정 및 삭제</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>장바구니</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>결제</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>결제 내역</small></p>
+                                    </div>
+                                </div>
+
+                                <div class="my-32pt">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div class="d-flex align-items-center mb-4pt">
+                                                <span class="material-icons icon-16pt text-70 mr-4pt">play_circle_outline</span>
+                                                <p class="flex text-70 lh-1 mb-0"><small>7 stages</small></p>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <span class="material-icons icon-16pt text-70 mr-4pt">assessment</span>
+                                                <p class="flex text-70 lh-1 mb-0"><small>Beginner</small></p>
+                                            </div>
+                                        </div>
+                                        <div class="col text-right">
+                                            <a href="#" class="btn btn-primary">준비중</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 card-group-row__col mb-lg-16pt">
+                            <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click" data-original-title="" title="" data-domfactory-upgraded="overlay">
+
+                                <a href="#" class="card-img-top js-image" data-position="center" data-height="140" data-domfactory-upgraded="image"
+                                   style="display: block; position: relative; overflow: hidden; background-color: rgb(76,158,128); background-size: cover; background-position: center center; height: 100px;">
+                                </a>
+
+                                <div class="card-body flex">
+                                    <div class="d-flex">
+                                        <div class="flex">
+                                            <a class="card-title" href="#">Simple-Mailbox-Site</a>
+                                            <p></p>
+                                            <small class="text-70 font-weight-bold mb-4pt">간단한 메일함 만들기</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row justify-content-between">
+                                        <div class="col-auto d-flex align-items-center">
+                                            <span class="material-icons icon-16pt text-70 mr-4pt">assessment</span>
+                                            <p class="flex text-70 lh-1 mb-0"><small>Beginner</small></p>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center">
+                                            <span class="material-icons icon-16pt text-70 mr-4pt">play_circle_outline</span>
+                                            <p class="flex text-70 lh-1 mb-0"><small>6 lessons</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popoverContainer d-none">
+                                <div class="media">
+                                    <div class="media-left mr-12pt">
+                                        <img th:src="@{/custom/images/color3.png}" width="40" height="40" alt="Angular" class="rounded">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="card-title mb-0">Simple-Mailbox-Site</div>
+                                    </div>
+                                </div>
+
+                                <p class="text-70 font-weight-bold my-16pt">아래의 기능 구현을 주제로 한 </br> 초심자용 메일함 제작 시나리오.</p>
+
+                                <div class="mb-16pt">
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>회원가입 및 로그인</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>메일 연동 및 전송</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>받은 메일 목록 및 보낸 메일 목록</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>메일 열람</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>메일 삭제 및 복원</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>메일 첨부파일</small></p>
+                                    </div>
+                                </div>
+
+                                <div class="my-32pt">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div class="d-flex align-items-center mb-4pt">
+                                                <span class="material-icons icon-16pt text-70 mr-4pt">play_circle_outline</span>
+                                                <p class="flex text-70 lh-1 mb-0"><small>6 stages</small></p>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <span class="material-icons icon-16pt text-70 mr-4pt">assessment</span>
+                                                <p class="flex text-70 lh-1 mb-0"><small>Beginner</small></p>
+                                            </div>
+                                        </div>
+                                        <div class="col text-right">
+                                            <a href="#" class="btn btn-primary">준비중</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 card-group-row__col mb-lg-16pt">
+                            <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click" data-original-title="" title="" data-domfactory-upgraded="overlay">
+                                <a href="#" class="card-img-top js-image" data-position="center" data-height="140" data-domfactory-upgraded="image"
+                                   style="display: block; position: relative; overflow: hidden; background-color: rgb(158,136,84); background-size: cover; background-position: center center; height: 100px;">
+                                </a>
+
+                                <div class="card-body flex">
+                                    <div class="d-flex">
+                                        <div class="flex">
+                                            <a class="card-title" href="#">Community-Board-Using-Wordpress</a>
+                                            <p></p>
+                                            <small class="text-80 font-weight-bold mb-4pt">워드프레스를 이용한 커뮤니티 게시판 만들기</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row justify-content-between">
+                                        <div class="col-auto d-flex align-items-center">
+                                            <span class="material-icons icon-16pt text-70 mr-4pt">assessment</span>
+                                            <p class="flex text-70 lh-1 mb-0"><small>Senior</small></p>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center">
+                                            <span class="material-icons icon-16pt text-70 mr-4pt">play_circle_outline</span>
+                                            <p class="flex text-70 lh-1 mb-0"><small>7 lessons</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popoverContainer d-none">
+                                <div class="media">
+                                    <div class="media-left mr-12pt">
+                                        <img th:src="@{/custom/images/color4.png}" width="40" height="40" alt="Angular" class="rounded">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="card-title mb-0">Community-Board-Using-Wordpress</div>
+                                    </div>
+                                </div>
+
+                                <p class="text-70 font-weight-bold my-16pt">워드프레스를 이용한 커뮤니티 게시판 제작. </br> 아래 기능 구현에서 발생하는 취약점 위주의 </br> 보안 검사 시행.</p>
+
+                                <div class="mb-16pt">
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>회원가입 및 로그인</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>게시물 작성</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>게시판</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>게시물 수정 및 삭제</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>게시판 검색</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>비밀 게시물</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>파일 업로드 및 다운로드</small></p>
+                                    </div>
+                                </div>
+
+                                <div class="my-32pt">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div class="d-flex align-items-center mb-4pt">
+                                                <span class="material-icons icon-16pt text-70 mr-4pt">play_circle_outline</span>
+                                                <p class="flex text-70 lh-1 mb-0"><small>7 stages</small></p>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <span class="material-icons icon-16pt text-70 mr-4pt">assessment</span>
+                                                <p class="flex text-70 lh-1 mb-0"><small>Senior</small></p>
+                                            </div>
+                                        </div>
+                                        <div class="col text-right">
+                                            <a href="#" class="btn btn-primary">준비중</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 card-group-row__col mb-lg-16pt">
+                            <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click" data-original-title="" title="" data-domfactory-upgraded="overlay">
+
+                                <a href="#" class="card-img-top js-image" data-position="center" data-height="140" data-domfactory-upgraded="image"
+                                   style="display: block; position: relative; overflow: hidden; background-color: rgb(235,113,115); background-size: cover; background-position: center center; height: 100px;">
+                                </a>
+
+                                <span class="corner-ribbon corner-ribbon--default-right-top corner-ribbon--shadow bg-accent text-white">NEW</span>
+
+                                <div class="card-body flex">
+                                    <div class="d-flex">
+                                        <div class="flex">
+                                            <a class="card-title" href="#">Shopping-Site-Using-Youngcart5</a>
+                                            <p></p>
+                                            <small class="text-80 font-weight-bold mb-4pt">그누보드 영카트5를 이용한 쇼핑몰 만들기</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row justify-content-between">
+                                        <div class="col-auto d-flex align-items-center">
+                                            <span class="material-icons icon-16pt text-70 mr-4pt">assessment</span>
+                                            <p class="flex text-70 lh-1 mb-0"><small>Beginner</small></p>
+                                        </div>
+                                        <div class="col-auto d-flex align-items-center">
+                                            <span class="material-icons icon-16pt text-70 mr-4pt">play_circle_outline</span>
+                                            <p class="flex text-70 lh-1 mb-0"><small>3 lessons</small></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popoverContainer d-none">
+                                <div class="media">
+                                    <div class="media-left mr-12pt">
+                                        <img th:src="@{/custom/images/color5.png}" width="40" height="40" alt="Angular" class="rounded">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="card-title mb-0">Simple-Shop-Using-Youngcart5</div>
+                                    </div>
+                                </div>
+
+                                <p class="text-70 font-weight-bold my-16pt">그누보드의 영카트5를 이용한 쇼핑몰 제작. </br> 아래 기능 구현에서 발생하는 취약점 위주의 </br> 보안 검사 시행.</p>
+
+                                <div class="mb-16pt">
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>그누보드 영카트5 설정</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>다중 검색 기능</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>다중 정렬 기능</small></p>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="material-icons icon-16pt text-70 mr-8pt">check</span>
+                                        <p class="flex text-70 lh-1 mb-0"><small>쿠폰 사용 가능 상품 스킨 추가</small></p>
+                                    </div>
+                                </div>
+
+                                <div class="my-32pt">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div class="d-flex align-items-center mb-4pt">
+                                                <span class="material-icons icon-16pt text-70 mr-4pt">play_circle_outline</span>
+                                                <p class="flex text-70 lh-1 mb-0"><small>6 stages</small></p>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <span class="material-icons icon-16pt text-70 mr-4pt">assessment</span>
+                                                <p class="flex text-70 lh-1 mb-0"><small>Senior</small></p>
+                                            </div>
+                                        </div>
+                                        <div class="col text-right">
+                                            <a href="#" class="btn btn-primary">준비중</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-32pt justify-content-md-center">
+                        <div class="d-flex justify-content-center">
+                            <div class="flex" style="max-width: 100%">
+
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination pagination-sm ">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" aria-label="Previous">
+                                                <span aria-hidden="true" class="material-icons">first_page</span>
+                                                <span class="sr-only">First</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" aria-label="Previous">
+                                                <span aria-hidden="true" class="material-icons">chevron_left</span>
+                                                <span class="sr-only">Prev</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="page-item active">
+                                            <a class="page-link" href="#" aria-label="1">
+                                                <span>1</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" aria-label="Next">
+                                                <span class="sr-only">Next</span>
+                                                <span aria-hidden="true" class="material-icons">chevron_right</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" aria-label="Next">
+                                                <span class="sr-only">Last</span>
+                                                <span aria-hidden="true" class="material-icons">last_page</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- // END Header Layout Content -->
+
+    <th:block th:replace="fragments/footer"/>
+
+</div>
+
+<th:block th:replace="fragments/drawer"/>
+
+<th:block th:replace="fragments/scripts"/>
+
+<script>
+
+    (function() {
+        'use strict';
+        var headerNode = document.querySelector('.mdk-header')
+        var layoutNode = document.querySelector('.mdk-header-layout')
+        var componentNode = layoutNode ? layoutNode : headerNode
+        componentNode.addEventListener('domfactory-component-upgraded', function() {
+            headerNode.mdkHeader.eventTarget.addEventListener('scroll', function() {
+                var progress = headerNode.mdkHeader.getScrollState().progress
+                var navbarNode = headerNode.querySelector('#default-navbar')
+                navbarNode.classList.toggle('bg-transparent', progress <= 0.2)
+            })
+        })
+    })()
+
+
+</script>
+
+</body>
+
+</html>

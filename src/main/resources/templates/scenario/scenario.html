@@ -26,7 +26,6 @@
                         <div class="d-flex flex-column flex-sm-row align-items-center justify-content-start">
                             <a th:href="|/scenarios/${scenario.subTitle}/stages/1|"
                                class="btn btn-outline-white mb-16pt mb-sm-0 mr-sm-16pt">시작하기</a>
-                            <a th:href="|/scenarios/${scenario.subTitle}/stages/1|" class="btn btn-white">이어하기</a>
                         </div>
                     </div>
                 </div>
@@ -85,8 +84,11 @@
             </div>
         </div>
 
-        <div class="page-section border-bottom-2">
+        <div class="page-section border-bottom-2"></div>
 
+        <!--
+        추후 확장 가능 기능
+        <div class="page-section border-bottom-2">
             <div class="container page__container">
                 <div class="page-separator">
                     <div class="page-separator__text">Student Feedback</div>
@@ -238,7 +240,7 @@
                         <div class="d-flex">
                             <a href="student-profile.html"
                                class="avatar avatar-sm mr-12pt">
-                                <!-- <img src="LB" alt="avatar" class="avatar-img rounded-circle"> -->
+                                &lt;!&ndash; <img src="LB" alt="avatar" class="avatar-img rounded-circle"> &ndash;&gt;
                                 <span class="avatar-title rounded-circle">LB</span>
                             </a>
                             <div class="flex">
@@ -267,7 +269,7 @@
                         <div class="d-flex">
                             <a href="student-profile.html"
                                class="avatar avatar-sm mr-12pt">
-                                <!-- <img src="UK" alt="avatar" class="avatar-img rounded-circle"> -->
+                                &lt;!&ndash; <img src="UK" alt="avatar" class="avatar-img rounded-circle"> &ndash;&gt;
                                 <span class="avatar-title rounded-circle">UK</span>
                             </a>
                             <div class="flex">
@@ -295,7 +297,7 @@
                         <div class="d-flex">
                             <a href="student-profile.html"
                                class="avatar avatar-sm mr-12pt">
-                                <!-- <img src="AD" alt="avatar" class="avatar-img rounded-circle"> -->
+                                &lt;!&ndash; <img src="AD" alt="avatar" class="avatar-img rounded-circle"> &ndash;&gt;
                                 <span class="avatar-title rounded-circle">AD</span>
                             </a>
                             <div class="flex">
@@ -321,6 +323,7 @@
             </div>
 
         </div>
+        -->
 
     </div>
     <!-- // END Header Layout Content -->
@@ -330,7 +333,7 @@
 
 </div>
 
-<th:block th:replace="fragments/drawer"/>
+
 
 <th:block th:replace="fragments/scripts"/>
 

@@ -110,8 +110,8 @@
                                             <div class="accordion__menu collapse"
                                                  th:id="|category-${testCategoryLogStat.count}-check-${testScenarioLogStat.count}|">
                                                 <div class="accordion__menu-link active">
-                                                    <th>
-                                                        <a class="flex" href="/solutions/SQL-Injection">해당 취약점에 대한 솔루션 보기</a>
+                                                    <th th:with="solution = ${testScenarioLog.testScenario.solution}">
+                                                        <a class="flex" target='_blank' th:href="|/solutions/${#strings.replace(solution.title,' ','-')}|">해당 취약점에 대한 솔루션 보기</a>
                                                     </th>
                                                 </div>
                                             </div>
@@ -143,7 +143,7 @@
 
 </div>
 
-<th:block th:replace="fragments/drawer"/>
+
 
 <th:block th:replace="fragments/scripts"/>
 

@@ -1,14 +1,23 @@
 package com.project.dps.service;
 
 
+import com.project.dps.domain.log.TestCategoryLog;
+import com.project.dps.domain.member.Member;
 import com.project.dps.domain.scenario.Scenario;
+import com.project.dps.domain.scenario.stage.Stage;
+import com.project.dps.domain.scenario.stage.poc.TestCategory;
+import com.project.dps.domain.scenario.stage.poc.TestScenario;
 import com.project.dps.dto.scenario.ScenarioDto;
 import com.project.dps.repository.ScenarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -17,15 +26,13 @@ public class ScenarioService {
 
     private final ScenarioRepository scenarioRepository;
 
-    @Transactional
-    public void create() {
-
+    public List<ScenarioDto> getScenarioList() {
+        List<Scenario> scenarioList = scenarioRepository.findAll();
+        return scenarioList.stream()
+                .map(scenario -> ScenarioDto.toDto(scenario))
+                .collect(Collectors.toList());
     }
 
-    @Transactional
-    public void update() {
-
-    }
 
     public Long getIdBySubTitle(String subTitle) {
         return getScenarioIfExist(subTitle).getId();
@@ -42,18 +49,6 @@ public class ScenarioService {
     public ScenarioDto findSummaryBySubTitle(String subTitle) {
         return ScenarioDto.toSimpleDto(getScenarioIfExist(subTitle));
     }
-
-
-
-
-//    public Page<ScenarioDto> findScenarios(Pageable pageable) {
-//        int pageNo = (pageable.getPageNumber() == 0 ? 0 : (pageable.getPageNumber() - 1));
-//        int elementCount = 10;
-//
-//        pageable = PageRequest.of(pageNo, elementCount, Sort.Direction.DESC, "id");
-//        return scenarioRepository.findAll(pageable)
-//                .map(scenario -> mapper.toDto(scenario));
-//    }
 
 
     Scenario getScenarioIfExist(Long id) {

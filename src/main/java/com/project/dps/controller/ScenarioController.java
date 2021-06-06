@@ -13,12 +13,12 @@ import com.project.dps.service.PocService;
 import com.project.dps.service.ScenarioService;
 import com.project.dps.service.StageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -30,20 +30,6 @@ public class ScenarioController {
     private final ScenarioService scenarioService;
     private final StageService stageService;
     private final PocService pocService;
-
-    private final StageLogRepository stageLogRepository;
-
-
-    @RequestMapping("/*")
-    public String scenarioList(@PageableDefault Pageable pageable, Model model) {
-
-        return "scenario/list";
-    }
-
-    @GetMapping("/edit")
-    public String getMethod_make() {
-        return "scenario/scenarioEdit";
-    }
 
 
     @GetMapping("/{subTitle}")
@@ -75,7 +61,7 @@ public class ScenarioController {
                                    @PathVariable("stageNo") int stageNo,
                                    @RequestParam("targetUrl") String targetUrl,
                                    @RequestParam("targetExtension") String targetExtension,
-                                   Model model) {
+                                   Principal principal, Model model) {
 
         if (targetUrl.charAt(targetUrl.length()-1) != '/') {
             targetUrl += "/";
@@ -85,19 +71,17 @@ public class ScenarioController {
             targetExtension = "." + targetExtension;
         }
 
-        Long memberId = 1L;
         Long scenarioId = scenarioService.getIdBySubTitle(subTitle);
         Long stageId = stageService.getIdByScenarioIdAndStageNo(scenarioId, Long.valueOf(stageNo));
 
-        MemberDto memberDto = memberService.findById(memberId); // 세션에서 member data 가져올 예정
+        MemberDto memberDto = memberService.findByEmail(principal.getName());
         ScenarioDto scenarioDto = scenarioService.findById(scenarioId);
         model.addAttribute("scenario", scenarioDto);
 
         StageDto stageDto = stageService.findById(stageId);
         model.addAttribute("stage", stageDto);
 
-        StageLogDto stageLogDto = pocService.evaluate(memberId, stageId, targetUrl, targetExtension);
-        //StageLogDto stageLogDto = StageLogDto.toDto(stageLogRepository.getOne(5L));
+        StageLogDto stageLogDto = pocService.evaluate(principal.getName(), stageId, targetUrl, targetExtension);
         model.addAttribute("stageLog", stageLogDto);
 
         model.addAttribute("validResultEnum", ValidResultEnum.values());
@@ -108,19 +92,21 @@ public class ScenarioController {
 
 
     @GetMapping("/{scenarioSubTitle}/report")
-    public String getMethod_report(@PathVariable("scenarioSubTitle") String subTitle, Model model) {
+    public String getMethod_report(@PathVariable("scenarioSubTitle") String subTitle, Principal principal, Model model) {
 
-        Long memberId = 1L;
         Long scenarioId = scenarioService.getIdBySubTitle(subTitle);
 
-        MemberDto memberDto = memberService.findById(memberId); // 세션에서 member data 가져올 예정
+        MemberDto memberDto = memberService.findByEmail(principal.getName());
         model.addAttribute("member", memberDto);
 
         ScenarioDto scenarioDto = scenarioService.findById(scenarioId);
         model.addAttribute("scenario", scenarioDto);
 
-        List<StageLogDto> stagePassLogList = stageService.getStagePassLogList(memberId, scenarioId);
-        model.addAttribute("stagePassLogList", stagePassLogList);
+        HashMap<String, HashMap<String, Integer>> statisticsBySecureCheck = stageService.getStatisticsBySecureCheck(principal.getName(), subTitle);
+        model.addAttribute("statistics", statisticsBySecureCheck);
+
+        HashMap<String, Integer> secureCheckCountMap = stageService.getSecureCheckCount(statisticsBySecureCheck);
+        model.addAttribute("secureCheckCountMap", secureCheckCountMap);
 
         model.addAttribute("validResultEnum", ValidResultEnum.values());
         model.addAttribute("validTypeEnum", ValidTypeEnum.values());

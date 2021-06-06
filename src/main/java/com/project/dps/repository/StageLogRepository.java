@@ -16,4 +16,6 @@ public interface StageLogRepository extends JpaRepository<StageLog, Long> {
 
     @Query(value = "Select * from Stage_Log where (member_id = :memberId and stage_id = :stageId) order by create_time limit 1", nativeQuery = true)
     Optional<StageLog> getOneByMemberIdAndStageId(@Param("memberId") Long memberId, @Param("stageId") Long stageId);
+
+    List<StageLog> findByMemberIdAndScenarioId(Long memberId, Long scenarioId);
 }

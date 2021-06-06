@@ -26,10 +26,10 @@ public class SolutionDto {
     //== Mapper 메서드 ==//
     public static SolutionDto toDto(Solution e) {
         return SolutionDto.builder()
-//                .title(e.getTitle())
-//                .reason(e.getReason())
-//                .manual(e.getManual())
-//                .source(e.getSource())
+                .title(e.getTitle())
+                .reason(e.getReason())
+                .manual(e.getManual())
+                .source(e.getSource())
                 .build();
     }
 }

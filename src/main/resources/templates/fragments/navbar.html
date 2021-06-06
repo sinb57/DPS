@@ -5,16 +5,10 @@
         <div class="navbar navbar-expand pr-0 navbar-dark-pickled-bluewood navbar-shadow"
              id="default-navbar" data-primary>
 
-            <!-- Navbar Toggler -->
-            <button class="navbar-toggler w-auto mr-16pt d-block rounded-0"
-                    type="button" data-toggle="sidebar">
-                <span class="material-icons">short_text</span>
-            </button>
-            <!-- // END Navbar Toggler -->
-
+            <div style="width: 30px;"></div>
 
             <!-- Navbar Brand -->
-            <a href="/index"
+            <a href="/"
                class="navbar-brand mr-16pt">
                             <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
                                 <span class="avatar-title rounded bg-primary">
@@ -24,28 +18,22 @@
                             </span>
                 <span class="d-none d-lg-block">DPS</span>
             </a>
-            <!-- // END Navbar Brand -->
 
             <div class="flex"></div>
 
-            <!-- Navbar Menu -->
             <div class="nav navbar-nav flex-nowrap d-flex mr-16pt">
 
-                <!-- Notifications dropdown -->
-                <div class="nav-item dropdown dropdown-notifications dropdown-xs-down-full" data-toggle="tooltip" data-title="" data-placement="bottom" data-boundary="window" data-original-title="" title="">
-                    <a href="login"><span style="color:white;">마이페이지</span></a>
-                </div>
-                <!-- // END Notifications dropdown -->
 
-                <!-- Notifications dropdown -->
                 <div class="nav-item ml-16pt dropdown dropdown-notifications dropdown-xs-down-full" data-toggle="tooltip" data-title="" data-placement="bottom" data-boundary="window" data-original-title="" title="">
-                    <a href="login"><span style="color:white;">로그아웃</span></a>
+                    <a sec:authorize="isAnonymous()" href="/members/"><span style="color:white;">로그인&nbsp;/&nbsp;회원가입</span></a>
+                    <a sec:authorize="isAuthenticated()" href="/members/logout"><span style="color:white;">로그아웃</span></a>
                 </div>
-                <!-- // END Notifications dropdown -->
 
             </div>
-            <!--  // END Navebar Menu -->
+
+            <div style="width: 30px;"></div>
+
         </div>
-        <!-- // END Navbar -->
+
     </div>
 </div>

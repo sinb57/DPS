@@ -2,12 +2,17 @@ package com.project.dps.service;
 
 import com.project.dps.dto.member.MemberDto;
 import com.project.dps.domain.member.Member;
+import com.project.dps.dto.member.MemberFormDto;
 import com.project.dps.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,35 +21,31 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
-
-    // 로그인
-    public Long login(String email, String password) {
-        Member member = getMemberIfExist(email);
-        validatePasswordIsCorrect(member, password);
-        return member.getId();
-    }
-
-    private Member getMemberIfExist(String email) {
-        Optional<Member> member = memberRepository.findByEmail(email);
-        // EXCEPTION
-        return member.orElseThrow(() -> new IllegalStateException("Not existed member id"));
-    }
 
 
     // 회원 가입
     @Transactional
-    public Long join(MemberDto memberDto) {
-        validateNameIsDuplicated(memberDto.getEmail()); // 중복 회원 검증
-        Member member = MemberDto.toEntity(memberDto);
+    public Long join(MemberFormDto memberFormDto) {
+        validateEmailIsDuplicated(memberFormDto.getEmail()); // 중복 회원 검증
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        memberFormDto.setPassword(encoder.encode(memberFormDto.getPassword()));
+
+        Member member = MemberDto.toEntity(memberFormDto);
+
         memberRepository.save(member);
         return member.getId();
     }
 
-    // 중복 회원 검증
-    private void validateNameIsDuplicated(String email) {
+    public MemberDto findByEmail(String email) {
+        return MemberDto.toDto(getMemberIfExist(email));
+    }
+
+
+    private void validateEmailIsDuplicated(String email) {
         // EXCEPTION
         Optional<Member> member = memberRepository.findByEmail(email);
         member.ifPresent(e -> {
@@ -53,13 +54,6 @@ public class MemberService {
     }
 
 
-    // 회원 정보 수정
-    @Transactional
-    public void update(Long id, String name, String passwordFrom, String passwordTo) {
-        Member member = getMemberIfExist(id);
-        validatePasswordIsCorrect(member, passwordFrom);
-        member.edit(name, passwordTo);
-    }
 
     Member getMemberIfExist(Long id) {
         Optional<Member> member = memberRepository.findById(id);
@@ -67,42 +61,16 @@ public class MemberService {
         return member.orElseThrow(() -> new IllegalStateException("Not existed member id"));
     }
 
-    private void validatePasswordIsCorrect(Member member, String passwordFrom) {
-        String originPassword = member.getPassword();
+    Member getMemberIfExist(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
         // EXCEPTION
-        if (!originPassword.equals(passwordFrom)) {
-            throw new IllegalStateException("Password is not correct");
-        }
+        return member.orElseThrow(() -> new IllegalStateException("Not existed member email"));
     }
 
 
 
-    // 특정 회원 조회
-    public MemberDto findById(Long id) {
-        return MemberDto.toDto(getMemberIfExist(id));
+    @Override // 기본적인 반환 타입은 UserDetails, UserDetails를 상속받은 UserInfo로 반환 타입 지정 (자동으로 다운 캐스팅됨)
+    public Member loadUserByUsername(String email) throws UsernameNotFoundException { // 시큐리티에서 지정한 서비스이기 때문에 이 메소드를 필수로 구현
+        return getMemberIfExist(email);
     }
-
-    // 회원 전체 조회
-    public Page<MemberDto> findMembers(Pageable pageable) {
-        int pageNo = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        int elementCount = 10;
-
-        pageable = PageRequest.of(pageNo, elementCount, Sort.Direction.DESC, "id");
-        return memberRepository.findAll(pageable)
-                .map(member -> MemberDto.toDto(member));
-    }
-
-    // 회원 조건 조회 (by email)
-    public Page<MemberDto> findMemberByEmail(String email, Pageable pageable) {
-        return memberRepository.findByEmailLike(email, pageable)
-                .map(member -> MemberDto.toDto(member));
-    }
-
-    // 회원 조건 조회 (by name)
-    public Page<MemberDto> findMemberByName(String email, Pageable pageable) {
-        return memberRepository.findByNameLike(email, pageable)
-                .map(member -> MemberDto.toDto(member));
-    }
-
-
 }

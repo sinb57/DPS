@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" dir="ltr">
+
+<th:block th:replace="fragments/styles"/>
+
+<body class="layout-sticky-subnav layout-default ">
+
+<th:block th:replace="fragments/preloader"/>
+
+<div class="mdk-header-layout js-mdk-header-layout">
+
+    <th:block th:replace="fragments/navbar"/>
+
+    <!-- Header Layout Content -->
+    <div class="mdk-header-layout__content page-content ">
+
+        <div class="navbar navbar-list navbar-light bg-white border-bottom-2 border-bottom navbar-expand-sm"
+             style="white-space: nowrap;">
+            <div class="container page__container">
+                <nav class="nav navbar-nav">
+                    <div class="nav-item navbar-list__item">
+                        <a href="javascript:history.back();"
+                           class="nav-link h-auto"><i class="material-icons icon--left">keyboard_backspace</i> Back</a>
+                    </div>
+                    <div class="nav-item navbar-list__item">
+                        <div class="d-flex align-items-center flex-nowrap">
+                            <div class="flex">
+                                <a href="javascript:history.back();"
+                                   class="card-title text-body mb-0">돌아가기</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="bg-primary pb-lg-64pt py-32pt">
+            <div class="container page__container">
+                <div class="d-flex flex-wrap align-items-end justify-content-end mb-16pt">
+                    <h1 class="text-white flex m-0" th:text="${solution.title}">SQL Injection 취약점</h1>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="page-section">
+            <div class="container page__container">
+                <div class="page-separator">
+                    <div class="page-separator__text">발생 원인 (PHP 기준)</div>
+                </div>
+                <div th:utext="${solution.reason}">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="page-section">
+            <div class="container page__container">
+                <div class="page-separator">
+                    <div class="page-separator__text">패치 방법</div>
+                </div>
+                <div th:utext="${solution.manual}">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="page-section">
+            <div class="container page__container">
+                <div class="page-separator">
+                    <div class="page-separator__text">출처</div>
+                </div>
+                <div th:utext="${solution.source}">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- // END Header Layout Content -->
+
+    <th:block th:replace="fragments/footer"/>
+
+</div>
+
+
+
+<th:block th:replace="fragments/scripts"/>
+
+</body>
+
+</html>

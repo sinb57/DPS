@@ -31,7 +31,8 @@ public class TestScenario {
     @OneToMany(mappedBy = "testScenario")
     private List<TestScenarioLog> testScenarioLogList = new ArrayList<>();
 
-    @OneToOne(mappedBy = "testScenario")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "solution_id")
     private Solution solution;
 
     private String content; // 검사 항목 내용
@@ -40,12 +41,14 @@ public class TestScenario {
     //== Builder 메서드 ==//
     @Builder
     public TestScenario(TestCategory testCategory, Solution solution, String content) {
-        this.solution = solution;
         this.content = content;
 
         // 연관관계 로직
         this.testCategory = testCategory;
         testCategory.appendTestScenario(this);
+
+        this.solution = solution;
+        solution.appendTestScenario(this);
     }
 
     //== 비즈니스 로직 ==//
@@ -65,9 +68,5 @@ public class TestScenario {
         this.testScenarioLogList.remove(testScenarioLog);
     }
 
-    //== setter 메서드 ==//
-    public void setSolution(Solution solution) {
-        this.solution = solution;
-    }
 
 }

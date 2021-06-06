@@ -1,5 +1,6 @@
 package com.project.dps.domain.scenario;
 
+import com.project.dps.converter.BooleanToYNConverter;
 import com.project.dps.domain.log.ScenarioLog;
 import com.project.dps.domain.log.StageLog;
 import com.project.dps.domain.scenario.stage.Stage;
@@ -33,8 +34,16 @@ public class Scenario {
 
     private String title;       // 시나리오 제목
     private String subTitle;    // 시나리오 부제목
+    private String summary;     // 시나리오 요약
     private String content;     // 시나리오 내용
     private int stageCount = 0; // 스테이지 개수
+    private String img;
+
+    @Enumerated(EnumType.STRING)
+    private ScenarioLevelEnum level;
+
+    @Convert(converter = BooleanToYNConverter.class)
+    private boolean enable;
 
 
     //== Builder 메서드 ==//
@@ -83,4 +92,9 @@ public class Scenario {
         this.content = content;
     }
 
+
+
+    public boolean getEnable() {
+        return enable;
+    }
 }

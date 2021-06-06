@@ -56,7 +56,6 @@
                             </a>
                         </th:block>
                         <th:block th:if="${stageInfo.no} > ${stage.no}">
-<!--                            <a href="#" data-toggle="tooltip" data-placement="bottom" th:data-title="${stageInfo.title}" data-original-title="" title="">-->
                             <a th:href="|/scenarios/${scenario.subTitle}/stages/${stageInfo.no}|" data-toggle="tooltip" data-placement="bottom" th:data-title="${stageInfo.title}" data-original-title="" title="">
                                 <span class="material-icons" th:if="${stageInfo.no} > ${stage.no}">fullscreen</span>
                             </a>
@@ -154,8 +153,11 @@
 
         <div class="page-section bg-alt  border-bottom-2"></div>
 
-        <div class="page-section border-bottom-2">
+        <div class="page-section border-bottom-2"></div>
 
+        <!--
+        추후 확장 가능 기능
+        <div class="page-section border-bottom-2">
             <div class="container page__container">
                 <div class="page-separator">
                     <div class="page-separator__text">Student Feedback</div>
@@ -307,7 +309,7 @@
                         <div class="d-flex">
                             <a href="student-profile.html"
                                class="avatar avatar-sm mr-12pt">
-                                <!-- <img src="LB" alt="avatar" class="avatar-img rounded-circle"> -->
+                                &lt;!&ndash; <img src="LB" alt="avatar" class="avatar-img rounded-circle"> &ndash;&gt;
                                 <span class="avatar-title rounded-circle">LB</span>
                             </a>
                             <div class="flex">
@@ -336,7 +338,7 @@
                         <div class="d-flex">
                             <a href="student-profile.html"
                                class="avatar avatar-sm mr-12pt">
-                                <!-- <img src="UK" alt="avatar" class="avatar-img rounded-circle"> -->
+                                &lt;!&ndash; <img src="UK" alt="avatar" class="avatar-img rounded-circle"> &ndash;&gt;
                                 <span class="avatar-title rounded-circle">UK</span>
                             </a>
                             <div class="flex">
@@ -364,7 +366,7 @@
                         <div class="d-flex">
                             <a href="student-profile.html"
                                class="avatar avatar-sm mr-12pt">
-                                <!-- <img src="AD" alt="avatar" class="avatar-img rounded-circle"> -->
+                                &lt;!&ndash; <img src="AD" alt="avatar" class="avatar-img rounded-circle"> &ndash;&gt;
                                 <span class="avatar-title rounded-circle">AD</span>
                             </a>
                             <div class="flex">
@@ -390,6 +392,7 @@
             </div>
 
         </div>
+        -->
 
     </div>
     <!-- // END Header Layout Content -->
@@ -399,7 +402,7 @@
 
 </div>
 
-<th:block th:replace="fragments/drawer"/>
+
 
 <th:block th:replace="fragments/scripts"/>
 

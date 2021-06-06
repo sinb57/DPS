@@ -22,9 +22,9 @@ public class PocService {
     private final StageLogRepository stageLogRepository;
 
     @Transactional
-    public StageLogDto evaluate(Long memberId, Long stageId, String targetUrl, String targetExtension) {
+    public StageLogDto evaluate(String email, Long stageId, String targetUrl, String targetExtension) {
 
-        Member member = memberService.getMemberIfExist(memberId);
+        Member member = memberService.getMemberIfExist(email);
         Stage stage = stageService.getStageIfExist(stageId);
 
         StageLog stageLog = StageLog.builder()

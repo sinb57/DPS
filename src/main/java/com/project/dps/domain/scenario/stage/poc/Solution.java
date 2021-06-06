@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "poc_solution")
@@ -17,30 +19,40 @@ public class Solution {
     @Column(name = "solution_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "test_category_id")
-    private TestScenario testScenario;
+    @OneToMany(mappedBy = "solution")
+    private List<TestScenario> testScenarioList = new ArrayList<>();
 
     private String title; // solution 제목
+
+    @Column(length = 2000)
     private String reason; // 발생 원인
+
+    @Column(length = 2000)
     private String manual; // 패치 방법
+
+    @Column(length = 2000)
     private String source; // 참고문헌, 출처
 
 
     //== Builder 메서드 ==//
     @Builder
-    public Solution(TestScenario testScenario, String title, String reason, String manual, String source) {
+    public Solution(String title, String reason, String manual, String source) {
         this.title = title;
         this.reason = reason;
         this.manual = manual;
         this.source = source;
 
-        // 연관관계 로직
-        this.testScenario = testScenario;
-        testScenario.setSolution(this);
     }
 
     //== 비즈니스 로직 ==//
+    public void appendTestScenario(TestScenario testScenario) {
+        testScenarioList.add(testScenario);
+    }
+
+    public void removeTestScenario(TestScenario testScenario) {
+        testScenarioList.remove(testScenario);
+    }
+
     public void edit(String title, String reason, String manual, String source) {
         this.title = title;
         this.reason = reason;

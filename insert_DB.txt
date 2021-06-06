@@ -1,4 +1,4 @@
-insert into member (member_id, email, name, password) values (1, 'test@naver.com', 'tester', 'qwe123!@3'); # 테스트 계정
+
 
 insert into scenario (scenario_id, title, sub_title, summary, content, stage_count, level, enable, img) values
         (1, "간단한 커뮤니티 게시판 만들기", "Simple-Community-Board",

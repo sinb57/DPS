@@ -10,6 +10,10 @@
 </br>
 
 ## 프로젝트 개요
+- 프로젝트 한줄요약
+  - 과제테스트 방식으로 사이트를 개발한 후, 취약점 존재 유무를
+    온라인으로 채점받을 수 있는 보안 학습 플랫폼 서비스
+<br>
 - 프로젝트 목적
   - 개발자들은 누구나 **개발 습관**을 가지고 있다. (사용하는 알고리즘이나 함수의 고착화)
   - 대부분의 개발자들은 본인의 **개발 습관이 잘못되었는지 인지**하지 못한다.
@@ -22,10 +26,10 @@
 
 </br>
 
-## 참고 자료
-- 논문 자료 : [https://github.com/sinb57/dps/~~/논문](https://github.com/sinb57/dps/blob/master/[논문]%20웹%20시큐어%20프로그래밍%20학습%20플랫폼%20개발.pdf)
+## 자료
+- 논문 자료 : [논문_웹시큐어프로그래밍학습플랫폼개발.pdf](https://github.com/sinb57/dps/blob/master/[논문]%20웹%20시큐어%20프로그래밍%20학습%20플랫폼%20개발.pdf)
 - 발표 영상 : [https://youtu.be/ZbnAaeNG1cQ](https://youtu.be/ZbnAaeNG1cQ)
-- 시연 영상 : [https://youtu.be/ErNU5Z3Qe9Q](https://youtu.be/ErNU5Z3Qe9Q)
+- 시연 영상 : [https://youtu.be/OilzSLEuPrI](https://youtu.be/OilzSLEuPrI)
 
 </br>
 

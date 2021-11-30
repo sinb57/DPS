@@ -40,7 +40,7 @@ public class Stage {
     private List<Subject> subjectList = new ArrayList<>(); // 스테이지 구성 요소
 
     @OneToMany(mappedBy = "stage")
-    private List<TestCategory> testCategoryList = new ArrayList<>() {{}}; // 스테이지 점검 POC
+    private List<TestCategory> testCategoryList = new ArrayList<>(); // 스테이지 점검 POC
 
     private String title;   // 스테이지 제목
     private Long no;        // 스테이지 번호
@@ -56,10 +56,9 @@ public class Stage {
         this.scenario = scenario;
         scenario.appendStage(this);
 
-        this.testCategoryList = new ArrayList<>() {{
-            add(TestCategory.builder().type(ValidTypeEnum.FUNCTION).build());
-            add(TestCategory.builder().type(ValidTypeEnum.SECURITY).build());
-        }};
+        this.testCategoryList = new ArrayList<>();
+        testCategoryList.add(TestCategory.builder().type(ValidTypeEnum.FUNCTION).build());
+        testCategoryList.add(TestCategory.builder().type(ValidTypeEnum.SECURITY).build());
     }
 
 

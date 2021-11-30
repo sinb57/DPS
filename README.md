@@ -29,7 +29,6 @@
 </br>
 
 ## 자료
-- 논문 자료 : [논문_웹시큐어프로그래밍학습플랫폼개발.pdf](https://github.com/sinb57/dps/blob/master/[논문]%20웹%20시큐어%20프로그래밍%20학습%20플랫폼%20개발.pdf)
 - 발표 영상 : [https://youtu.be/ZbnAaeNG1cQ](https://youtu.be/ZbnAaeNG1cQ)
 - 시연 영상 : [https://youtu.be/OilzSLEuPrI](https://youtu.be/OilzSLEuPrI)
 
